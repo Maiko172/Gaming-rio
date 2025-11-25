@@ -636,7 +636,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
         }
 
         .game-modal-content {
@@ -644,8 +644,8 @@
             border-radius: 10px;
             width: 90%;
             max-width: 800px;
-            max-height: 90vh; /* Limit height to viewport */
-            overflow: hidden; /* Prevent content overflow */
+            max-height: 90vh;
+            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
@@ -656,14 +656,14 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             text-align: center;
-            flex-shrink: 0; /* Prevent header from shrinking */
+            flex-shrink: 0;
         }
 
         .game-modal-body {
             padding: 30px;
             text-align: center;
-            overflow: auto; /* Allow scrolling if needed */
-            flex-grow: 1; /* Take remaining space */
+            overflow: auto;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -676,7 +676,7 @@
             border-radius: 5px;
             background-color: var(--darker);
             margin-bottom: 20px;
-            overflow: hidden; /* Prevent game content overflow */
+            overflow: hidden;
         }
 
         /* Simple Game Styles */
@@ -687,8 +687,8 @@
             border-radius: 5px;
             margin-bottom: 20px;
             position: relative;
-            overflow: hidden; /* Prevent game content overflow */
-            touch-action: none; /* Prevent touch scrolling in games */
+            overflow: hidden;
+            touch-action: none;
         }
 
         /* Add this to prevent wheel scrolling in game modal */
@@ -1894,7 +1894,7 @@
         // User management functionality
         let currentUser = null;
         
-        // Global variable to track if high score element exists - FIXED
+        // Global variable to track if high score element exists
         let highScoreDisplay = null;
         
         // Check if user is logged in on page load
@@ -2310,7 +2310,7 @@
             if (e.target === gameModal) {
                 gameModal.style.display = 'none';
                 stopCurrentGame();
-                document.body.classList.remove('game-modal-open'); // FIXED
+                document.body.classList.remove('game-modal-open');
             }
         });
 
@@ -2338,7 +2338,7 @@
             });
         });
 
-        // MODIFIED: openGame function to handle scrolling - FIXED
+        // FIXED: openGame function - properly clean up before starting new game
         function openGame(game) {
             // Set game content based on which game was clicked
             let title, description;
@@ -2371,15 +2371,22 @@
             
             gameModalTitle.textContent = title;
             gameInfo.textContent = 'Score: 0';
+            
+            // FIXED: Properly clean up before starting new game
+            stopCurrentGame();
             gameContainer.innerHTML = '';
             
-            // Reset high score display - FIXED
+            // FIXED: Remove any existing high score display
+            const existingHighScore = gameInfo.parentNode.querySelector('.high-score');
+            if (existingHighScore) {
+                existingHighScore.remove();
+            }
             highScoreDisplay = null;
             
             // Initialize the selected game
             initGame(game);
             
-            // Prevent body scrolling when game modal is open - FIXED
+            // Prevent body scrolling when game modal is open
             document.body.classList.add('game-modal-open');
             
             gameModal.style.display = 'flex';
@@ -2414,6 +2421,144 @@
             }
             currentGame = null;
             gameState = {};
+            
+            // FIXED: Remove all event listeners
+            document.removeEventListener('keydown', handleSnakeKeyPress);
+            document.removeEventListener('keydown', handleRacingKeyPress);
+            document.removeEventListener('keydown', handleAdventureKeyPress);
+            document.removeEventListener('mousemove', handleHorrorMouseMove);
+            
+            // FIXED: Remove mobile control event listeners
+            const mobileButtons = mobileControls.querySelectorAll('button');
+            mobileButtons.forEach(button => {
+                button.replaceWith(button.cloneNode(true));
+            });
+        }
+
+        // Snake game key handler
+        function handleSnakeKeyPress(e) {
+            // Prevent reverse direction
+            if (e.key === 'ArrowLeft' && gameState.dx === 0) {
+                gameState.dx = -1;
+                gameState.dy = 0;
+            }
+            if (e.key === 'ArrowUp' && gameState.dy === 0) {
+                gameState.dx = 0;
+                gameState.dy = -1;
+            }
+            if (e.key === 'ArrowRight' && gameState.dx === 0) {
+                gameState.dx = 1;
+                gameState.dy = 0;
+            }
+            if (e.key === 'ArrowDown' && gameState.dy === 0) {
+                gameState.dx = 0;
+                gameState.dy = 1;
+            }
+        }
+
+        // Racing game key handler
+        function handleRacingKeyPress(e) {
+            if (e.key === 'ArrowLeft' && gameState.playerX > 0) {
+                gameState.playerX -= 20;
+            }
+            if (e.key === 'ArrowRight' && gameState.playerX < 350) {
+                gameState.playerX += 20;
+            }
+        }
+
+        // Adventure game key handler
+        function handleAdventureKeyPress(e) {
+            if (e.key === 'ArrowLeft' && gameState.playerX > 0) {
+                gameState.playerX -= 8;
+            }
+            if (e.key === 'ArrowRight' && gameState.playerX < 360) {
+                gameState.playerX += 8;
+            }
+            if (e.key === 'ArrowUp' && gameState.playerY > 0) {
+                gameState.playerY -= 8;
+            }
+            if (e.key === 'ArrowDown' && gameState.playerY < 340) {
+                gameState.playerY += 8;
+            }
+        }
+
+        // Horror game mouse handler
+        function handleHorrorMouseMove(e) {
+            const rect = gameContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            gameState.flashlight.style.left = `${x - 100}px`;
+            gameState.flashlight.style.top = `${y - 100}px`;
+            
+            // Check if flashlight reveals any ghosts
+            gameState.ghosts.forEach(ghost => {
+                const ghostRect = ghost.getBoundingClientRect();
+                const flashlightRect = gameState.flashlight.getBoundingClientRect();
+                
+                if (
+                    flashlightRect.left < ghostRect.right &&
+                    flashlightRect.right > ghostRect.left &&
+                    flashlightRect.top < ghostRect.bottom &&
+                    flashlightRect.bottom > ghostRect.top
+                ) {
+                    if (ghost.style.opacity === '0') {
+                        ghost.style.display = 'flex';
+                        ghost.style.opacity = '1';
+                        gameState.foundGhosts++;
+                        gameState.score += 25;
+                        gameInfo.textContent = `Found: ${gameState.foundGhosts}/${gameState.totalGhosts} - Score: ${gameState.score}`;
+                        
+                        // Update high score
+                        if (gameState.score > gameState.highScore) {
+                            gameState.highScore = gameState.score;
+                            localStorage.setItem('horrorHighScore', gameState.highScore);
+                            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
+                        }
+                        
+                        if (gameState.foundGhosts === gameState.totalGhosts) {
+                            gameInfo.textContent = `All ghosts found! Final Score: ${gameState.score}`;
+                            if (gameState.score > gameState.highScore) {
+                                highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
+                            }
+                        }
+                    }
+                } else if (ghost.style.opacity === '1') {
+                    ghost.style.opacity = '0';
+                    setTimeout(() => {
+                        if (ghost.style.opacity === '0') {
+                            ghost.style.display = 'none';
+                        }
+                    }, 500);
+                }
+            });
+            
+            // Randomly show Slenderman
+            if (!gameState.slendermanVisible && Math.random() < 0.005) {
+                gameState.slenderman.style.left = `${Math.random() * 380}px`;
+                gameState.slenderman.style.top = `${Math.random() * 320}px`;
+                gameState.slenderman.style.display = 'block';
+                gameState.slendermanVisible = true;
+                
+                setTimeout(() => {
+                    gameState.slenderman.style.display = 'none';
+                    gameState.slendermanVisible = false;
+                }, 2000);
+            }
+            
+            // Check if flashlight reveals Slenderman
+            const slendermanRect = gameState.slenderman.getBoundingClientRect();
+            const slendermanFlashlightRect = gameState.flashlight.getBoundingClientRect();
+            
+            if (
+                slendermanFlashlightRect.left < slendermanRect.right &&
+                slendermanFlashlightRect.right > slendermanRect.left &&
+                slendermanFlashlightRect.top < slendermanRect.bottom &&
+                slendermanFlashlightRect.bottom > slendermanRect.top &&
+                gameState.slendermanVisible
+            ) {
+                gameOver();
+            }
         }
 
         // Enhanced Snake Game Implementation - FIXED
@@ -2424,16 +2569,13 @@
             canvas.id = 'snake-canvas';
             gameContainer.appendChild(canvas);
             
-            // Remove existing high score display if it exists - FIXED
-            if (highScoreDisplay && highScoreDisplay.parentNode) {
-                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
+            // Create high score display - FIXED: Only create once
+            if (!highScoreDisplay) {
+                highScoreDisplay = document.createElement('div');
+                highScoreDisplay.className = 'high-score';
+                highScoreDisplay.textContent = `High Score: ${localStorage.getItem('snakeHighScore') || 0}`;
+                gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             }
-            
-            // Create high score display - FIXED
-            highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('snakeHighScore') || 0}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             const ctx = canvas.getContext('2d');
             const gridSize = 20;
@@ -2598,26 +2740,6 @@
                 }
             }
             
-            function changeDirection(e) {
-                // Prevent reverse direction
-                if (e.key === 'ArrowLeft' && gameState.dx === 0) {
-                    gameState.dx = -1;
-                    gameState.dy = 0;
-                }
-                if (e.key === 'ArrowUp' && gameState.dy === 0) {
-                    gameState.dx = 0;
-                    gameState.dy = -1;
-                }
-                if (e.key === 'ArrowRight' && gameState.dx === 0) {
-                    gameState.dx = 1;
-                    gameState.dy = 0;
-                }
-                if (e.key === 'ArrowDown' && gameState.dy === 0) {
-                    gameState.dx = 0;
-                    gameState.dy = 1;
-                }
-            }
-            
             // Mobile controls
             const upBtn = mobileControls.querySelector('.up');
             const leftBtn = mobileControls.querySelector('.left');
@@ -2652,7 +2774,7 @@
                 }
             });
             
-            document.addEventListener('keydown', changeDirection);
+            document.addEventListener('keydown', handleSnakeKeyPress);
             drawGame();
             gameInterval = setInterval(update, 150);
         }
@@ -2662,16 +2784,13 @@
             gameContainer.id = 'racing-game';
             gameContainer.style.background = 'linear-gradient(135deg, #2c3e50, #34495e)';
             
-            // Remove existing high score display if it exists - FIXED
-            if (highScoreDisplay && highScoreDisplay.parentNode) {
-                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
+            // Create high score display - FIXED: Only create once
+            if (!highScoreDisplay) {
+                highScoreDisplay = document.createElement('div');
+                highScoreDisplay.className = 'high-score';
+                highScoreDisplay.textContent = `High Score: ${localStorage.getItem('racingHighScore') || 0}`;
+                gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             }
-            
-            // Create high score display - FIXED
-            highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('racingHighScore') || 0}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             // Road with lines
             const road = document.createElement('div');
@@ -2769,15 +2888,6 @@
                 }
             }
             
-            function handleKeyPress(e) {
-                if (e.key === 'ArrowLeft' && gameState.playerX > 0) {
-                    gameState.playerX -= 20;
-                }
-                if (e.key === 'ArrowRight' && gameState.playerX < 350) {
-                    gameState.playerX += 20;
-                }
-            }
-            
             // Mobile controls
             const leftBtn = mobileControls.querySelector('.left');
             const rightBtn = mobileControls.querySelector('.right');
@@ -2794,459 +2904,9 @@
                 }
             });
             
-            document.addEventListener('keydown', handleKeyPress);
+            document.addEventListener('keydown', handleRacingKeyPress);
             createObstacle();
             gameInterval = setInterval(updateGame, 50);
-        }
-
-        // Enhanced Adventure Game Implementation - FIXED
-        function initAdventureGame() {
-            gameContainer.id = 'adventure-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #1e5128, #2d5a27)';
-            
-            // Remove existing high score display if it exists - FIXED
-            if (highScoreDisplay && highScoreDisplay.parentNode) {
-                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
-            }
-            
-            // Create high score display - FIXED
-            highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('adventureHighScore') || 0}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            const player = document.createElement('div');
-            player.className = 'adventure-player';
-            player.style.width = '40px';
-            player.style.height = '60px';
-            player.style.left = '50px';
-            player.style.top = '300px';
-            player.style.position = 'absolute';
-            gameContainer.appendChild(player);
-            
-            // Initialize game state
-            gameState = {
-                playerX: 50,
-                playerY: 300,
-                treasures: [],
-                enemies: [],
-                score: 0,
-                highScore: localStorage.getItem('adventureHighScore') || 0
-            };
-            
-            function updateGame() {
-                // Check collisions with treasures
-                gameState.treasures.forEach((treasure, index) => {
-                    const treasureRect = treasure.getBoundingClientRect();
-                    const playerRect = player.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < treasureRect.right &&
-                        playerRect.right > treasureRect.left &&
-                        playerRect.top < treasureRect.bottom &&
-                        playerRect.bottom > treasureRect.top
-                    ) {
-                        treasure.remove();
-                        gameState.treasures.splice(index, 1);
-                        gameState.score += 20;
-                        gameInfo.textContent = `Score: ${gameState.score}`;
-                        
-                        // Update high score
-                        if (gameState.score > gameState.highScore) {
-                            gameState.highScore = gameState.score;
-                            localStorage.setItem('adventureHighScore', gameState.highScore);
-                            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-                        }
-                    }
-                });
-                
-                // Check collisions with enemies
-                gameState.enemies.forEach((enemy) => {
-                    const enemyRect = enemy.getBoundingClientRect();
-                    const playerRect = player.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < enemyRect.right - 5 &&
-                        playerRect.right - 5 > enemyRect.left &&
-                        playerRect.top < enemyRect.bottom - 5 &&
-                        playerRect.bottom - 5 > enemyRect.top
-                    ) {
-                        gameOver();
-                        return;
-                    }
-                });
-                
-                // Add new treasures and enemies randomly
-                if (Math.random() < 0.02) {
-                    createTreasure();
-                }
-                if (Math.random() < 0.015) {
-                    createEnemy();
-                }
-                
-                // Update player position
-                player.style.left = `${gameState.playerX}px`;
-                player.style.top = `${gameState.playerY}px`;
-            }
-            
-            function createTreasure() {
-                const treasure = document.createElement('div');
-                treasure.className = 'treasure';
-                treasure.style.width = '25px';
-                treasure.style.height = '25px';
-                treasure.style.left = `${Math.random() * 375}px`;
-                treasure.style.top = `${Math.random() * 375}px`;
-                treasure.style.position = 'absolute';
-                gameContainer.appendChild(treasure);
-                gameState.treasures.push(treasure);
-            }
-            
-            function createEnemy() {
-                const enemy = document.createElement('div');
-                enemy.className = 'enemy';
-                enemy.style.width = '35px';
-                enemy.style.height = '35px';
-                enemy.style.left = `${Math.random() * 365}px`;
-                enemy.style.top = `${Math.random() * 365}px`;
-                enemy.style.position = 'absolute';
-                gameContainer.appendChild(enemy);
-                gameState.enemies.push(enemy);
-            }
-            
-            function gameOver() {
-                clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${gameState.score}`;
-                if (gameState.score > gameState.highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                }
-            }
-            
-            function handleKeyPress(e) {
-                if (e.key === 'ArrowLeft' && gameState.playerX > 0) {
-                    gameState.playerX -= 8;
-                }
-                if (e.key === 'ArrowRight' && gameState.playerX < 360) {
-                    gameState.playerX += 8;
-                }
-                if (e.key === 'ArrowUp' && gameState.playerY > 0) {
-                    gameState.playerY -= 8;
-                }
-                if (e.key === 'ArrowDown' && gameState.playerY < 340) {
-                    gameState.playerY += 8;
-                }
-            }
-            
-            // Mobile controls
-            const upBtn = mobileControls.querySelector('.up');
-            const leftBtn = mobileControls.querySelector('.left');
-            const rightBtn = mobileControls.querySelector('.right');
-            const downBtn = mobileControls.querySelector('.down');
-            
-            upBtn.addEventListener('click', () => {
-                if (gameState.playerY > 0) {
-                    gameState.playerY -= 8;
-                }
-            });
-            
-            leftBtn.addEventListener('click', () => {
-                if (gameState.playerX > 0) {
-                    gameState.playerX -= 8;
-                }
-            });
-            
-            rightBtn.addEventListener('click', () => {
-                if (gameState.playerX < 360) {
-                    gameState.playerX += 8;
-                }
-            });
-            
-            downBtn.addEventListener('click', () => {
-                if (gameState.playerY < 340) {
-                    gameState.playerY += 8;
-                }
-            });
-            
-            document.addEventListener('keydown', handleKeyPress);
-            createTreasure();
-            createTreasure();
-            createEnemy();
-            gameInterval = setInterval(updateGame, 100);
-        }
-
-        // Enhanced Puzzle Game Implementation - FIXED
-        function initPuzzleGame() {
-            gameContainer.id = 'puzzle-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #2c2c54, #40407a)';
-            
-            // Remove existing high score display if it exists - FIXED
-            if (highScoreDisplay && highScoreDisplay.parentNode) {
-                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
-            }
-            
-            // Create high score display - FIXED
-            highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `Best Time: ${localStorage.getItem('puzzleHighScore') || 'N/A'} moves`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            const puzzleContainer = document.createElement('div');
-            puzzleContainer.className = 'puzzle-container';
-            gameContainer.appendChild(puzzleContainer);
-            
-            // Initialize game state
-            gameState = {
-                tiles: [1, 2, 3, 4, 5, 6, 7, 8, 0],
-                emptyIndex: 8,
-                moves: 0,
-                highScore: localStorage.getItem('puzzleHighScore') || 'N/A'
-            };
-            
-            function shuffleTiles() {
-                do {
-                    for (let i = gameState.tiles.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [gameState.tiles[i], gameState.tiles[j]] = [gameState.tiles[j], gameState.tiles[i]];
-                    }
-                    gameState.emptyIndex = gameState.tiles.indexOf(0);
-                } while (!isSolvable() || isPuzzleSolved());
-                
-                gameState.moves = 0;
-                gameInfo.textContent = `Moves: ${gameState.moves}`;
-                renderTiles();
-            }
-            
-            function isSolvable() {
-                let inversions = 0;
-                for (let i = 0; i < gameState.tiles.length; i++) {
-                    for (let j = i + 1; j < gameState.tiles.length; j++) {
-                        if (gameState.tiles[i] !== 0 && gameState.tiles[j] !== 0 && gameState.tiles[i] > gameState.tiles[j]) {
-                            inversions++;
-                        }
-                    }
-                }
-                return inversions % 2 === 0;
-            }
-            
-            function renderTiles() {
-                puzzleContainer.innerHTML = '';
-                gameState.tiles.forEach((tile, index) => {
-                    const tileElement = document.createElement('div');
-                    tileElement.className = tile === 0 ? 'puzzle-piece empty' : 'puzzle-piece';
-                    tileElement.textContent = tile === 0 ? '' : tile;
-                    tileElement.style.background = tile === 0 ? 'transparent' : 
-                        `linear-gradient(135deg, hsl(${tile * 40}, 70%, 60%), hsl(${tile * 40}, 70%, 50%))`;
-                    tileElement.addEventListener('click', () => moveTile(index));
-                    puzzleContainer.appendChild(tileElement);
-                });
-            }
-            
-            function moveTile(index) {
-                const adjacentIndexes = [gameState.emptyIndex - 1, gameState.emptyIndex + 1, gameState.emptyIndex - 3, gameState.emptyIndex + 3];
-                
-                if (adjacentIndexes.includes(index)) {
-                    const emptyRow = Math.floor(gameState.emptyIndex / 3);
-                    const clickedRow = Math.floor(index / 3);
-                    const emptyCol = gameState.emptyIndex % 3;
-                    const clickedCol = index % 3;
-                    
-                    if ((emptyRow === clickedRow && Math.abs(emptyCol - clickedCol) === 1) ||
-                        (emptyCol === clickedCol && Math.abs(emptyRow - clickedRow) === 1)) {
-                        [gameState.tiles[gameState.emptyIndex], gameState.tiles[index]] = [gameState.tiles[index], gameState.tiles[gameState.emptyIndex]];
-                        gameState.emptyIndex = index;
-                        gameState.moves++;
-                        gameInfo.textContent = `Moves: ${gameState.moves}`;
-                        renderTiles();
-                        
-                        if (isPuzzleSolved()) {
-                            if (gameState.highScore === 'N/A' || gameState.moves < parseInt(gameState.highScore)) {
-                                gameState.highScore = gameState.moves;
-                                localStorage.setItem('puzzleHighScore', gameState.highScore);
-                                highScoreDisplay.textContent = `New Best Time: ${gameState.moves} moves!`;
-                            } else {
-                                highScoreDisplay.textContent = `Best Time: ${gameState.highScore} moves`;
-                            }
-                            gameInfo.textContent = `Solved in ${gameState.moves} moves!`;
-                        }
-                    }
-                }
-            }
-            
-            function isPuzzleSolved() {
-                for (let i = 0; i < gameState.tiles.length - 1; i++) {
-                    if (gameState.tiles[i] !== i + 1) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            
-            shuffleTiles();
-        }
-
-        // Enhanced Horror Game Implementation - FIXED
-        function initHorrorGame() {
-            gameContainer.className = 'simple-game horror-game';
-            
-            // Remove existing high score display if it exists - FIXED
-            if (highScoreDisplay && highScoreDisplay.parentNode) {
-                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
-            }
-            
-            // Create high score display - FIXED
-            highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('horrorHighScore') || 0}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            const flashlight = document.createElement('div');
-            flashlight.className = 'flashlight';
-            gameContainer.appendChild(flashlight);
-            
-            // Initialize game state
-            gameState = {
-                ghosts: [],
-                trees: [],
-                slenderman: null,
-                score: 0,
-                foundGhosts: 0,
-                totalGhosts: 5,
-                highScore: localStorage.getItem('horrorHighScore') || 0,
-                slendermanVisible: false
-            };
-            
-            // Create trees
-            for (let i = 0; i < 15; i++) {
-                const tree = document.createElement('div');
-                tree.className = 'tree';
-                const width = 20 + Math.random() * 20;
-                const height = 60 + Math.random() * 40;
-                tree.style.width = `${width}px`;
-                tree.style.height = `${height}px`;
-                tree.style.left = `${Math.random() * 380}px`;
-                tree.style.top = `${Math.random() * 340}px`;
-                tree.style.position = 'absolute';
-                gameContainer.appendChild(tree);
-                gameState.trees.push(tree);
-            }
-            
-            // Create hidden ghosts
-            for (let i = 0; i < gameState.totalGhosts; i++) {
-                const ghost = document.createElement('div');
-                ghost.className = 'ghost';
-                const size = 30 + Math.random() * 20;
-                ghost.style.width = `${size}px`;
-                ghost.style.height = `${size + 10}px`;
-                ghost.style.left = `${Math.random() * 370}px`;
-                ghost.style.top = `${Math.random() * 370}px`;
-                ghost.style.position = 'absolute';
-                ghost.style.display = 'none';
-                ghost.style.opacity = '0';
-                ghost.style.transition = 'opacity 0.5s';
-                ghost.textContent = '👻';
-                gameContainer.appendChild(ghost);
-                gameState.ghosts.push(ghost);
-            }
-            
-            // Create Slenderman
-            const slenderman = document.createElement('div');
-            slenderman.className = 'slenderman';
-            slenderman.style.height = '80px';
-            slenderman.style.left = `${Math.random() * 380}px`;
-            slenderman.style.top = `${Math.random() * 320}px`;
-            slenderman.style.position = 'absolute';
-            slenderman.style.display = 'none';
-            gameContainer.appendChild(slenderman);
-            gameState.slenderman = slenderman;
-            
-            function updateFlashlight(e) {
-                const rect = gameContainer.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                flashlight.style.left = `${x - 100}px`;
-                flashlight.style.top = `${y - 100}px`;
-                
-                // Check if flashlight reveals any ghosts
-                gameState.ghosts.forEach(ghost => {
-                    const ghostRect = ghost.getBoundingClientRect();
-                    const flashlightRect = flashlight.getBoundingClientRect();
-                    
-                    if (
-                        flashlightRect.left < ghostRect.right &&
-                        flashlightRect.right > ghostRect.left &&
-                        flashlightRect.top < ghostRect.bottom &&
-                        flashlightRect.bottom > ghostRect.top
-                    ) {
-                        if (ghost.style.opacity === '0') {
-                            ghost.style.display = 'flex';
-                            ghost.style.opacity = '1';
-                            gameState.foundGhosts++;
-                            gameState.score += 25;
-                            gameInfo.textContent = `Found: ${gameState.foundGhosts}/${gameState.totalGhosts} - Score: ${gameState.score}`;
-                            
-                            // Update high score
-                            if (gameState.score > gameState.highScore) {
-                                gameState.highScore = gameState.score;
-                                localStorage.setItem('horrorHighScore', gameState.highScore);
-                                highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-                            }
-                            
-                            if (gameState.foundGhosts === gameState.totalGhosts) {
-                                gameInfo.textContent = `All ghosts found! Final Score: ${gameState.score}`;
-                                if (gameState.score > gameState.highScore) {
-                                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                                }
-                            }
-                        }
-                    } else if (ghost.style.opacity === '1') {
-                        ghost.style.opacity = '0';
-                        setTimeout(() => {
-                            if (ghost.style.opacity === '0') {
-                                ghost.style.display = 'none';
-                            }
-                        }, 500);
-                    }
-                });
-                
-                // Randomly show Slenderman
-                if (!gameState.slendermanVisible && Math.random() < 0.005) {
-                    gameState.slenderman.style.left = `${Math.random() * 380}px`;
-                    gameState.slenderman.style.top = `${Math.random() * 320}px`;
-                    gameState.slenderman.style.display = 'block';
-                    gameState.slendermanVisible = true;
-                    
-                    setTimeout(() => {
-                        gameState.slenderman.style.display = 'none';
-                        gameState.slendermanVisible = false;
-                    }, 2000);
-                }
-                
-                // Check if flashlight reveals Slenderman
-                const slendermanRect = gameState.slenderman.getBoundingClientRect();
-                const slendermanFlashlightRect = flashlight.getBoundingClientRect();
-                
-                if (
-                    slendermanFlashlightRect.left < slendermanRect.right &&
-                    slendermanFlashlightRect.right > slendermanRect.left &&
-                    slendermanFlashlightRect.top < slendermanRect.bottom &&
-                    slendermanFlashlightRect.bottom > slendermanRect.top &&
-                    gameState.slendermanVisible
-                ) {
-                    gameOver();
-                }
-            }
-            
-            function gameOver() {
-                gameInfo.textContent = `Slenderman got you! Final Score: ${gameState.score}`;
-                if (gameState.score > gameState.highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                }
-                gameState.slenderman.style.display = 'none';
-                gameState.slendermanVisible = false;
-            }
-            
-            gameContainer.addEventListener('mousemove', updateFlashlight);
-            gameInfo.textContent = `Found: 0/${gameState.totalGhosts} - Score: 0`;
         }
 
         // Restart game functionality
@@ -3255,7 +2915,7 @@
             initGame(currentGame);
         });
 
-        // MODIFIED: closeGameModal to re-enable scrolling - FIXED
+        // Close game modal
         closeGameModal.addEventListener('click', () => {
             gameModal.style.display = 'none';
             stopCurrentGame();
