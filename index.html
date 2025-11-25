@@ -1754,18 +1754,6 @@
             pageSections.forEach(section => {
                 section.classList.remove('active');
             });
-            document.getElementById('home').class
-                    // Logout functionality
-        logoutBtn.addEventListener('click', () => {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUIForLoggedOutUser();
-            alert('You have been logged out successfully!');
-            
-            // Navigate to home
-            pageSections.forEach(section => {
-                section.classList.remove('active');
-            });
             document.getElementById('home').classList.add('active');
         });
 
@@ -1894,6 +1882,7 @@
         // Game functionality
         let currentGame = null;
         let gameInterval = null;
+        let currentRestartFunction = null;
 
         playButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -1982,6 +1971,7 @@
                 gameInterval = null;
             }
             currentGame = null;
+            currentRestartFunction = null;
         }
 
         // Enhanced Snake Game Implementation
@@ -2204,9 +2194,6 @@
             currentRestartFunction = restartGame;
         }
 
-        // Store current restart function
-        let currentRestartFunction = null;
-
         // Enhanced Racing Game Implementation
         function initRacingGame() {
             gameContainer.id = 'racing-game';
@@ -2355,6 +2342,22 @@
             
             // Store restart function for this game
             currentRestartFunction = restartGame;
+        }
+
+        // Simple implementations for other games
+        function initAdventureGame() {
+            gameContainer.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%;"><h3>Adventure Game Coming Soon!</h3></div>';
+            currentRestartFunction = () => initAdventureGame();
+        }
+
+        function initPuzzleGame() {
+            gameContainer.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%;"><h3>Puzzle Game Coming Soon!</h3></div>';
+            currentRestartFunction = () => initPuzzleGame();
+        }
+
+        function initHorrorGame() {
+            gameContainer.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%;"><h3>Horror Game Coming Soon!</h3></div>';
+            currentRestartFunction = () => initHorrorGame();
         }
 
         // Restart button functionality
