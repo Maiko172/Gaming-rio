@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KharBouch Games - Your Ultimate Gaming Destination</title>
+    <title>KharBouch Games</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -20,14 +20,12 @@
             --darker: #12121a;
             --light: #f5f6fa;
             --accent: #fd79a8;
-            --success: #00b894;
         }
 
         body {
             background-color: var(--darker);
             color: var(--light);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         .container {
@@ -36,11 +34,10 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
+        /* Header */
         header {
             background-color: var(--dark);
             padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -61,10 +58,6 @@
             color: var(--primary);
         }
 
-        .logo i {
-            color: var(--accent);
-        }
-
         nav ul {
             display: flex;
             list-style: none;
@@ -76,26 +69,10 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
-            position: relative;
         }
 
         nav a:hover {
             color: var(--secondary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s;
-        }
-
-        nav a:hover::after {
-            width: 100%;
         }
 
         .auth-buttons {
@@ -119,7 +96,6 @@
 
         .btn-primary:hover {
             background-color: var(--secondary);
-            transform: translateY(-2px);
         }
 
         .btn-outline {
@@ -130,7 +106,6 @@
 
         .btn-outline:hover {
             background-color: var(--primary);
-            transform: translateY(-2px);
         }
 
         /* Hero Section */
@@ -138,26 +113,6 @@
             background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
             padding: 100px 0;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="%236c5ce7" points="0,1000 1000,0 1000,1000"/></svg>');
-            background-size: cover;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
 
         .hero h1 {
@@ -169,12 +124,6 @@
             color: transparent;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--secondary);
-        }
-
         .hero-buttons {
             display: flex;
             justify-content: center;
@@ -182,24 +131,11 @@
             margin-top: 30px;
         }
 
-        /* Featured Games */
+        /* Games Grid */
         .section-title {
             text-align: center;
             margin: 60px 0 40px;
             font-size: 2.5rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
         }
 
         .games-grid {
@@ -213,301 +149,32 @@
             background-color: var(--dark);
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
 
         .game-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .game-img {
             height: 200px;
-            background-color: var(--primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-img::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
         .game-info {
             padding: 20px;
         }
 
-        .game-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--light);
-        }
-
-        .game-desc {
-            color: #b2bec3;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .game-meta {
-            display: flex;
-            justify-content: space-between;
-            color: var(--secondary);
-            font-size: 0.9rem;
-        }
-
-        .game-rating {
-            color: gold;
-        }
-
         .play-btn {
             background-color: var(--accent);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: 600;
             margin-top: 10px;
             width: 100%;
-            transition: background-color 0.3s;
-        }
-
-        .play-btn:hover {
-            background-color: #e84393;
-        }
-
-        /* Categories Section */
-        .categories {
-            background-color: var(--dark);
-            padding: 60px 0;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .category-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 10px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .category-card:hover {
-            transform: scale(1.05);
-        }
-
-        .category-card i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .category-card h3 {
-            font-size: 1.3rem;
-            color: white;
-        }
-
-        /* News Section */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .news-card {
-            background-color: var(--dark);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .news-img {
-            height: 200px;
-            background-color: var(--secondary);
-        }
-
-        .news-content {
-            padding: 20px;
-        }
-
-        .news-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--light);
-        }
-
-        .news-excerpt {
-            color: #b2bec3;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .news-meta {
-            display: flex;
-            justify-content: space-between;
-            color: var(--secondary);
-            font-size: 0.8rem;
-        }
-
-        /* About Section */
-        .about {
-            background-color: var(--dark);
-            padding: 80px 0;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            color: #b2bec3;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--darker);
-            border-radius: 10px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: var(--secondary);
-            font-size: 1rem;
-        }
-
-        .about-image {
-            text-align: center;
-        }
-
-        .about-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            padding: 60px 0 30px;
-            margin-top: 60px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-column a {
-            color: #b2bec3;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-column a:hover {
-            color: var(--secondary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--darker);
-            border-radius: 50%;
-            color: var(--light);
-            transition: all 0.3s;
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #b2bec3;
-            font-size: 0.9rem;
-        }
-
-        .powered-by {
-            text-align: center;
-            margin-top: 10px;
-            color: var(--secondary);
-            font-size: 0.8rem;
         }
 
         /* Modal Styles */
@@ -530,23 +197,10 @@
             border-radius: 10px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal h2 {
-            margin-bottom: 20px;
-            color: var(--primary);
-            text-align: center;
         }
 
         .form-group {
             margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--light);
         }
 
         .form-group input {
@@ -559,11 +213,8 @@
         }
 
         .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
+            float: right;
             font-size: 1.5rem;
-            color: var(--light);
             cursor: pointer;
         }
 
@@ -586,257 +237,15 @@
             border-radius: 10px;
             width: 90%;
             max-width: 800px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .game-modal-header {
             padding: 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            text-align: center;
         }
 
-        .game-modal-body {
-            padding: 30px;
-            text-align: center;
-        }
-
-        .game-frame {
-            width: 100%;
-            height: 400px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--darker);
-            margin-bottom: 20px;
-        }
-
-        /* Simple Game Styles */
         .simple-game {
             width: 100%;
             height: 400px;
             background-color: var(--darker);
             border-radius: 5px;
             margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Enhanced Snake Game */
-        .snake-segment {
-            background: linear-gradient(135deg, #00b894, #00a085);
-            border-radius: 3px;
-            box-shadow: 0 0 5px rgba(0, 184, 148, 0.5);
-        }
-        
-        .snake-head {
-            background: linear-gradient(135deg, #00cec9, #00b894);
-            border-radius: 5px;
-            box-shadow: 0 0 8px rgba(0, 206, 201, 0.7);
-        }
-        
-        .apple {
-            background: radial-gradient(circle at 30% 30%, #e74c3c, #c0392b);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
-            animation: pulse 1.5s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-        }
-        
-        /* Enhanced Racing Game */
-        .road-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent,
-                transparent 40px,
-                #f1c40f 40px,
-                #f1c40f 80px
-            );
-        }
-        
-        .player-car {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            border-radius: 8px 8px 15px 15px;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .player-car::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 5px;
-            right: 5px;
-            height: 15px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 3px;
-        }
-        
-        .player-car::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
-            right: 5px;
-            height: 8px;
-            background: #2c3e50;
-            border-radius: 2px;
-        }
-        
-        .obstacle-car {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            border-radius: 8px 8px 15px 15px;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .obstacle-car::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 5px;
-            right: 5px;
-            height: 15px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 3px;
-        }
-        
-        .obstacle-car::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
-            right: 5px;
-            height: 8px;
-            background: #2c3e50;
-            border-radius: 2px;
-        }
-        
-        /* Enhanced Adventure Game */
-        .adventure-player {
-            background: linear-gradient(135deg, #8b4513, #654321);
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-        }
-        
-        .adventure-player::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 10px;
-            right: 10px;
-            height: 8px;
-            background: #d35400;
-            border-radius: 3px;
-        }
-        
-        .treasure {
-            background: radial-gradient(circle at 30% 30%, gold, #daa520);
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
-            animation: spin 3s linear infinite;
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .enemy {
-            background: radial-gradient(circle at 30% 30%, #e74c3c, #c0392b);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
-            animation: bounce 2s infinite alternate;
-        }
-        
-        @keyframes bounce {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-5px); }
-        }
-        
-        /* Enhanced Puzzle Game */
-        .puzzle-piece {
-            background: linear-gradient(135deg, #706fd3, #5d5bc1);
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .puzzle-piece:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        /* Enhanced Horror Game */
-        .ghost {
-            background: radial-gradient(circle at 30% 30%, #ffffff, #bdc3c7);
-            border-radius: 50% 50% 0 0;
-            position: relative;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .ghost::before {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            right: 0;
-            height: 15px;
-            background: 
-                radial-gradient(circle at 20% 0, transparent 15px, #bdc3c7 16px),
-                radial-gradient(circle at 40% 0, transparent 15px, #bdc3c7 16px),
-                radial-gradient(circle at 60% 0, transparent 15px, #bdc3c7 16px),
-                radial-gradient(circle at 80% 0, transparent 15px, #bdc3c7 16px);
-        }
-        
-        .ghost::after {
-            content: '👻';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .score-display {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--accent);
-        }
-        
-        .high-score {
-            color: gold;
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        .game-info {
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            color: var(--secondary);
-        }
-
-        /* Game Controls */
-        .game-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
         }
 
         /* Profile Section */
@@ -844,33 +253,14 @@
             display: none;
             padding: 60px 0;
         }
-        
-        .profile-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 3rem;
-            color: white;
-        }
-        
+
         .profile-menu {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-bottom: 40px;
-            flex-wrap: wrap;
         }
-        
+
         .profile-menu-btn {
             background: var(--dark);
             border: 2px solid var(--primary);
@@ -878,62 +268,25 @@
             padding: 12px 24px;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
         }
-        
+
         .profile-menu-btn.active {
             background: var(--primary);
-            transform: translateY(-2px);
         }
-        
-        .profile-menu-btn:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-        }
-        
+
         .profile-content {
             background: var(--dark);
             border-radius: 15px;
             padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        
+
         .profile-info-item {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             margin-bottom: 20px;
             padding: 15px;
             background: var(--darker);
             border-radius: 8px;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            color: var(--secondary);
-            min-width: 120px;
-        }
-        
-        .info-value {
-            flex: 1;
-            color: var(--light);
-        }
-        
-        .password-toggle {
-            background: none;
-            border: none;
-            color: var(--secondary);
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        
-        .password-toggle:hover {
-            color: var(--accent);
-        }
-        
-        .profile-form {
-            max-width: 400px;
-            margin: 0 auto;
         }
 
         /* Section Visibility */
@@ -943,48 +296,6 @@
 
         .page-section.active {
             display: block;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            nav ul {
-                gap: 15px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 200px;
-            }
-            
-            .game-frame {
-                height: 300px;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .profile-menu {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .profile-menu-btn {
-                width: 200px;
-            }
         }
     </style>
 </head>
@@ -1001,7 +312,6 @@
                     <ul>
                         <li><a href="#" class="nav-link" data-section="home">Home</a></li>
                         <li><a href="#" class="nav-link" data-section="games">Games</a></li>
-                        <li><a href="#" class="nav-link" data-section="categories">Categories</a></li>
                         <li><a href="#" class="nav-link" data-section="news">News</a></li>
                         <li><a href="#" class="nav-link" data-section="about">About</a></li>
                         <li><a href="#" class="nav-link" data-section="profile" id="profileNav" style="display: none;">Profile</a></li>
@@ -1018,12 +328,11 @@
 
     <!-- Home Section -->
     <section id="home" class="page-section active">
-        <!-- Hero Section -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
                     <h1>Welcome to KharBouch Games</h1>
-                    <p>Discover, play, and connect with gamers worldwide. Explore thousands of games across all platforms and genres.</p>
+                    <p>Discover, play, and connect with gamers worldwide.</p>
                     <div class="hero-buttons">
                         <button class="btn btn-primary" id="exploreGamesBtn">Explore Games</button>
                         <button class="btn btn-outline" id="joinCommunityBtn">Join Community</button>
@@ -1032,113 +341,23 @@
             </div>
         </section>
 
-        <!-- Featured Games -->
         <section class="container">
             <h2 class="section-title">Featured Games</h2>
             <div class="games-grid">
                 <div class="game-card">
-                    <div class="game-img" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);"></div>
+                    <div class="game-img"></div>
                     <div class="game-info">
-                        <h3 class="game-title">Snake Adventure</h3>
-                        <p class="game-desc">Classic snake game with a modern twist. Eat food and grow longer without hitting walls.</p>
-                        <div class="game-meta">
-                            <span class="game-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </span>
-                            <span>Action</span>
-                        </div>
-                        <button class="play-btn" data-game="snake-game">Play Now</button>
+                        <h3>Snake Adventure</h3>
+                        <p>Classic snake game with modern twist.</p>
+                        <button class="play-btn" data-game="snake">Play Now</button>
                     </div>
                 </div>
                 <div class="game-card">
-                    <div class="game-img" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"></div>
+                    <div class="game-img"></div>
                     <div class="game-info">
-                        <h3 class="game-title">Speed Racer</h3>
-                        <p class="game-desc">Avoid obstacles and race to the finish line in this fast-paced racing game.</p>
-                        <div class="game-meta">
-                            <span class="game-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                            </span>
-                            <span>Racing</span>
-                        </div>
-                        <button class="play-btn" data-game="racing-game">Play Now</button>
-                    </div>
-                </div>
-                <div class="game-card">
-                    <div class="game-img" style="background: linear-gradient(135deg, #00cdac 0%, #8ddad5 100%);"></div>
-                    <div class="game-info">
-                        <h3 class="game-title">Jungle Explorer</h3>
-                        <p class="game-desc">Navigate through the jungle, collect treasures and avoid dangerous creatures.</p>
-                        <div class="game-meta">
-                            <span class="game-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </span>
-                            <span>Adventure</span>
-                        </div>
-                        <button class="play-btn" data-game="adventure-game">Play Now</button>
-                    </div>
-                </div>
-                <div class="game-card">
-                    <div class="game-img" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%);"></div>
-                    <div class="game-info">
-                        <h3 class="game-title">Number Puzzle</h3>
-                        <p class="game-desc">Arrange the numbers in order by sliding the tiles in this classic puzzle game.</p>
-                        <div class="game-meta">
-                            <span class="game-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                            </span>
-                            <span>Puzzle</span>
-                        </div>
-                        <button class="play-btn" data-game="puzzle-game">Play Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Categories Section -->
-        <section class="categories">
-            <div class="container">
-                <h2 class="section-title">Game Categories</h2>
-                <div class="categories-grid">
-                    <div class="category-card" data-category="action">
-                        <i class="fas fa-user-ninja"></i>
-                        <h3>Action</h3>
-                    </div>
-                    <div class="category-card" data-category="adventure">
-                        <i class="fas fa-dragon"></i>
-                        <h3>Adventure</h3>
-                    </div>
-                    <div class="category-card" data-category="racing">
-                        <i class="fas fa-racing-helmet"></i>
-                        <h3>Racing</h3>
-                    </div>
-                    <div class="category-card" data-category="puzzle">
-                        <i class="fas fa-puzzle-piece"></i>
-                        <h3>Puzzle</h3>
-                    </div>
-                    <div class="category-card" data-category="horror">
-                        <i class="fas fa-ghost"></i>
-                        <h3>Horror</h3>
-                    </div>
-                    <div class="category-card" data-category="sports">
-                        <i class="fas fa-futbol"></i>
-                        <h3>Sports</h3>
+                        <h3>Speed Racer</h3>
+                        <p>Fast-paced racing game.</p>
+                        <button class="play-btn" data-game="racing">Play Now</button>
                     </div>
                 </div>
             </div>
@@ -1150,128 +369,19 @@
         <h2 class="section-title">All Games</h2>
         <div class="games-grid">
             <div class="game-card">
-                <div class="game-img" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);"></div>
+                <div class="game-img"></div>
                 <div class="game-info">
-                    <h3 class="game-title">Snake Adventure</h3>
-                    <p class="game-desc">Classic snake game with a modern twist. Eat food and grow longer without hitting walls.</p>
-                    <div class="game-meta">
-                        <span class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                        <span>Action</span>
-                    </div>
-                    <button class="play-btn" data-game="snake-game">Play Now</button>
+                    <h3>Snake Adventure</h3>
+                    <p>Classic snake game with modern twist.</p>
+                    <button class="play-btn" data-game="snake">Play Now</button>
                 </div>
             </div>
             <div class="game-card">
-                <div class="game-img" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"></div>
+                <div class="game-img"></div>
                 <div class="game-info">
-                    <h3 class="game-title">Speed Racer</h3>
-                    <p class="game-desc">Avoid obstacles and race to the finish line in this fast-paced racing game.</p>
-                    <div class="game-meta">
-                        <span class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                        <span>Racing</span>
-                    </div>
-                    <button class="play-btn" data-game="racing-game">Play Now</button>
-                </div>
-            </div>
-            <div class="game-card">
-                <div class="game-img" style="background: linear-gradient(135deg, #00cdac 0%, #8ddad5 100%);"></div>
-                <div class="game-info">
-                    <h3 class="game-title">Jungle Explorer</h3>
-                    <p class="game-desc">Navigate through the jungle, collect treasures and avoid dangerous creatures.</p>
-                    <div class="game-meta">
-                        <span class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                        <span>Adventure</span>
-                    </div>
-                    <button class="play-btn" data-game="adventure-game">Play Now</button>
-                </div>
-            </div>
-            <div class="game-card">
-                <div class="game-img" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%);"></div>
-                <div class="game-info">
-                    <h3 class="game-title">Number Puzzle</h3>
-                    <p class="game-desc">Arrange the numbers in order by sliding the tiles in this classic puzzle game.</p>
-                    <div class="game-meta">
-                        <span class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                        <span>Puzzle</span>
-                    </div>
-                    <button class="play-btn" data-game="puzzle-game">Play Now</button>
-                </div>
-            </div>
-            <div class="game-card">
-                <div class="game-img" style="background: linear-gradient(135deg, #4a4a4a 0%, #1a1a1a 100%);"></div>
-                <div class="game-info">
-                    <h3 class="game-title">Dark Forest</h3>
-                    <p class="game-desc">Explore the dark forest with only your flashlight. Beware of what lurks in the shadows.</p>
-                    <div class="game-meta">
-                        <span class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                        <span>Horror</span>
-                    </div>
-                    <button class="play-btn" data-game="horror-game">Play Now</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section id="categories" class="page-section">
-        <div class="categories">
-            <div class="container">
-                <h2 class="section-title">Browse by Category</h2>
-                <div class="categories-grid">
-                    <div class="category-card" data-category="action">
-                        <i class="fas fa-user-ninja"></i>
-                        <h3>Action</h3>
-                    </div>
-                    <div class="category-card" data-category="adventure">
-                        <i class="fas fa-dragon"></i>
-                        <h3>Adventure</h3>
-                    </div>
-                    <div class="category-card" data-category="racing">
-                        <i class="fas fa-racing-helmet"></i>
-                        <h3>Racing</h3>
-                    </div>
-                    <div class="category-card" data-category="puzzle">
-                        <i class="fas fa-puzzle-piece"></i>
-                        <h3>Puzzle</h3>
-                    </div>
-                    <div class="category-card" data-category="horror">
-                        <i class="fas fa-ghost"></i>
-                        <h3>Horror</h3>
-                    </div>
-                    <div class="category-card" data-category="sports">
-                        <i class="fas fa-futbol"></i>
-                        <h3>Sports</h3>
-                    </div>
+                    <h3>Speed Racer</h3>
+                    <p>Fast-paced racing game.</p>
+                    <button class="play-btn" data-game="racing">Play Now</button>
                 </div>
             </div>
         </div>
@@ -1279,233 +389,56 @@
 
     <!-- News Section -->
     <section id="news" class="page-section container">
-        <h2 class="section-title">Gaming News</h2>
-        <div class="news-grid">
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">KharBouch Games Reaches 1 Million Users</h3>
-                    <p class="news-excerpt">Our gaming platform has just reached a major milestone with 1 million registered users worldwide.</p>
-                    <div class="news-meta">
-                        <span>June 18, 2023</span>
-                        <span>By Admin</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">New Game Releases This Month</h3>
-                    <p class="news-excerpt">Check out the exciting new games coming to KharBouch Games this month, including 5 exclusive titles.</p>
-                    <div class="news-meta">
-                        <span>June 15, 2023</span>
-                        <span>By Game Master</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">Summer Gaming Tournament Announced</h3>
-                    <p class="news-excerpt">Compete in our summer tournament with a $10,000 prize pool. Registration opens next week.</p>
-                    <div class="news-meta">
-                        <span>June 12, 2023</span>
-                        <span>By Tournament Director</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h2 class="section-title">News</h2>
+        <p>Latest gaming news coming soon!</p>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="page-section about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>About KharBouch Games</h2>
-                    <p>Welcome to KharBouch Games, your ultimate destination for online gaming. Founded in 2020, we've been dedicated to providing the best gaming experience for players of all ages and skill levels.</p>
-                    <p>Our platform features a wide variety of games across multiple genres, from action-packed adventures to mind-bending puzzles. We're constantly adding new games and features to keep the experience fresh and exciting.</p>
-                    <p>At KharBouch Games, we believe that gaming should be accessible to everyone. That's why all our games are free to play, with no hidden costs or pay-to-win mechanics.</p>
-                    
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-number">500+</div>
-                            <div class="stat-label">Games Available</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">1M+</div>
-                            <div class="stat-label">Active Users</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Game Developers</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Support</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: 10px; display: flex; justify-content: center; align-items: center;">
-                        <i class="fas fa-gamepad" style="font-size: 100px; color: white;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="about" class="page-section container">
+        <h2 class="section-title">About Us</h2>
+        <p>Welcome to KharBouch Games - your ultimate gaming destination!</p>
     </section>
 
     <!-- Profile Section -->
     <section id="profile" class="page-section profile-section">
         <div class="container">
-            <div class="profile-header">
-                <div class="profile-avatar">
-                    <i class="fas fa-user"></i>
-                </div>
-                <h2 id="profileUserName">User Profile</h2>
-                <p>Manage your account settings and preferences</p>
-            </div>
-            
+            <h2 class="section-title">Profile</h2>
             <div class="profile-menu">
-                <button class="profile-menu-btn active" data-tab="information">Information</button>
-                <button class="profile-menu-btn" data-tab="change-password">Change Password</button>
-                <button class="profile-menu-btn" data-tab="change-email">Change Email</button>
+                <button class="profile-menu-btn active" data-tab="info">Information</button>
+                <button class="profile-menu-btn" data-tab="password">Change Password</button>
             </div>
-            
             <div class="profile-content">
-                <!-- Information Tab -->
-                <div id="information-tab" class="profile-tab active">
-                    <h3 style="margin-bottom: 20px; color: var(--primary);">Personal Information</h3>
+                <div id="info-tab">
                     <div class="profile-info-item">
-                        <span class="info-label">Full Name:</span>
-                        <span class="info-value" id="infoFullName">John Doe</span>
+                        <span>Name:</span>
+                        <span id="profileName">User Name</span>
                     </div>
                     <div class="profile-info-item">
-                        <span class="info-label">Email:</span>
-                        <span class="info-value" id="infoEmail">john.doe@example.com</span>
-                    </div>
-                    <div class="profile-info-item">
-                        <span class="info-label">Password:</span>
-                        <span class="info-value">
-                            <span id="infoPassword">••••••••</span>
-                            <button class="password-toggle" id="togglePassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </span>
-                    </div>
-                    <div class="profile-info-item">
-                        <span class="info-label">Member Since:</span>
-                        <span class="info-value" id="infoMemberSince">June 2023</span>
+                        <span>Email:</span>
+                        <span id="profileEmail">user@example.com</span>
                     </div>
                 </div>
-                
-                <!-- Change Password Tab -->
-                <div id="change-password-tab" class="profile-tab">
-                    <h3 style="margin-bottom: 20px; color: var(--primary);">Change Password</h3>
-                    <form class="profile-form" id="changePasswordForm">
-                        <div class="form-group">
-                            <label for="currentPassword">Current Password</label>
-                            <input type="password" id="currentPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="newPassword">New Password</label>
-                            <input type="password" id="newPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmNewPassword">Confirm New Password</label>
-                            <input type="password" id="confirmNewPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Password</button>
-                    </form>
-                </div>
-                
-                <!-- Change Email Tab -->
-                <div id="change-email-tab" class="profile-tab">
-                    <h3 style="margin-bottom: 20px; color: var(--primary);">Change Email</h3>
-                    <form class="profile-form" id="changeEmailForm">
-                        <div class="form-group">
-                            <label for="newEmail">New Email Address</label>
-                            <input type="email" id="newEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPasswordEmail">Current Password</label>
-                            <input type="password" id="confirmPasswordEmail" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Email</button>
-                    </form>
+                <div id="password-tab" style="display: none;">
+                    <p>Change password form coming soon!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>KharBouch Games</h3>
-                    <p>Your ultimate destination for all things gaming. Discover, play, and connect with gamers worldwide.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="https://discord.gg/8qTyHFAU" target="_blank"><i class="fab fa-discord"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#" class="nav-link" data-section="home">Home</a></li>
-                        <li><a href="#" class="nav-link" data-section="games">Games</a></li>
-                        <li><a href="#" class="nav-link" data-section="categories">Categories</a></li>
-                        <li><a href="#" class="nav-link" data-section="news">News</a></li>
-                        <li><a href="#" class="nav-link" data-section="about">About</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Community Guidelines</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Newsletter</h3>
-                    <p>Subscribe to our newsletter to get the latest gaming news and updates.</p>
-                    <form id="newsletterForm">
-                        <input type="email" placeholder="Your email address" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; background: var(--darker); color: white;">
-                        <button class="btn btn-primary" style="width: 100%;">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 KharBouch Games. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close-modal" id="closeLogin">&times;</span>
-            <h2>Login to KharBouch Games</h2>
+            <h2>Login</h2>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    <input type="email" id="loginEmail" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
             </form>
-            <p style="text-align: center; margin-top: 15px; color: var(--secondary);">
-                Don't have an account? <a href="#" id="switchToSignup" style="color: var(--accent);">Sign up</a>
-            </p>
         </div>
     </div>
 
@@ -1513,894 +446,250 @@
     <div class="modal" id="signupModal">
         <div class="modal-content">
             <span class="close-modal" id="closeSignup">&times;</span>
-            <h2>Create an Account</h2>
+            <h2>Sign Up</h2>
             <form id="signupForm">
                 <div class="form-group">
-                    <label for="signupName">Full Name</label>
-                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                    <input type="text" id="signupName" placeholder="Full Name" required>
                 </div>
                 <div class="form-group">
-                    <label for="signupEmail">Email</label>
-                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    <input type="email" id="signupEmail" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" placeholder="Create a password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    <input type="password" id="signupPassword" placeholder="Password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
             </form>
-            <p style="text-align: center; margin-top: 15px; color: var(--secondary);">
-                Already have an account? <a href="#" id="switchToLogin" style="color: var(--accent);">Login</a>
-            </p>
         </div>
     </div>
 
     <!-- Game Modal -->
     <div class="game-modal" id="gameModal">
         <div class="game-modal-content">
-            <div class="game-modal-header">
-                <h2 id="gameModalTitle">Game Title</h2>
+            <h2 id="gameTitle">Game</h2>
+            <div class="simple-game" id="gameContainer">
+                <p style="text-align: center; padding: 50px;">Game loading...</p>
             </div>
-            <div class="game-modal-body">
-                <div class="simple-game" id="gameContainer">
-                    <!-- Game will be rendered here -->
-                </div>
-                <div class="game-info" id="gameInfo">Score: 0</div>
-                <div class="game-controls">
-                    <button class="btn btn-primary" id="restartGame">Restart</button>
-                    <button class="btn btn-outline" id="closeGameModal">Close Game</button>
-                </div>
+            <div class="game-controls">
+                <button class="btn btn-primary" id="restartGame">Restart</button>
+                <button class="btn btn-outline" id="closeGameModal">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        // User data storage
-        let currentUser = null;
-        let users = JSON.parse(localStorage.getItem('kharBouchUsers')) || {};
-
-        // Navigation functionality
-        const navLinks = document.querySelectorAll('.nav-link');
-        const pageSections = document.querySelectorAll('.page-section');
-        const exploreGamesBtn = document.getElementById('exploreGamesBtn');
-        const joinCommunityBtn = document.getElementById('joinCommunityBtn');
-        const profileNav = document.getElementById('profileNav');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetSection = link.getAttribute('data-section');
-                
-                // Hide all sections
-                pageSections.forEach(section => {
-                    section.classList.remove('active');
+        // Simple working navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Website loaded!');
+            
+            // Navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // Hide all sections
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show target section
+                    document.getElementById(targetSection).classList.add('active');
+                    
+                    console.log('Navigated to:', targetSection);
                 });
-                
-                // Show target section
-                document.getElementById(targetSection).classList.add('active');
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
             });
-        });
 
-        // Explore Games button
-        exploreGamesBtn.addEventListener('click', () => {
-            // Hide all sections
-            pageSections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show games section
-            document.getElementById('games').classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        });
-
-        // Join Community button
-        joinCommunityBtn.addEventListener('click', () => {
-            window.open('https://discord.gg/8qTyHFAU', '_blank');
-        });
-
-        // Modal functionality
-        const loginModal = document.getElementById('loginModal');
-        const signupModal = document.getElementById('signupModal');
-        const closeLogin = document.getElementById('closeLogin');
-        const closeSignup = document.getElementById('closeSignup');
-        const switchToSignup = document.getElementById('switchToSignup');
-        const switchToLogin = document.getElementById('switchToLogin');
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
-        
-        // Game modal functionality
-        const gameModal = document.getElementById('gameModal');
-        const gameContainer = document.getElementById('gameContainer');
-        const gameModalTitle = document.getElementById('gameModalTitle');
-        const gameInfo = document.getElementById('gameInfo');
-        const closeGameModal = document.getElementById('closeGameModal');
-        const restartGameBtn = document.getElementById('restartGame');
-        const playButtons = document.querySelectorAll('.play-btn');
-        const categoryCards = document.querySelectorAll('.category-card');
-
-        // Profile functionality
-        const profileMenuBtns = document.querySelectorAll('.profile-menu-btn');
-        const profileTabs = document.querySelectorAll('.profile-tab');
-        const togglePassword = document.getElementById('togglePassword');
-        const infoPassword = document.getElementById('infoPassword');
-        const changePasswordForm = document.getElementById('changePasswordForm');
-        const changeEmailForm = document.getElementById('changeEmailForm');
-
-        // Open login modal
-        loginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-        });
-
-        // Open signup modal
-        signupBtn.addEventListener('click', () => {
-            signupModal.style.display = 'flex';
-        });
-
-        // Close modals
-        closeLogin.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-
-        closeSignup.addEventListener('click', () => {
-            signupModal.style.display = 'none';
-        });
-
-        // Switch between login and signup
-        switchToSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'none';
-            signupModal.style.display = 'flex';
-        });
-
-        switchToLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            signupModal.style.display = 'none';
-            loginModal.style.display = 'flex';
-        });
-
-        // Close modals when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
-            }
-            if (e.target === signupModal) {
-                signupModal.style.display = 'none';
-            }
-            if (e.target === gameModal) {
-                gameModal.style.display = 'none';
-                stopCurrentGame();
-            }
-        });
-
-        // Form submissions
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simple validation
-            if (email && password) {
-                if (users[email] && users[email].password === password) {
-                    currentUser = users[email];
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    updateUIForLoggedInUser();
-                    alert(`Login successful! Welcome back, ${currentUser.name}!`);
-                    loginModal.style.display = 'none';
-                } else {
-                    alert('Invalid email or password!');
-                }
-            } else {
-                alert('Please fill in all fields');
-            }
-        });
-
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            // Simple validation
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            if (name && email && password) {
-                if (users[email]) {
-                    alert('An account with this email already exists!');
-                    return;
-                }
-                
-                users[email] = {
-                    name: name,
-                    email: email,
-                    password: password,
-                    memberSince: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-                };
-                
-                localStorage.setItem('kharBouchUsers', JSON.stringify(users));
-                currentUser = users[email];
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateUIForLoggedInUser();
-                alert(`Account created successfully! Welcome to KharBouch Games, ${name}!`);
-                signupModal.style.display = 'none';
-            } else {
-                alert('Please fill in all fields');
-            }
-        });
-
-        // Logout functionality
-        logoutBtn.addEventListener('click', () => {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUIForLoggedOutUser();
-            alert('You have been logged out successfully!');
-            
-            // Navigate to home
-            pageSections.forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById('home').classList.add('active');
-        });
-
-        // Profile menu functionality
-        profileMenuBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tab = btn.getAttribute('data-tab');
-                
-                // Remove active class from all buttons and tabs
-                profileMenuBtns.forEach(b => b.classList.remove('active'));
-                profileTabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked button and corresponding tab
-                btn.classList.add('active');
-                document.getElementById(`${tab}-tab`).classList.add('active');
-            });
-        });
-
-        // Toggle password visibility
-        let passwordVisible = false;
-        togglePassword.addEventListener('click', () => {
-            passwordVisible = !passwordVisible;
-            if (passwordVisible) {
-                infoPassword.textContent = currentUser.password;
-                togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
-            } else {
-                infoPassword.textContent = '••••••••';
-                togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
-            }
-        });
-
-        // Change password form
-        changePasswordForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
-            
-            if (currentPassword !== currentUser.password) {
-                alert('Current password is incorrect!');
-                return;
-            }
-            
-            if (newPassword !== confirmNewPassword) {
-                alert('New passwords do not match!');
-                return;
-            }
-            
-            // Update password
-            users[currentUser.email].password = newPassword;
-            currentUser.password = newPassword;
-            localStorage.setItem('kharBouchUsers', JSON.stringify(users));
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            alert('Password updated successfully!');
-            changePasswordForm.reset();
-        });
-
-        // Change email form
-        changeEmailForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const newEmail = document.getElementById('newEmail').value;
-            const confirmPassword = document.getElementById('confirmPasswordEmail').value;
-            
-            if (confirmPassword !== currentUser.password) {
-                alert('Password is incorrect!');
-                return;
-            }
-            
-            if (users[newEmail]) {
-                alert('This email is already registered!');
-                return;
-            }
-            
-            // Update email
-            const oldEmail = currentUser.email;
-            users[newEmail] = {
-                ...users[oldEmail],
-                email: newEmail
-            };
-            delete users[oldEmail];
-            currentUser = users[newEmail];
-            
-            localStorage.setItem('kharBouchUsers', JSON.stringify(users));
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            alert('Email updated successfully!');
-            updateProfileInfo();
-            changeEmailForm.reset();
-        });
-
-        // Update UI for logged in user
-        function updateUIForLoggedInUser() {
-            loginBtn.style.display = 'none';
-            signupBtn.style.display = 'none';
-            logoutBtn.style.display = 'block';
-            profileNav.style.display = 'block';
-            updateProfileInfo();
-        }
-
-        // Update UI for logged out user
-        function updateUIForLoggedOutUser() {
-            loginBtn.style.display = 'block';
-            signupBtn.style.display = 'block';
-            logoutBtn.style.display = 'none';
-            profileNav.style.display = 'none';
-        }
-
-        // Update profile information
-        function updateProfileInfo() {
-            document.getElementById('profileUserName').textContent = currentUser.name;
-            document.getElementById('infoFullName').textContent = currentUser.name;
-            document.getElementById('infoEmail').textContent = currentUser.email;
-            document.getElementById('infoMemberSince').textContent = currentUser.memberSince;
-        }
-
-        // Check if user is already logged in
-        function checkLoggedInUser() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                updateUIForLoggedInUser();
-            }
-        }
-
-        // Game functionality
-        let currentGame = null;
-        let gameInterval = null;
-        let currentRestartFunction = null;
-
-        playButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const game = button.getAttribute('data-game');
-                openGame(game);
-            });
-        });
-
-        categoryCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const category = card.getAttribute('data-category');
-                // Navigate to games section
-                pageSections.forEach(section => {
-                    section.classList.remove('active');
-                });
+            // Explore Games button
+            document.getElementById('exploreGamesBtn').addEventListener('click', function() {
+                sections.forEach(section => section.classList.remove('active'));
                 document.getElementById('games').classList.add('active');
-                window.scrollTo(0, 0);
             });
-        });
 
-        function openGame(game) {
-            // Set game content based on which game was clicked
-            let title, description;
-            
-            switch(game) {
-                case 'snake-game':
-                    title = 'Snake Adventure';
-                    description = 'Use arrow keys to move the snake. Eat food to grow longer. Avoid walls and yourself!';
-                    break;
-                case 'racing-game':
-                    title = 'Speed Racer';
-                    description = 'Use left and right arrow keys to avoid obstacles. The longer you survive, the higher your score!';
-                    break;
-                case 'adventure-game':
-                    title = 'Jungle Explorer';
-                    description = 'Use arrow keys to move. Collect gold coins and avoid red obstacles!';
-                    break;
-                case 'puzzle-game':
-                    title = 'Number Puzzle';
-                    description = 'Click on tiles next to the empty space to move them. Arrange numbers 1-8 in order.';
-                    break;
-                case 'horror-game':
-                    title = 'Dark Forest';
-                    description = 'Move your mouse to explore the dark forest with your flashlight. Find the hidden objects!';
-                    break;
-                default:
-                    title = 'Game';
-                    description = 'Enjoy this exciting game!';
-            }
-            
-            gameModalTitle.textContent = title;
-            gameInfo.textContent = 'Score: 0';
-            gameContainer.innerHTML = '';
-            
-            // Initialize the selected game
-            initGame(game);
-            
-            gameModal.style.display = 'flex';
-        }
+            // Join Community button
+            document.getElementById('joinCommunityBtn').addEventListener('click', function() {
+                window.open('https://discord.gg/8qTyHFAU', '_blank');
+            });
 
-        function initGame(gameType) {
-            currentGame = gameType;
-            
-            switch(gameType) {
-                case 'snake-game':
-                    initSnakeGame();
-                    break;
-                case 'racing-game':
-                    initRacingGame();
-                    break;
-                case 'adventure-game':
-                    initAdventureGame();
-                    break;
-                case 'puzzle-game':
-                    initPuzzleGame();
-                    break;
-                case 'horror-game':
-                    initHorrorGame();
-                    break;
-            }
-        }
+            // Modal functionality
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            const loginModal = document.getElementById('loginModal');
+            const signupModal = document.getElementById('signupModal');
+            const closeLogin = document.getElementById('closeLogin');
+            const closeSignup = document.getElementById('closeSignup');
 
-        function stopCurrentGame() {
-            if (gameInterval) {
-                clearInterval(gameInterval);
-                gameInterval = null;
-            }
-            currentGame = null;
-            currentRestartFunction = null;
-        }
+            loginBtn.addEventListener('click', () => {
+                console.log('Login clicked');
+                loginModal.style.display = 'flex';
+            });
 
-        // Enhanced Snake Game Implementation
-        function initSnakeGame() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 400;
-            canvas.height = 400;
-            canvas.id = 'snake-canvas';
-            gameContainer.appendChild(canvas);
-            
-            const ctx = canvas.getContext('2d');
-            const gridSize = 20;
-            const tileCount = canvas.width / gridSize;
-            
-            let snake = [
-                {x: 10, y: 10}
-            ];
-            let food = {};
-            let dx = 0;
-            let dy = 0;
-            let score = 0;
-            let highScore = localStorage.getItem('snakeHighScore') || 0;
-            let gameActive = true;
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            function randomFood() {
-                food = {
-                    x: Math.floor(Math.random() * tileCount),
-                    y: Math.floor(Math.random() * tileCount)
-                };
-                
-                // Make sure food doesn't spawn on snake
-                while (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
-                    food = {
-                        x: Math.floor(Math.random() * tileCount),
-                        y: Math.floor(Math.random() * tileCount)
-                    };
+            signupBtn.addEventListener('click', () => {
+                console.log('Signup clicked');
+                signupModal.style.display = 'flex';
+            });
+
+            closeLogin.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+            });
+
+            closeSignup.addEventListener('click', () => {
+                signupModal.style.display = 'none';
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) loginModal.style.display = 'none';
+                if (e.target === signupModal) signupModal.style.display = 'none';
+                if (e.target === document.getElementById('gameModal')) {
+                    document.getElementById('gameModal').style.display = 'none';
                 }
-            }
-            
-            randomFood();
-            
-            function drawGame() {
-                // Clear canvas with gradient background
-                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                gradient.addColorStop(0, '#1a1a2e');
-                gradient.addColorStop(1, '#16213e');
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw grid
-                ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-                ctx.lineWidth = 0.5;
-                for (let x = 0; x < canvas.width; x += gridSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(x, 0);
-                    ctx.lineTo(x, canvas.height);
-                    ctx.stroke();
-                }
-                for (let y = 0; y < canvas.height; y += gridSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(canvas.width, y);
-                    ctx.stroke();
-                }
-                
-                // Draw snake body
-                snake.forEach((segment, index) => {
-                    if (index === 0) {
-                        // Snake head
-                        ctx.fillStyle = '#00cec9';
-                        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
-                        
-                        // Head details
-                        ctx.fillStyle = '#2d3436';
-                        // Eyes
-                        const eyeSize = 3;
-                        ctx.fillRect(segment.x * gridSize + 5, segment.y * gridSize + 5, eyeSize, eyeSize);
-                        ctx.fillRect(segment.x * gridSize + gridSize - 8, segment.y * gridSize + 5, eyeSize, eyeSize);
+            });
+
+            // Game buttons
+            const playButtons = document.querySelectorAll('.play-btn');
+            const gameModal = document.getElementById('gameModal');
+            const gameContainer = document.getElementById('gameContainer');
+            const gameTitle = document.getElementById('gameTitle');
+            const closeGameModal = document.getElementById('closeGameModal');
+            const restartGame = document.getElementById('restartGame');
+
+            playButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const game = this.getAttribute('data-game');
+                    console.log('Playing game:', game);
+                    
+                    gameTitle.textContent = game === 'snake' ? 'Snake Adventure' : 'Speed Racer';
+                    
+                    // Simple game display
+                    if (game === 'snake') {
+                        gameContainer.innerHTML = `
+                            <div style="text-align: center; padding: 50px;">
+                                <h3>🐍 Snake Game</h3>
+                                <p>Use arrow keys to move</p>
+                                <p>Score: <span id="snakeScore">0</span></p>
+                                <canvas id="snakeCanvas" width="400" height="300" style="border: 1px solid white; margin: 20px 0;"></canvas>
+                            </div>
+                        `;
+                        initSnakeGame();
                     } else {
-                        // Snake body with gradient
-                        const gradient = ctx.createLinearGradient(
-                            segment.x * gridSize, segment.y * gridSize,
-                            segment.x * gridSize + gridSize, segment.y * gridSize + gridSize
-                        );
-                        gradient.addColorStop(0, '#00b894');
-                        gradient.addColorStop(1, '#00a085');
-                        ctx.fillStyle = gradient;
-                        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
-                        
-                        // Body pattern
-                        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-                        ctx.fillRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
+                        gameContainer.innerHTML = `
+                            <div style="text-align: center; padding: 50px;">
+                                <h3>🏎️ Racing Game</h3>
+                                <p>Use LEFT/RIGHT arrows to avoid cars</p>
+                                <p>Score: <span id="racingScore">0</span></p>
+                                <div id="racingGame" style="width: 400px; height: 300px; background: #2c3e50; margin: 20px auto; position: relative; overflow: hidden;">
+                                    <div id="playerCar" style="width: 40px; height: 60px; background: #e74c3c; position: absolute; bottom: 20px; left: 180px;"></div>
+                                </div>
+                            </div>
+                        `;
+                        initRacingGame();
                     }
+                    
+                    gameModal.style.display = 'flex';
                 });
-                
-                // Draw food (apple)
-                ctx.fillStyle = '#e74c3c';
-                ctx.beginPath();
-                ctx.arc(
-                    food.x * gridSize + gridSize/2,
-                    food.y * gridSize + gridSize/2,
-                    gridSize/2 - 2,
-                    0,
-                    Math.PI * 2
-                );
-                ctx.fill();
-                
-                // Apple stem
-                ctx.fillStyle = '#27ae60';
-                ctx.fillRect(food.x * gridSize + gridSize/2 - 1, food.y * gridSize - 2, 2, 4);
-                
-                // Apple highlight
-                ctx.fillStyle = 'rgba(255,255,255,0.3)';
-                ctx.beginPath();
-                ctx.arc(
-                    food.x * gridSize + gridSize/2 - 3,
-                    food.y * gridSize + gridSize/2 - 3,
-                    3,
-                    0,
-                    Math.PI * 2
-                );
-                ctx.fill();
-                
-                // Draw score
-                gameInfo.textContent = `Score: ${score}`;
-                highScoreDisplay.textContent = `High Score: ${highScore}`;
-            }
-            
-            function update() {
-                if (!gameActive) return;
-                
-                // Move snake
-                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-                snake.unshift(head);
-                
-                // Check if snake ate food
-                if (head.x === food.x && head.y === food.y) {
-                    score += 10;
-                    randomFood();
-                    
-                    // Update high score
-                    if (score > highScore) {
-                        highScore = score;
-                        localStorage.setItem('snakeHighScore', highScore);
-                    }
-                } else {
-                    snake.pop();
-                }
-                
-                // Check for game over
-                if (
-                    head.x < 0 || 
-                    head.y < 0 || 
-                    head.x >= tileCount || 
-                    head.y >= tileCount ||
-                    snake.slice(1).some(part => part.x === head.x && part.y === head.y)
-                ) {
-                    gameOver();
-                    return;
-                }
-                
-                drawGame();
-            }
-            
-            function gameOver() {
-                gameActive = false;
-                clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${score}`;
-                if (score > highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${score}!`;
-                }
-            }
-            
-            function restartGame() {
-                snake = [{x: 10, y: 10}];
-                dx = 0;
-                dy = 0;
-                score = 0;
-                gameActive = true;
-                randomFood();
-                gameInfo.textContent = `Score: ${score}`;
-                if (gameInterval) {
-                    clearInterval(gameInterval);
-                }
-                drawGame();
-                gameInterval = setInterval(update, 150);
-            }
-            
-            function changeDirection(e) {
-                // Prevent reverse direction
-                if (e.key === 'ArrowLeft' && dx === 0) {
-                    dx = -1;
-                    dy = 0;
-                }
-                if (e.key === 'ArrowUp' && dy === 0) {
-                    dx = 0;
-                    dy = -1;
-                }
-                if (e.key === 'ArrowRight' && dx === 0) {
-                    dx = 1;
-                    dy = 0;
-                }
-                if (e.key === 'ArrowDown' && dy === 0) {
-                    dx = 0;
-                    dy = 1;
-                }
-            }
-            
-            document.addEventListener('keydown', changeDirection);
-            drawGame();
-            gameInterval = setInterval(update, 150);
-            
-            // Store restart function for this game
-            currentRestartFunction = restartGame;
-        }
+            });
 
-        // Enhanced Racing Game Implementation
-        function initRacingGame() {
-            gameContainer.id = 'racing-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #2c3e50, #34495e)';
-            
-            // Road with lines
-            const road = document.createElement('div');
-            road.className = 'road';
-            road.style.background = 'linear-gradient(135deg, #34495e, #2c3e50)';
-            gameContainer.appendChild(road);
-            
-            const roadLines = document.createElement('div');
-            roadLines.className = 'road-lines';
-            gameContainer.appendChild(roadLines);
-            
-            // Player car
-            const playerCar = document.createElement('div');
-            playerCar.className = 'player-car';
-            playerCar.style.width = '50px';
-            playerCar.style.height = '80px';
-            gameContainer.appendChild(playerCar);
-            
-            let playerX = 175;
-            let obstacles = [];
-            let score = 0;
-            let gameSpeed = 5;
-            let highScore = localStorage.getItem('racingHighScore') || 0;
-            let gameActive = true;
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            function updateGame() {
-                if (!gameActive) return;
-                
-                // Move obstacles
-                obstacles.forEach((obstacle, index) => {
-                    obstacle.style.top = `${parseInt(obstacle.style.top || -80) + gameSpeed}px`;
+            closeGameModal.addEventListener('click', () => {
+                gameModal.style.display = 'none';
+            });
+
+            restartGame.addEventListener('click', () => {
+                alert('Game restarted!');
+            });
+
+            // Profile menu
+            const profileButtons = document.querySelectorAll('.profile-menu-btn');
+            profileButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    profileButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
                     
-                    // Check collision
-                    const obstacleRect = obstacle.getBoundingClientRect();
-                    const playerRect = playerCar.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < obstacleRect.right - 10 &&
-                        playerRect.right - 10 > obstacleRect.left &&
-                        playerRect.top < obstacleRect.bottom - 10 &&
-                        playerRect.bottom - 10 > obstacleRect.top
-                    ) {
-                        gameOver();
-                        return;
-                    }
-                    
-                    // Remove obstacles that are off screen
-                    if (parseInt(obstacle.style.top) > 400) {
-                        obstacle.remove();
-                        obstacles.splice(index, 1);
-                        score += 10;
-                        gameInfo.textContent = `Score: ${score}`;
-                        
-                        // Update high score
-                        if (score > highScore) {
-                            highScore = score;
-                            localStorage.setItem('racingHighScore', highScore);
-                            highScoreDisplay.textContent = `High Score: ${highScore}`;
-                        }
-                    }
+                    document.getElementById('info-tab').style.display = 'none';
+                    document.getElementById('password-tab').style.display = 'none';
+                    document.getElementById(tab + '-tab').style.display = 'block';
                 });
-                
-                // Add new obstacles randomly
-                if (Math.random() < 0.03) {
-                    createObstacle();
-                }
-                
-                // Increase difficulty
-                if (score > 0 && score % 50 === 0) {
-                    gameSpeed = 5 + Math.floor(score / 50);
-                }
-                
-                // Update player position
-                playerCar.style.left = `${playerX}px`;
-                playerCar.style.bottom = '50px';
-            }
-            
-            function createObstacle() {
-                const obstacle = document.createElement('div');
-                obstacle.className = 'obstacle-car';
-                obstacle.style.width = '50px';
-                obstacle.style.height = '80px';
-                obstacle.style.left = `${Math.random() * 350}px`;
-                obstacle.style.top = '-80px';
-                obstacle.style.position = 'absolute';
-                gameContainer.appendChild(obstacle);
-                obstacles.push(obstacle);
-            }
-            
-            function gameOver() {
-                gameActive = false;
-                clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${score}`;
-                if (score > highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${score}!`;
-                }
-            }
-            
-            function restartGame() {
-                // Clear obstacles
-                obstacles.forEach(obstacle => obstacle.remove());
-                obstacles = [];
-                
-                // Reset game state
-                playerX = 175;
-                score = 0;
-                gameSpeed = 5;
-                gameActive = true;
-                
-                // Update displays
-                gameInfo.textContent = `Score: ${score}`;
-                playerCar.style.left = `${playerX}px`;
-                
-                // Create first obstacle
-                createObstacle();
-                
-                // Restart game loop
-                if (gameInterval) {
-                    clearInterval(gameInterval);
-                }
-                gameInterval = setInterval(updateGame, 50);
-            }
-            
-            function handleKeyPress(e) {
-                if (e.key === 'ArrowLeft' && playerX > 0) {
-                    playerX -= 20;
-                }
-                if (e.key === 'ArrowRight' && playerX < 350) {
-                    playerX += 20;
-                }
-            }
-            
-            document.addEventListener('keydown', handleKeyPress);
-            createObstacle();
-            gameInterval = setInterval(updateGame, 50);
-            
-            // Store restart function for this game
-            currentRestartFunction = restartGame;
-        }
+            });
 
-        // Simple implementations for other games
-        function initAdventureGame() {
-            gameContainer.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%;"><h3>Adventure Game Coming Soon!</h3></div>';
-            currentRestartFunction = () => initAdventureGame();
-        }
-
-        function initPuzzleGame() {
-            gameContainer.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%;"><h3>Puzzle Game Coming Soon!</h3></div>';
-            currentRestartFunction = () => initPuzzleGame();
-        }
-
-        function initHorrorGame() {
-            gameContainer.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%;"><h3>Horror Game Coming Soon!</h3></div>';
-            currentRestartFunction = () => initHorrorGame();
-        }
-
-        // Restart button functionality
-        restartGameBtn.addEventListener('click', () => {
-            if (currentRestartFunction) {
-                currentRestartFunction();
-            }
-        });
-
-        closeGameModal.addEventListener('click', () => {
-            gameModal.style.display = 'none';
-            stopCurrentGame();
-        });
-
-        // Newsletter form
-        const newsletterForm = document.getElementById('newsletterForm');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', function(e) {
+            // Form submissions
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const emailInput = this.querySelector('input[type="email"]');
-                if (emailInput.value && emailInput.value.includes('@')) {
-                    alert('Thank you for subscribing to our newsletter!');
-                    emailInput.value = '';
-                } else {
-                    alert('Please enter a valid email address.');
-                }
+                alert('Login successful!');
+                loginModal.style.display = 'none';
+                
+                // Show profile nav and logout button
+                document.getElementById('profileNav').style.display = 'block';
+                document.getElementById('logoutBtn').style.display = 'block';
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('signupBtn').style.display = 'none';
+                
+                // Update profile info
+                document.getElementById('profileName').textContent = 'KharBouch User';
+                document.getElementById('profileEmail').textContent = document.getElementById('loginEmail').value;
             });
-        }
 
-        // Add hover effect to game cards
-        const gameCards = document.querySelectorAll('.game-card');
-        gameCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px)';
+            document.getElementById('signupForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Account created successfully!');
+                signupModal.style.display = 'none';
             });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
+
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                alert('Logged out!');
+                document.getElementById('profileNav').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'none';
+                document.getElementById('loginBtn').style.display = 'block';
+                document.getElementById('signupBtn').style.display = 'block';
             });
+
+            // Simple Snake Game
+            function initSnakeGame() {
+                const canvas = document.getElementById('snakeCanvas');
+                const ctx = canvas.getContext('2d');
+                const scoreElement = document.getElementById('snakeScore');
+                
+                let score = 0;
+                scoreElement.textContent = score;
+                
+                ctx.fillStyle = '#00b894';
+                ctx.fillRect(50, 50, 20, 20);
+                ctx.fillStyle = '#e74c3c';
+                ctx.fillRect(100, 100, 20, 20);
+                
+                ctx.fillStyle = 'white';
+                ctx.font = '16px Arial';
+                ctx.fillText('Move with arrow keys!', 120, 50);
+            }
+
+            // Simple Racing Game
+            function initRacingGame() {
+                const scoreElement = document.getElementById('racingScore');
+                let score = 0;
+                scoreElement.textContent = score;
+                
+                // Simple car movement
+                document.addEventListener('keydown', function(e) {
+                    const playerCar = document.getElementById('playerCar');
+                    let left = parseInt(playerCar.style.left);
+                    
+                    if (e.key === 'ArrowLeft' && left > 0) {
+                        playerCar.style.left = (left - 20) + 'px';
+                        score++;
+                        scoreElement.textContent = score;
+                    }
+                    if (e.key === 'ArrowRight' && left < 360) {
+                        playerCar.style.left = (left + 20) + 'px';
+                        score++;
+                        scoreElement.textContent = score;
+                    }
+                });
+            }
+
+            console.log('All event listeners attached!');
         });
-
-        // Initialize the website
-        checkLoggedInUser();
     </script>
 </body>
 </html>
