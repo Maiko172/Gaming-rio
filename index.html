@@ -622,149 +622,213 @@
             overflow: hidden;
         }
 
-        /* Snake Game */
-        #snake-game {
-            background-color: #1a1a2e;
+        /* Enhanced Snake Game */
+        .snake-segment {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0, 184, 148, 0.5);
         }
-
-        #snake-canvas {
-            display: block;
-            margin: 0 auto;
-            background-color: #16213e;
+        
+        .snake-head {
+            background: linear-gradient(135deg, #00cec9, #00b894);
+            border-radius: 5px;
+            box-shadow: 0 0 8px rgba(0, 206, 201, 0.7);
         }
-
-        /* Racing Game */
-        #racing-game {
-            background-color: #2c3e50;
-            position: relative;
-            overflow: hidden;
+        
+        .apple {
+            background: radial-gradient(circle at 30% 30%, #e74c3c, #c0392b);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
+            animation: pulse 1.5s infinite alternate;
         }
-
-        .road {
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+        
+        /* Enhanced Racing Game */
+        .road-lines {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, #34495e 0%, #34495e 50%, #2c3e50 50%, #2c3e50 100%);
-            background-size: 50px 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 40px,
+                #f1c40f 40px,
+                #f1c40f 80px
+            );
         }
-
+        
         .player-car {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 70px;
-            background-color: #e74c3c;
-            border-radius: 5px;
-        }
-
-        .obstacle {
-            position: absolute;
-            width: 40px;
-            height: 70px;
-            background-color: #3498db;
-            border-radius: 5px;
-        }
-
-        /* Adventure Game */
-        #adventure-game {
-            background-color: #1e5128;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 8px 8px 15px 15px;
             position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-
+        
+        .player-car::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            right: 5px;
+            height: 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+        
+        .player-car::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            height: 8px;
+            background: #2c3e50;
+            border-radius: 2px;
+        }
+        
+        .obstacle-car {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 8px 8px 15px 15px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .obstacle-car::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            right: 5px;
+            height: 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+        
+        .obstacle-car::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            height: 8px;
+            background: #2c3e50;
+            border-radius: 2px;
+        }
+        
+        /* Enhanced Adventure Game */
         .adventure-player {
-            position: absolute;
-            bottom: 50px;
-            left: 50px;
-            width: 40px;
-            height: 60px;
-            background-color: #8b4513;
-            border-radius: 5px;
-        }
-
-        .adventure-obstacle {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: #4a0404;
-            border-radius: 50%;
-        }
-
-        .adventure-collectible {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: gold;
-            border-radius: 50%;
-        }
-
-        /* Puzzle Game */
-        #puzzle-game {
-            background-color: #2c2c54;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .puzzle-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 5px;
-            width: 300px;
-            height: 300px;
-        }
-
-        .puzzle-piece {
-            background-color: #706fd3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .puzzle-piece:hover {
-            background-color: #5d5bc1;
-        }
-
-        .puzzle-piece.empty {
-            background-color: transparent;
-            cursor: default;
-        }
-
-        /* Horror Game */
-        #horror-game {
-            background-color: #000;
+            background: linear-gradient(135deg, #8b4513, #654321);
+            border-radius: 8px;
             position: relative;
-            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .adventure-player::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            right: 10px;
+            height: 8px;
+            background: #d35400;
+            border-radius: 3px;
+        }
+        
+        .treasure {
+            background: radial-gradient(circle at 30% 30%, gold, #daa520);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            animation: spin 3s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .enemy {
+            background: radial-gradient(circle at 30% 30%, #e74c3c, #c0392b);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
+            animation: bounce 2s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-5px); }
+        }
+        
+        /* Enhanced Puzzle Game */
+        .puzzle-piece {
+            background: linear-gradient(135deg, #706fd3, #5d5bc1);
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .puzzle-piece:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* Enhanced Horror Game */
+        .ghost {
+            background: radial-gradient(circle at 30% 30%, #ffffff, #bdc3c7);
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .ghost::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: 
+                radial-gradient(circle at 20% 0, transparent 15px, #bdc3c7 16px),
+                radial-gradient(circle at 40% 0, transparent 15px, #bdc3c7 16px),
+                radial-gradient(circle at 60% 0, transparent 15px, #bdc3c7 16px),
+                radial-gradient(circle at 80% 0, transparent 15px, #bdc3c7 16px);
+        }
+        
+        .ghost::after {
+            content: '👻';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .score-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .high-score {
+            color: gold;
+            font-size: 1rem;
+            margin-bottom: 5px;
         }
 
-        .flashlight {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            mix-blend-mode: screen;
-        }
-
-        .horror-element {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: #8b0000;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
+        .game-info {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--secondary);
         }
 
         /* Game Controls */
@@ -773,12 +837,6 @@
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
-        }
-
-        .game-info {
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            color: var(--secondary);
         }
 
         /* Section Visibility */
@@ -1552,7 +1610,7 @@
             currentGame = null;
         }
 
-        // Snake Game Implementation
+        // Enhanced Snake Game Implementation
         function initSnakeGame() {
             const canvas = document.createElement('canvas');
             canvas.width = 400;
@@ -1571,33 +1629,116 @@
             let dx = 0;
             let dy = 0;
             let score = 0;
+            let highScore = localStorage.getItem('snakeHighScore') || 0;
+            
+            // Display high score
+            const highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function randomFood() {
                 food = {
                     x: Math.floor(Math.random() * tileCount),
                     y: Math.floor(Math.random() * tileCount)
                 };
+                
+                // Make sure food doesn't spawn on snake
+                while (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
+                    food = {
+                        x: Math.floor(Math.random() * tileCount),
+                        y: Math.floor(Math.random() * tileCount)
+                    };
+                }
             }
             
             randomFood();
             
             function drawGame() {
-                // Clear canvas
-                ctx.fillStyle = '#16213e';
+                // Clear canvas with gradient background
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, '#1a1a2e');
+                gradient.addColorStop(1, '#16213e');
+                ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Draw snake
-                ctx.fillStyle = '#00b894';
-                for (let part of snake) {
-                    ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize-2, gridSize-2);
+                // Draw grid
+                ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+                ctx.lineWidth = 0.5;
+                for (let x = 0; x < canvas.width; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < canvas.height; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
                 }
                 
-                // Draw food
+                // Draw snake body
+                snake.forEach((segment, index) => {
+                    if (index === 0) {
+                        // Snake head
+                        ctx.fillStyle = '#00cec9';
+                        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+                        
+                        // Head details
+                        ctx.fillStyle = '#2d3436';
+                        // Eyes
+                        const eyeSize = 3;
+                        ctx.fillRect(segment.x * gridSize + 5, segment.y * gridSize + 5, eyeSize, eyeSize);
+                        ctx.fillRect(segment.x * gridSize + gridSize - 8, segment.y * gridSize + 5, eyeSize, eyeSize);
+                    } else {
+                        // Snake body with gradient
+                        const gradient = ctx.createLinearGradient(
+                            segment.x * gridSize, segment.y * gridSize,
+                            segment.x * gridSize + gridSize, segment.y * gridSize + gridSize
+                        );
+                        gradient.addColorStop(0, '#00b894');
+                        gradient.addColorStop(1, '#00a085');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+                        
+                        // Body pattern
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                        ctx.fillRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
+                    }
+                });
+                
+                // Draw food (apple)
                 ctx.fillStyle = '#e74c3c';
-                ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize-2, gridSize-2);
+                ctx.beginPath();
+                ctx.arc(
+                    food.x * gridSize + gridSize/2,
+                    food.y * gridSize + gridSize/2,
+                    gridSize/2 - 2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+                
+                // Apple stem
+                ctx.fillStyle = '#27ae60';
+                ctx.fillRect(food.x * gridSize + gridSize/2 - 1, food.y * gridSize - 2, 2, 4);
+                
+                // Apple highlight
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.beginPath();
+                ctx.arc(
+                    food.x * gridSize + gridSize/2 - 3,
+                    food.y * gridSize + gridSize/2 - 3,
+                    3,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
                 
                 // Draw score
                 gameInfo.textContent = `Score: ${score}`;
+                highScoreDisplay.textContent = `High Score: ${highScore}`;
             }
             
             function update() {
@@ -1609,6 +1750,12 @@
                 if (head.x === food.x && head.y === food.y) {
                     score += 10;
                     randomFood();
+                    
+                    // Update high score
+                    if (score > highScore) {
+                        highScore = score;
+                        localStorage.setItem('snakeHighScore', highScore);
+                    }
                 } else {
                     snake.pop();
                 }
@@ -1631,25 +1778,25 @@
             function gameOver() {
                 clearInterval(gameInterval);
                 gameInfo.textContent = `Game Over! Final Score: ${score}`;
+                if (score > highScore) {
+                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                }
             }
             
             function changeDirection(e) {
-                // Left arrow key
+                // Prevent reverse direction
                 if (e.key === 'ArrowLeft' && dx === 0) {
                     dx = -1;
                     dy = 0;
                 }
-                // Up arrow key
                 if (e.key === 'ArrowUp' && dy === 0) {
                     dx = 0;
                     dy = -1;
                 }
-                // Right arrow key
                 if (e.key === 'ArrowRight' && dx === 0) {
                     dx = 1;
                     dy = 0;
                 }
-                // Down arrow key
                 if (e.key === 'ArrowDown' && dy === 0) {
                     dx = 0;
                     dy = 1;
@@ -1661,37 +1808,54 @@
             gameInterval = setInterval(update, 150);
         }
 
-        // Racing Game Implementation
+        // Enhanced Racing Game Implementation
         function initRacingGame() {
             gameContainer.id = 'racing-game';
+            gameContainer.style.background = 'linear-gradient(135deg, #2c3e50, #34495e)';
             
+            // Road with lines
             const road = document.createElement('div');
             road.className = 'road';
+            road.style.background = 'linear-gradient(135deg, #34495e, #2c3e50)';
             gameContainer.appendChild(road);
             
+            const roadLines = document.createElement('div');
+            roadLines.className = 'road-lines';
+            gameContainer.appendChild(roadLines);
+            
+            // Player car
             const playerCar = document.createElement('div');
             playerCar.className = 'player-car';
+            playerCar.style.width = '50px';
+            playerCar.style.height = '80px';
             gameContainer.appendChild(playerCar);
             
-            let playerX = 180;
+            let playerX = 175;
             let obstacles = [];
             let score = 0;
             let gameSpeed = 5;
+            let highScore = localStorage.getItem('racingHighScore') || 0;
+            
+            // Display high score
+            const highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function updateGame() {
                 // Move obstacles
                 obstacles.forEach((obstacle, index) => {
-                    obstacle.style.top = `${parseInt(obstacle.style.top || 0) + gameSpeed}px`;
+                    obstacle.style.top = `${parseInt(obstacle.style.top || -80) + gameSpeed}px`;
                     
                     // Check collision
                     const obstacleRect = obstacle.getBoundingClientRect();
                     const playerRect = playerCar.getBoundingClientRect();
                     
                     if (
-                        playerRect.left < obstacleRect.right &&
-                        playerRect.right > obstacleRect.left &&
-                        playerRect.top < obstacleRect.bottom &&
-                        playerRect.bottom > obstacleRect.top
+                        playerRect.left < obstacleRect.right - 10 &&
+                        playerRect.right - 10 > obstacleRect.left &&
+                        playerRect.top < obstacleRect.bottom - 10 &&
+                        playerRect.bottom - 10 > obstacleRect.top
                     ) {
                         gameOver();
                         return;
@@ -1701,13 +1865,20 @@
                     if (parseInt(obstacle.style.top) > 400) {
                         obstacle.remove();
                         obstacles.splice(index, 1);
-                        score += 5;
+                        score += 10;
                         gameInfo.textContent = `Score: ${score}`;
+                        
+                        // Update high score
+                        if (score > highScore) {
+                            highScore = score;
+                            localStorage.setItem('racingHighScore', highScore);
+                            highScoreDisplay.textContent = `High Score: ${highScore}`;
+                        }
                     }
                 });
                 
                 // Add new obstacles randomly
-                if (Math.random() < 0.05) {
+                if (Math.random() < 0.03) {
                     createObstacle();
                 }
                 
@@ -1715,13 +1886,20 @@
                 if (score > 0 && score % 50 === 0) {
                     gameSpeed = 5 + Math.floor(score / 50);
                 }
+                
+                // Update player position
+                playerCar.style.left = `${playerX}px`;
+                playerCar.style.bottom = '50px';
             }
             
             function createObstacle() {
                 const obstacle = document.createElement('div');
-                obstacle.className = 'obstacle';
-                obstacle.style.left = `${Math.random() * 360}px`;
-                obstacle.style.top = '0px';
+                obstacle.className = 'obstacle-car';
+                obstacle.style.width = '50px';
+                obstacle.style.height = '80px';
+                obstacle.style.left = `${Math.random() * 350}px`;
+                obstacle.style.top = '-80px';
+                obstacle.style.position = 'absolute';
                 gameContainer.appendChild(obstacle);
                 obstacles.push(obstacle);
             }
@@ -1729,146 +1907,202 @@
             function gameOver() {
                 clearInterval(gameInterval);
                 gameInfo.textContent = `Game Over! Final Score: ${score}`;
+                if (score > highScore) {
+                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                }
             }
             
             function handleKeyPress(e) {
                 if (e.key === 'ArrowLeft' && playerX > 0) {
                     playerX -= 20;
                 }
-                if (e.key === 'ArrowRight' && playerX < 360) {
+                if (e.key === 'ArrowRight' && playerX < 350) {
                     playerX += 20;
                 }
-                playerCar.style.left = `${playerX}px`;
             }
             
             document.addEventListener('keydown', handleKeyPress);
+            createObstacle();
             gameInterval = setInterval(updateGame, 50);
         }
 
-        // Adventure Game Implementation
+        // Enhanced Adventure Game Implementation
         function initAdventureGame() {
             gameContainer.id = 'adventure-game';
+            gameContainer.style.background = 'linear-gradient(135deg, #1e5128, #2d5a27)';
             
             const player = document.createElement('div');
             player.className = 'adventure-player';
+            player.style.width = '40px';
+            player.style.height = '60px';
             gameContainer.appendChild(player);
             
             let playerX = 50;
             let playerY = 300;
-            let collectibles = [];
-            let obstacles = [];
+            let treasures = [];
+            let enemies = [];
             let score = 0;
+            let highScore = localStorage.getItem('adventureHighScore') || 0;
+            
+            // Display high score
+            const highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function updateGame() {
-                // Check collisions with collectibles
-                collectibles.forEach((collectible, index) => {
-                    const collectibleRect = collectible.getBoundingClientRect();
+                // Check collisions with treasures
+                treasures.forEach((treasure, index) => {
+                    const treasureRect = treasure.getBoundingClientRect();
                     const playerRect = player.getBoundingClientRect();
                     
                     if (
-                        playerRect.left < collectibleRect.right &&
-                        playerRect.right > collectibleRect.left &&
-                        playerRect.top < collectibleRect.bottom &&
-                        playerRect.bottom > collectibleRect.top
+                        playerRect.left < treasureRect.right &&
+                        playerRect.right > treasureRect.left &&
+                        playerRect.top < treasureRect.bottom &&
+                        playerRect.bottom > treasureRect.top
                     ) {
-                        collectible.remove();
-                        collectibles.splice(index, 1);
-                        score += 10;
+                        treasure.remove();
+                        treasures.splice(index, 1);
+                        score += 20;
                         gameInfo.textContent = `Score: ${score}`;
+                        
+                        // Update high score
+                        if (score > highScore) {
+                            highScore = score;
+                            localStorage.setItem('adventureHighScore', highScore);
+                            highScoreDisplay.textContent = `High Score: ${highScore}`;
+                        }
                     }
                 });
                 
-                // Check collisions with obstacles
-                obstacles.forEach((obstacle) => {
-                    const obstacleRect = obstacle.getBoundingClientRect();
+                // Check collisions with enemies
+                enemies.forEach((enemy) => {
+                    const enemyRect = enemy.getBoundingClientRect();
                     const playerRect = player.getBoundingClientRect();
                     
                     if (
-                        playerRect.left < obstacleRect.right &&
-                        playerRect.right > obstacleRect.left &&
-                        playerRect.top < obstacleRect.bottom &&
-                        playerRect.bottom > obstacleRect.top
+                        playerRect.left < enemyRect.right - 5 &&
+                        playerRect.right - 5 > enemyRect.left &&
+                        playerRect.top < enemyRect.bottom - 5 &&
+                        playerRect.bottom - 5 > enemyRect.top
                     ) {
                         gameOver();
                         return;
                     }
                 });
                 
-                // Add new collectibles and obstacles randomly
-                if (Math.random() < 0.03) {
-                    createCollectible();
-                }
+                // Add new treasures and enemies randomly
                 if (Math.random() < 0.02) {
-                    createObstacle();
+                    createTreasure();
                 }
+                if (Math.random() < 0.015) {
+                    createEnemy();
+                }
+                
+                // Update player position
+                player.style.left = `${playerX}px`;
+                player.style.top = `${playerY}px`;
             }
             
-            function createCollectible() {
-                const collectible = document.createElement('div');
-                collectible.className = 'adventure-collectible';
-                collectible.style.left = `${Math.random() * 360}px`;
-                collectible.style.top = `${Math.random() * 360}px`;
-                gameContainer.appendChild(collectible);
-                collectibles.push(collectible);
+            function createTreasure() {
+                const treasure = document.createElement('div');
+                treasure.className = 'treasure';
+                treasure.style.width = '25px';
+                treasure.style.height = '25px';
+                treasure.style.left = `${Math.random() * 375}px`;
+                treasure.style.top = `${Math.random() * 375}px`;
+                treasure.style.position = 'absolute';
+                gameContainer.appendChild(treasure);
+                treasures.push(treasure);
             }
             
-            function createObstacle() {
-                const obstacle = document.createElement('div');
-                obstacle.className = 'adventure-obstacle';
-                obstacle.style.left = `${Math.random() * 360}px`;
-                obstacle.style.top = `${Math.random() * 360}px`;
-                gameContainer.appendChild(obstacle);
-                obstacles.push(obstacle);
+            function createEnemy() {
+                const enemy = document.createElement('div');
+                enemy.className = 'enemy';
+                enemy.style.width = '35px';
+                enemy.style.height = '35px';
+                enemy.style.left = `${Math.random() * 365}px`;
+                enemy.style.top = `${Math.random() * 365}px`;
+                enemy.style.position = 'absolute';
+                gameContainer.appendChild(enemy);
+                enemies.push(enemy);
             }
             
             function gameOver() {
                 clearInterval(gameInterval);
                 gameInfo.textContent = `Game Over! Final Score: ${score}`;
+                if (score > highScore) {
+                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                }
             }
             
             function handleKeyPress(e) {
                 if (e.key === 'ArrowLeft' && playerX > 0) {
-                    playerX -= 10;
+                    playerX -= 8;
                 }
                 if (e.key === 'ArrowRight' && playerX < 360) {
-                    playerX += 10;
+                    playerX += 8;
                 }
                 if (e.key === 'ArrowUp' && playerY > 0) {
-                    playerY -= 10;
+                    playerY -= 8;
                 }
                 if (e.key === 'ArrowDown' && playerY < 340) {
-                    playerY += 10;
+                    playerY += 8;
                 }
-                
-                player.style.left = `${playerX}px`;
-                player.style.top = `${playerY}px`;
             }
             
             document.addEventListener('keydown', handleKeyPress);
-            createCollectible();
-            createCollectible();
-            createObstacle();
+            createTreasure();
+            createTreasure();
+            createEnemy();
             gameInterval = setInterval(updateGame, 100);
         }
 
-        // Puzzle Game Implementation
+        // Enhanced Puzzle Game Implementation
         function initPuzzleGame() {
             gameContainer.id = 'puzzle-game';
+            gameContainer.style.background = 'linear-gradient(135deg, #2c2c54, #40407a)';
             
             const puzzleContainer = document.createElement('div');
             puzzleContainer.className = 'puzzle-container';
             gameContainer.appendChild(puzzleContainer);
             
-            let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 0]; // 0 represents empty space
+            let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 0];
             let emptyIndex = 8;
+            let moves = 0;
+            let highScore = localStorage.getItem('puzzleHighScore') || 'N/A';
+            
+            // Display high score
+            const highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `Best Time: ${highScore} moves`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function shuffleTiles() {
-                for (let i = tiles.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
-                }
-                emptyIndex = tiles.indexOf(0);
+                do {
+                    for (let i = tiles.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+                    }
+                    emptyIndex = tiles.indexOf(0);
+                } while (!isSolvable() || isPuzzleSolved());
+                
+                moves = 0;
+                gameInfo.textContent = `Moves: ${moves}`;
                 renderTiles();
+            }
+            
+            function isSolvable() {
+                let inversions = 0;
+                for (let i = 0; i < tiles.length; i++) {
+                    for (let j = i + 1; j < tiles.length; j++) {
+                        if (tiles[i] !== 0 && tiles[j] !== 0 && tiles[i] > tiles[j]) {
+                            inversions++;
+                        }
+                    }
+                }
+                return inversions % 2 === 0;
             }
             
             function renderTiles() {
@@ -1877,27 +2111,17 @@
                     const tileElement = document.createElement('div');
                     tileElement.className = tile === 0 ? 'puzzle-piece empty' : 'puzzle-piece';
                     tileElement.textContent = tile === 0 ? '' : tile;
+                    tileElement.style.background = tile === 0 ? 'transparent' : 
+                        `linear-gradient(135deg, hsl(${tile * 40}, 70%, 60%), hsl(${tile * 40}, 70%, 50%))`;
                     tileElement.addEventListener('click', () => moveTile(index));
                     puzzleContainer.appendChild(tileElement);
                 });
-                
-                // Check if puzzle is solved
-                if (isPuzzleSolved()) {
-                    gameInfo.textContent = 'Congratulations! Puzzle solved!';
-                }
             }
             
             function moveTile(index) {
-                // Check if the clicked tile is adjacent to the empty space
-                const adjacentIndexes = [
-                    emptyIndex - 1, // left
-                    emptyIndex + 1, // right
-                    emptyIndex - 3, // up
-                    emptyIndex + 3  // down
-                ];
+                const adjacentIndexes = [emptyIndex - 1, emptyIndex + 1, emptyIndex - 3, emptyIndex + 3];
                 
                 if (adjacentIndexes.includes(index)) {
-                    // Check if the move is valid (not wrapping around rows)
                     const emptyRow = Math.floor(emptyIndex / 3);
                     const clickedRow = Math.floor(index / 3);
                     const emptyCol = emptyIndex % 3;
@@ -1905,10 +2129,22 @@
                     
                     if ((emptyRow === clickedRow && Math.abs(emptyCol - clickedCol) === 1) ||
                         (emptyCol === clickedCol && Math.abs(emptyRow - clickedRow) === 1)) {
-                        // Swap tiles
                         [tiles[emptyIndex], tiles[index]] = [tiles[index], tiles[emptyIndex]];
                         emptyIndex = index;
+                        moves++;
+                        gameInfo.textContent = `Moves: ${moves}`;
                         renderTiles();
+                        
+                        if (isPuzzleSolved()) {
+                            if (highScore === 'N/A' || moves < parseInt(highScore)) {
+                                highScore = moves;
+                                localStorage.setItem('puzzleHighScore', highScore);
+                                highScoreDisplay.textContent = `New Best Time: ${moves} moves!`;
+                            } else {
+                                highScoreDisplay.textContent = `Best Time: ${highScore} moves`;
+                            }
+                            gameInfo.textContent = `Solved in ${moves} moves!`;
+                        }
                     }
                 }
             }
@@ -1925,29 +2161,41 @@
             shuffleTiles();
         }
 
-        // Horror Game Implementation
+        // Enhanced Horror Game Implementation
         function initHorrorGame() {
             gameContainer.id = 'horror-game';
+            gameContainer.style.background = 'radial-gradient(circle at center, #1a1a1a, #000)';
             
             const flashlight = document.createElement('div');
             flashlight.className = 'flashlight';
             gameContainer.appendChild(flashlight);
             
-            const horrorElements = [];
+            const ghosts = [];
             let score = 0;
-            let foundElements = 0;
-            const totalElements = 5;
+            let foundGhosts = 0;
+            const totalGhosts = 8;
+            let highScore = localStorage.getItem('horrorHighScore') || 0;
             
-            // Create hidden elements
-            for (let i = 0; i < totalElements; i++) {
-                const element = document.createElement('div');
-                element.className = 'horror-element';
-                element.textContent = '👻';
-                element.style.left = `${Math.random() * 350}px`;
-                element.style.top = `${Math.random() * 350}px`;
-                element.style.display = 'none';
-                gameContainer.appendChild(element);
-                horrorElements.push(element);
+            // Display high score
+            const highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
+            
+            // Create hidden ghosts
+            for (let i = 0; i < totalGhosts; i++) {
+                const ghost = document.createElement('div');
+                ghost.className = 'ghost';
+                ghost.style.width = '40px';
+                ghost.style.height = '50px';
+                ghost.style.left = `${Math.random() * 360}px`;
+                ghost.style.top = `${Math.random() * 350}px`;
+                ghost.style.position = 'absolute';
+                ghost.style.display = 'none';
+                ghost.style.opacity = '0';
+                ghost.style.transition = 'opacity 0.5s';
+                gameContainer.appendChild(ghost);
+                ghosts.push(ghost);
             }
             
             function updateFlashlight(e) {
@@ -1958,32 +2206,51 @@
                 flashlight.style.left = `${x - 100}px`;
                 flashlight.style.top = `${y - 100}px`;
                 
-                // Check if flashlight reveals any elements
-                horrorElements.forEach(element => {
-                    const elementRect = element.getBoundingClientRect();
+                // Check if flashlight reveals any ghosts
+                ghosts.forEach(ghost => {
+                    const ghostRect = ghost.getBoundingClientRect();
                     const flashlightRect = flashlight.getBoundingClientRect();
                     
                     if (
-                        flashlightRect.left < elementRect.right &&
-                        flashlightRect.right > elementRect.left &&
-                        flashlightRect.top < elementRect.bottom &&
-                        flashlightRect.bottom > elementRect.top
+                        flashlightRect.left < ghostRect.right &&
+                        flashlightRect.right > ghostRect.left &&
+                        flashlightRect.top < ghostRect.bottom &&
+                        flashlightRect.bottom > ghostRect.top
                     ) {
-                        if (element.style.display === 'none') {
-                            element.style.display = 'flex';
-                            foundElements++;
-                            score += 20;
-                            gameInfo.textContent = `Found: ${foundElements}/${totalElements} - Score: ${score}`;
+                        if (ghost.style.opacity === '0') {
+                            ghost.style.display = 'flex';
+                            ghost.style.opacity = '1';
+                            foundGhosts++;
+                            score += 25;
+                            gameInfo.textContent = `Found: ${foundGhosts}/${totalGhosts} - Score: ${score}`;
                             
-                            if (foundElements === totalElements) {
-                                gameInfo.textContent = `You found all ghosts! Final Score: ${score}`;
+                            // Update high score
+                            if (score > highScore) {
+                                highScore = score;
+                                localStorage.setItem('horrorHighScore', highScore);
+                                highScoreDisplay.textContent = `High Score: ${highScore}`;
+                            }
+                            
+                            if (foundGhosts === totalGhosts) {
+                                gameInfo.textContent = `All ghosts found! Final Score: ${score}`;
+                                if (score > highScore) {
+                                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                                }
                             }
                         }
+                    } else if (ghost.style.opacity === '1') {
+                        ghost.style.opacity = '0';
+                        setTimeout(() => {
+                            if (ghost.style.opacity === '0') {
+                                ghost.style.display = 'none';
+                            }
+                        }, 500);
                     }
                 });
             }
             
             gameContainer.addEventListener('mousemove', updateFlashlight);
+            gameInfo.textContent = `Found: 0/${totalGhosts} - Score: 0`;
         }
 
         closeGameModal.addEventListener('click', () => {
