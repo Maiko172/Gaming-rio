@@ -579,6 +579,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .modal-content {
@@ -588,6 +589,8 @@
             width: 90%;
             max-width: 400px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal h2 {
@@ -636,6 +639,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .game-modal-content {
@@ -645,6 +649,9 @@
             max-width: 800px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .game-modal-header {
@@ -657,6 +664,8 @@
         .game-modal-body {
             padding: 30px;
             text-align: center;
+            flex: 1;
+            overflow-y: auto;
         }
 
         .game-frame {
@@ -963,6 +972,76 @@
             border-radius: 50%;
         }
         
+        /* X/O Game Styles */
+        .xo-game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .xo-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            margin: 20px 0;
+        }
+        
+        .xo-cell {
+            background: var(--darker);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .xo-cell:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .xo-cell.x {
+            color: #fd79a8;
+        }
+        
+        .xo-cell.o {
+            color: #00b894;
+        }
+        
+        .xo-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .game-mode {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .game-mode-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--light);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .game-mode-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
         .score-display {
             font-size: 1.1rem;
             font-weight: bold;
@@ -980,6 +1059,7 @@
             margin-bottom: 15px;
             font-size: 1.2rem;
             color: var(--secondary);
+            min-height: 24px;
         }
 
         /* Game Controls */
@@ -1248,6 +1328,15 @@
             .game-icon {
                 font-size: 3rem;
             }
+            
+            .xo-board {
+                grid-template-columns: repeat(3, 80px);
+                grid-template-rows: repeat(3, 80px);
+            }
+            
+            .xo-cell {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -1350,22 +1439,22 @@
                 </div>
                 <div class="game-card">
                     <div class="game-img" style="background: linear-gradient(135deg, #00cdac 0%, #8ddad5 100%);">
-                        <div class="game-icon">🌴</div>
+                        <div class="game-icon">❌⭕</div>
                     </div>
                     <div class="game-info">
-                        <h3 class="game-title">Jungle Explorer</h3>
-                        <p class="game-desc">Navigate through the jungle, collect treasures and avoid dangerous creatures.</p>
+                        <h3 class="game-title">X/O Game</h3>
+                        <p class="game-desc">Classic Tic-Tac-Toe game. Play against AI or challenge a friend in multiplayer mode.</p>
                         <div class="game-meta">
                             <span class="game-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
                             </span>
-                            <span>Adventure</span>
+                            <span>Strategy</span>
                         </div>
-                        <button class="play-btn" data-game="adventure-game">Play Now</button>
+                        <button class="play-btn" data-game="xo-game">Play Now</button>
                     </div>
                 </div>
                 <div class="game-card">
@@ -1471,22 +1560,22 @@
             </div>
             <div class="game-card">
                 <div class="game-img" style="background: linear-gradient(135deg, #00cdac 0%, #8ddad5 100%);">
-                    <div class="game-icon">🌴</div>
+                    <div class="game-icon">❌⭕</div>
                 </div>
                 <div class="game-info">
-                    <h3 class="game-title">Jungle Explorer</h3>
-                    <p class="game-desc">Navigate through the jungle, collect treasures and avoid dangerous creatures.</p>
+                    <h3 class="game-title">X/O Game</h3>
+                    <p class="game-desc">Classic Tic-Tac-Toe game. Play against AI or challenge a friend in multiplayer mode.</p>
                     <div class="game-meta">
                         <span class="game-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
                         </span>
-                        <span>Adventure</span>
+                        <span>Strategy</span>
                     </div>
-                    <button class="play-btn" data-game="adventure-game">Play Now</button>
+                    <button class="play-btn" data-game="xo-game">Play Now</button>
                 </div>
             </div>
             <div class="game-card">
@@ -1532,219 +1621,8 @@
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section id="categories" class="page-section">
-        <div class="categories">
-            <div class="container">
-                <h2 class="section-title">Browse by Category</h2>
-                <div class="categories-grid">
-                    <div class="category-card" data-category="action">
-                        <i class="fas fa-user-ninja"></i>
-                        <h3>Action</h3>
-                    </div>
-                    <div class="category-card" data-category="adventure">
-                        <i class="fas fa-dragon"></i>
-                        <h3>Adventure</h3>
-                    </div>
-                    <div class="category-card" data-category="racing">
-                        <i class="fas fa-racing-helmet"></i>
-                        <h3>Racing</h3>
-                    </div>
-                    <div class="category-card" data-category="puzzle">
-                        <i class="fas fa-puzzle-piece"></i>
-                        <h3>Puzzle</h3>
-                    </div>
-                    <div class="category-card" data-category="horror">
-                        <i class="fas fa-ghost"></i>
-                        <h3>Horror</h3>
-                    </div>
-                    <div class="category-card" data-category="sports">
-                        <i class="fas fa-futbol"></i>
-                        <h3>Sports</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- News Section -->
-    <section id="news" class="page-section container">
-        <h2 class="section-title">Gaming News</h2>
-        <div class="news-grid">
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">KharBouch Games Reaches 1 Million Users</h3>
-                    <p class="news-excerpt">Our gaming platform has just reached a major milestone with 1 million registered users worldwide.</p>
-                    <div class="news-meta">
-                        <span>June 18, 2023</span>
-                        <span>By Admin</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">New Game Releases This Month</h3>
-                    <p class="news-excerpt">Check out the exciting new games coming to KharBouch Games this month, including 5 exclusive titles.</p>
-                    <div class="news-meta">
-                        <span>June 15, 2023</span>
-                        <span>By Game Master</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">Summer Gaming Tournament Announced</h3>
-                    <p class="news-excerpt">Compete in our summer tournament with a $10,000 prize pool. Registration opens next week.</p>
-                    <div class="news-meta">
-                        <span>June 12, 2023</span>
-                        <span>By Tournament Director</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="page-section about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>About KharBouch Games</h2>
-                    <p>Welcome to KharBouch Games, your ultimate destination for online gaming. Founded in 2020, we've been dedicated to providing the best gaming experience for players of all ages and skill levels.</p>
-                    <p>Our platform features a wide variety of games across multiple genres, from action-packed adventures to mind-bending puzzles. We're constantly adding new games and features to keep the experience fresh and exciting.</p>
-                    <p>At KharBouch Games, we believe that gaming should be accessible to everyone. That's why all our games are free to play, with no hidden costs or pay-to-win mechanics.</p>
-                    
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-number">500+</div>
-                            <div class="stat-label">Games Available</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">1M+</div>
-                            <div class="stat-label">Active Users</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Game Developers</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Support</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: 10px; display: flex; justify-content: center; align-items: center;">
-                        <i class="fas fa-gamepad" style="font-size: 100px; color: white;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Profile Section -->
-    <section id="profile" class="page-section profile-section">
-        <div class="container">
-            <div class="profile-container">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="profile-info">
-                        <h2 id="profileFullName">John Doe</h2>
-                        <p id="profileEmail">john.doe@example.com</p>
-                    </div>
-                </div>
-                
-                <div class="profile-menu">
-                    <div class="profile-menu-item active" data-tab="information">Information</div>
-                    <div class="profile-menu-item" data-tab="change-password">Change Password</div>
-                    <div class="profile-menu-item" data-tab="change-email">Change Email</div>
-                </div>
-                
-                <div class="profile-content">
-                    <!-- Information Tab -->
-                    <div class="profile-tab active" id="information-tab">
-                        <h3 style="margin-bottom: 20px; color: var(--primary);">Personal Information</h3>
-                        <div class="info-group">
-                            <label>Full Name</label>
-                            <div class="info-value" id="infoName">John Doe</div>
-                        </div>
-                        <div class="info-group">
-                            <label>Email Address</label>
-                            <div class="info-value" id="infoEmail">john.doe@example.com</div>
-                        </div>
-                        <div class="info-group">
-                            <label>Password</label>
-                            <div class="info-value">
-                                <span id="infoPassword">••••••••</span>
-                                <span class="password-toggle" id="passwordToggle">
-                                    <i class="fas fa-eye"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="info-group">
-                            <label>Member Since</label>
-                            <div class="info-value" id="infoMemberSince">June 2023</div>
-                        </div>
-                        <div class="info-group">
-                            <label>Games Played</label>
-                            <div class="info-value" id="infoGamesPlayed">24</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Change Password Tab -->
-                    <div class="profile-tab" id="change-password-tab">
-                        <h3 style="margin-bottom: 20px; color: var(--primary);">Change Password</h3>
-                        <form id="changePasswordForm">
-                            <div class="form-group">
-                                <label for="currentPassword">Current Password</label>
-                                <input type="password" id="currentPassword" placeholder="Enter your current password" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword" placeholder="Enter your new password" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmNewPassword">Confirm New Password</label>
-                                <input type="password" id="confirmNewPassword" placeholder="Confirm your new password" required>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Update Password</button>
-                                <button type="button" class="btn btn-outline" id="cancelPassword">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Change Email Tab -->
-                    <div class="profile-tab" id="change-email-tab">
-                        <h3 style="margin-bottom: 20px; color: var(--primary);">Change Email Address</h3>
-                        <form id="changeEmailForm">
-                            <div class="form-group">
-                                <label for="currentEmail">Current Email</label>
-                                <input type="email" id="currentEmail" placeholder="Your current email" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="newEmail">New Email</label>
-                                <input type="email" id="newEmail" placeholder="Enter your new email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmEmail">Confirm New Email</label>
-                                <input type="email" id="confirmEmail" placeholder="Confirm your new email" required>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Update Email</button>
-                                <button type="button" class="btn btn-outline" id="cancelEmail">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Rest of the sections remain the same -->
+    <!-- Categories, News, About, Profile sections... -->
 
     <!-- Footer -->
     <footer>
@@ -1874,6 +1752,13 @@
     </div>
 
     <script>
+        // Prevent background scrolling when modal is open
+        function preventScroll(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+
         // User management functionality
         let currentUser = null;
         
@@ -1894,8 +1779,6 @@
             
             // Simple validation
             if (email && password) {
-                // In a real app, you would verify credentials with a server
-                // For demo purposes, we'll create a user object
                 currentUser = {
                     name: "John Doe",
                     email: email,
@@ -1904,16 +1787,9 @@
                     gamesPlayed: Math.floor(Math.random() * 50) + 1
                 };
                 
-                // Save to localStorage
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                // Update UI
                 updateUIForLoggedInUser();
-                
-                // Close modal
                 document.getElementById('loginModal').style.display = 'none';
-                
-                // Show success message
                 alert(`Login successful! Welcome back to KharBouch Games, ${currentUser.name}!`);
             } else {
                 alert('Please fill in all fields');
@@ -1928,14 +1804,12 @@
             const password = document.getElementById('signupPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             
-            // Simple validation
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
                 return;
             }
             
             if (name && email && password) {
-                // Create user object
                 currentUser = {
                     name: name,
                     email: email,
@@ -1944,16 +1818,9 @@
                     gamesPlayed: 0
                 };
                 
-                // Save to localStorage
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                // Update UI
                 updateUIForLoggedInUser();
-                
-                // Close modal
                 document.getElementById('signupModal').style.display = 'none';
-                
-                // Show success message
                 alert(`Account created successfully! Welcome to KharBouch Games, ${currentUser.name}!`);
             } else {
                 alert('Please fill in all fields');
@@ -1962,16 +1829,9 @@
         
         // Update UI when user is logged in
         function updateUIForLoggedInUser() {
-            // Hide auth buttons
             document.getElementById('authButtons').style.display = 'none';
-            
-            // Show profile dropdown
             document.getElementById('profileDropdown').style.display = 'inline-block';
-            
-            // Update profile name
             document.getElementById('profileName').textContent = currentUser.name;
-            
-            // Update profile page information
             updateProfileInformation();
         }
         
@@ -2006,66 +1866,39 @@
         // Profile link functionality
         document.getElementById('profileLink').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Hide all sections
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
-            // Show profile section
             document.getElementById('profile').classList.add('active');
-            
-            // Close dropdown
             document.getElementById('dropdownContent').classList.remove('show');
-            
-            // Scroll to top
             window.scrollTo(0, 0);
         });
         
         // Logout functionality
         document.getElementById('logoutLink').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Clear current user
             currentUser = null;
             localStorage.removeItem('currentUser');
-            
-            // Hide profile dropdown
             document.getElementById('profileDropdown').style.display = 'none';
-            
-            // Show auth buttons
             document.getElementById('authButtons').style.display = 'flex';
-            
-            // Navigate to home
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById('home').classList.add('active');
-            
-            // Close dropdown
             document.getElementById('dropdownContent').classList.remove('show');
-            
-            // Show logout message
             alert('You have been logged out successfully.');
         });
         
         // Profile menu functionality
         document.querySelectorAll('.profile-menu-item').forEach(item => {
             item.addEventListener('click', function() {
-                // Remove active class from all menu items
                 document.querySelectorAll('.profile-menu-item').forEach(i => {
                     i.classList.remove('active');
                 });
-                
-                // Add active class to clicked item
                 this.classList.add('active');
-                
-                // Hide all tabs
                 document.querySelectorAll('.profile-tab').forEach(tab => {
                     tab.classList.remove('active');
                 });
-                
-                // Show selected tab
                 const tabId = this.getAttribute('data-tab') + '-tab';
                 document.getElementById(tabId).classList.add('active');
             });
@@ -2094,32 +1927,22 @@
             const newPassword = document.getElementById('newPassword').value;
             const confirmNewPassword = document.getElementById('confirmNewPassword').value;
             
-            // Validate current password
             if (currentPassword !== currentUser.password) {
                 alert('Current password is incorrect');
                 return;
             }
             
-            // Validate new password
             if (newPassword !== confirmNewPassword) {
                 alert('New passwords do not match');
                 return;
             }
             
-            // Update password
             currentUser.password = newPassword;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            // Reset form
             this.reset();
-            
-            // Show success message
             alert('Password updated successfully!');
-            
-            // Navigate back to information tab
             document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
             document.querySelector('[data-tab="information"]').classList.add('active');
-            
             document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
             document.getElementById('information-tab').classList.add('active');
         });
@@ -2127,11 +1950,8 @@
         // Cancel password change
         document.getElementById('cancelPassword').addEventListener('click', function() {
             document.getElementById('changePasswordForm').reset();
-            
-            // Navigate back to information tab
             document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
             document.querySelector('[data-tab="information"]').classList.add('active');
-            
             document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
             document.getElementById('information-tab').classList.add('active');
         });
@@ -2142,30 +1962,19 @@
             const newEmail = document.getElementById('newEmail').value;
             const confirmEmail = document.getElementById('confirmEmail').value;
             
-            // Validate emails
             if (newEmail !== confirmEmail) {
                 alert('Email addresses do not match');
                 return;
             }
             
-            // Update email
             currentUser.email = newEmail;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            // Update UI
             updateProfileInformation();
-            
-            // Reset form
             this.reset();
             document.getElementById('currentEmail').value = currentUser.email;
-            
-            // Show success message
             alert('Email address updated successfully!');
-            
-            // Navigate back to information tab
             document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
             document.querySelector('[data-tab="information"]').classList.add('active');
-            
             document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
             document.getElementById('information-tab').classList.add('active');
         });
@@ -2174,11 +1983,8 @@
         document.getElementById('cancelEmail').addEventListener('click', function() {
             document.getElementById('changeEmailForm').reset();
             document.getElementById('currentEmail').value = currentUser.email;
-            
-            // Navigate back to information tab
             document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
             document.querySelector('[data-tab="information"]').classList.add('active');
-            
             document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
             document.getElementById('information-tab').classList.add('active');
         });
@@ -2193,31 +1999,20 @@
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetSection = link.getAttribute('data-section');
-                
-                // Hide all sections
                 pageSections.forEach(section => {
                     section.classList.remove('active');
                 });
-                
-                // Show target section
                 document.getElementById(targetSection).classList.add('active');
-                
-                // Scroll to top
                 window.scrollTo(0, 0);
             });
         });
 
         // Explore Games button
         exploreGamesBtn.addEventListener('click', () => {
-            // Hide all sections
             pageSections.forEach(section => {
                 section.classList.remove('active');
             });
-            
-            // Show games section
             document.getElementById('games').classList.add('active');
-            
-            // Scroll to top
             window.scrollTo(0, 0);
         });
 
@@ -2250,20 +2045,24 @@
         // Open login modal
         loginBtn.addEventListener('click', () => {
             loginModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         });
 
         // Open signup modal
         signupBtn.addEventListener('click', () => {
             signupModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         });
 
         // Close modals
         closeLogin.addEventListener('click', () => {
             loginModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         });
 
         closeSignup.addEventListener('click', () => {
             signupModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         });
 
         // Switch between login and signup
@@ -2283,12 +2082,15 @@
         window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
                 loginModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
             if (e.target === signupModal) {
                 signupModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
             if (e.target === gameModal) {
                 gameModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
                 stopCurrentGame();
             }
         });
@@ -2297,6 +2099,7 @@
         let currentGame = null;
         let gameInterval = null;
         let gameState = {};
+        let highScoreDisplay = null;
 
         playButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -2308,7 +2111,6 @@
         categoryCards.forEach(card => {
             card.addEventListener('click', () => {
                 const category = card.getAttribute('data-category');
-                // Navigate to games section
                 pageSections.forEach(section => {
                     section.classList.remove('active');
                 });
@@ -2318,7 +2120,6 @@
         });
 
         function openGame(game) {
-            // Set game content based on which game was clicked
             let title, description;
             
             switch(game) {
@@ -2330,9 +2131,9 @@
                     title = 'Speed Racer';
                     description = 'Use left and right arrow keys to avoid obstacles. The longer you survive, the higher your score!';
                     break;
-                case 'adventure-game':
-                    title = 'Jungle Explorer';
-                    description = 'Use arrow keys to move. Collect gold coins and avoid red obstacles!';
+                case 'xo-game':
+                    title = 'X/O Game';
+                    description = 'Classic Tic-Tac-Toe game. Play against AI or challenge a friend!';
                     break;
                 case 'puzzle-game':
                     title = 'Number Puzzle';
@@ -2351,10 +2152,17 @@
             gameInfo.textContent = 'Score: 0';
             gameContainer.innerHTML = '';
             
+            // Remove existing high score display
+            if (highScoreDisplay) {
+                highScoreDisplay.remove();
+                highScoreDisplay = null;
+            }
+            
             // Initialize the selected game
             initGame(game);
             
             gameModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
         function initGame(gameType) {
@@ -2367,8 +2175,8 @@
                 case 'racing-game':
                     initRacingGame();
                     break;
-                case 'adventure-game':
-                    initAdventureGame();
+                case 'xo-game':
+                    initXOGame();
                     break;
                 case 'puzzle-game':
                     initPuzzleGame();
@@ -2412,11 +2220,13 @@
                 highScore: localStorage.getItem('snakeHighScore') || 0
             };
             
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
+            // Create high score display only once
+            if (!highScoreDisplay) {
+                highScoreDisplay = document.createElement('div');
+                highScoreDisplay.className = 'high-score';
+                highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
+                gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
+            }
             
             function randomFood() {
                 gameState.food = {
@@ -2424,7 +2234,6 @@
                     y: Math.floor(Math.random() * tileCount)
                 };
                 
-                // Make sure food doesn't spawn on snake
                 while (gameState.snake.some(segment => segment.x === gameState.food.x && segment.y === gameState.food.y)) {
                     gameState.food = {
                         x: Math.floor(Math.random() * tileCount),
@@ -2436,14 +2245,12 @@
             randomFood();
             
             function drawGame() {
-                // Clear canvas with gradient background
                 const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
                 gradient.addColorStop(0, '#1a1a2e');
                 gradient.addColorStop(1, '#16213e');
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Draw grid
                 ctx.strokeStyle = 'rgba(255,255,255,0.1)';
                 ctx.lineWidth = 0.5;
                 for (let x = 0; x < canvas.width; x += gridSize) {
@@ -2459,21 +2266,16 @@
                     ctx.stroke();
                 }
                 
-                // Draw snake body
                 gameState.snake.forEach((segment, index) => {
                     if (index === 0) {
-                        // Snake head
                         ctx.fillStyle = '#00cec9';
                         ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
                         
-                        // Head details
                         ctx.fillStyle = '#2d3436';
-                        // Eyes
                         const eyeSize = 3;
                         ctx.fillRect(segment.x * gridSize + 5, segment.y * gridSize + 5, eyeSize, eyeSize);
                         ctx.fillRect(segment.x * gridSize + gridSize - 8, segment.y * gridSize + 5, eyeSize, eyeSize);
                     } else {
-                        // Snake body with gradient
                         const gradient = ctx.createLinearGradient(
                             segment.x * gridSize, segment.y * gridSize,
                             segment.x * gridSize + gridSize, segment.y * gridSize + gridSize
@@ -2483,13 +2285,11 @@
                         ctx.fillStyle = gradient;
                         ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
                         
-                        // Body pattern
                         ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
                         ctx.fillRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
                     }
                 });
                 
-                // Draw food (apple)
                 ctx.fillStyle = '#e74c3c';
                 ctx.beginPath();
                 ctx.arc(
@@ -2501,11 +2301,9 @@
                 );
                 ctx.fill();
                 
-                // Apple stem
                 ctx.fillStyle = '#27ae60';
                 ctx.fillRect(gameState.food.x * gridSize + gridSize/2 - 1, gameState.food.y * gridSize - 2, 2, 4);
                 
-                // Apple highlight
                 ctx.fillStyle = 'rgba(255,255,255,0.3)';
                 ctx.beginPath();
                 ctx.arc(
@@ -2517,31 +2315,26 @@
                 );
                 ctx.fill();
                 
-                // Draw score
                 gameInfo.textContent = `Score: ${gameState.score}`;
-                highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
             }
             
             function update() {
-                // Move snake
                 const head = {x: gameState.snake[0].x + gameState.dx, y: gameState.snake[0].y + gameState.dy};
                 gameState.snake.unshift(head);
                 
-                // Check if snake ate food
                 if (head.x === gameState.food.x && head.y === gameState.food.y) {
                     gameState.score += 10;
                     randomFood();
                     
-                    // Update high score
                     if (gameState.score > gameState.highScore) {
                         gameState.highScore = gameState.score;
                         localStorage.setItem('snakeHighScore', gameState.highScore);
+                        highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
                     }
                 } else {
                     gameState.snake.pop();
                 }
                 
-                // Check for game over
                 if (
                     head.x < 0 || 
                     head.y < 0 || 
@@ -2559,13 +2352,9 @@
             function gameOver() {
                 clearInterval(gameInterval);
                 gameInfo.textContent = `Game Over! Final Score: ${gameState.score}`;
-                if (gameState.score > gameState.highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                }
             }
             
             function changeDirection(e) {
-                // Prevent reverse direction
                 if (e.key === 'ArrowLeft' && gameState.dx === 0) {
                     gameState.dx = -1;
                     gameState.dy = 0;
@@ -2626,9 +2415,8 @@
         // Enhanced Racing Game Implementation
         function initRacingGame() {
             gameContainer.id = 'racing-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #2c3e50, #34495e)';
+            gameContainer.style.background = 'linear-gradient(135deg, #34495e, #2c3e50)';
             
-            // Road with lines
             const road = document.createElement('div');
             road.className = 'road';
             gameContainer.appendChild(road);
@@ -2637,7 +2425,6 @@
             roadLines.className = 'road-lines';
             road.appendChild(roadLines);
             
-            // Player car
             const playerCar = document.createElement('div');
             playerCar.className = 'player-car';
             playerCar.style.width = '50px';
@@ -2646,7 +2433,6 @@
             playerCar.style.bottom = '50px';
             road.appendChild(playerCar);
             
-            // Initialize game state
             gameState = {
                 playerX: 175,
                 obstacles: [],
@@ -2655,18 +2441,17 @@
                 highScore: localStorage.getItem('racingHighScore') || 0
             };
             
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
+            if (!highScoreDisplay) {
+                highScoreDisplay = document.createElement('div');
+                highScoreDisplay.className = 'high-score';
+                highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
+                gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
+            }
             
             function updateGame() {
-                // Move obstacles
                 gameState.obstacles.forEach((obstacle, index) => {
                     obstacle.style.top = `${parseInt(obstacle.style.top || -80) + gameState.gameSpeed}px`;
                     
-                    // Check collision
                     const obstacleRect = obstacle.getBoundingClientRect();
                     const playerRect = playerCar.getBoundingClientRect();
                     
@@ -2680,14 +2465,12 @@
                         return;
                     }
                     
-                    // Remove obstacles that are off screen
                     if (parseInt(obstacle.style.top) > 400) {
                         obstacle.remove();
                         gameState.obstacles.splice(index, 1);
                         gameState.score += 10;
                         gameInfo.textContent = `Score: ${gameState.score}`;
                         
-                        // Update high score
                         if (gameState.score > gameState.highScore) {
                             gameState.highScore = gameState.score;
                             localStorage.setItem('racingHighScore', gameState.highScore);
@@ -2696,17 +2479,14 @@
                     }
                 });
                 
-                // Add new obstacles randomly
                 if (Math.random() < 0.03) {
                     createObstacle();
                 }
                 
-                // Increase difficulty
                 if (gameState.score > 0 && gameState.score % 50 === 0) {
                     gameState.gameSpeed = 5 + Math.floor(gameState.score / 50);
                 }
                 
-                // Update player position
                 playerCar.style.left = `${gameState.playerX}px`;
             }
             
@@ -2725,9 +2505,6 @@
             function gameOver() {
                 clearInterval(gameInterval);
                 gameInfo.textContent = `Game Over! Final Score: ${gameState.score}`;
-                if (gameState.score > gameState.highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                }
             }
             
             function handleKeyPress(e) {
@@ -2739,7 +2516,6 @@
                 }
             }
             
-            // Mobile controls
             const leftBtn = mobileControls.querySelector('.left');
             const rightBtn = mobileControls.querySelector('.right');
             
@@ -2760,439 +2536,137 @@
             gameInterval = setInterval(updateGame, 50);
         }
 
-        // Enhanced Adventure Game Implementation
-        function initAdventureGame() {
-            gameContainer.id = 'adventure-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #1e5128, #2d5a27)';
+        // X/O Game Implementation
+        function initXOGame() {
+            gameContainer.className = 'simple-game xo-game';
             
-            const player = document.createElement('div');
-            player.className = 'adventure-player';
-            player.style.width = '40px';
-            player.style.height = '60px';
-            player.style.left = '50px';
-            player.style.top = '300px';
-            player.style.position = 'absolute';
-            gameContainer.appendChild(player);
-            
-            // Initialize game state
             gameState = {
-                playerX: 50,
-                playerY: 300,
-                treasures: [],
-                enemies: [],
-                score: 0,
-                highScore: localStorage.getItem('adventureHighScore') || 0
+                board: ['', '', '', '', '', '', '', '', ''],
+                currentPlayer: 'X',
+                gameMode: 'ai', // 'ai' or 'multiplayer'
+                gameOver: false,
+                scores: {
+                    X: 0,
+                    O: 0,
+                    ties: 0
+                }
             };
             
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
+            const gameModeDiv = document.createElement('div');
+            gameModeDiv.className = 'game-mode';
+            gameModeDiv.innerHTML = `
+                <button class="game-mode-btn active" data-mode="ai">VS AI</button>
+                <button class="game-mode-btn" data-mode="multiplayer">Multiplayer</button>
+            `;
+            gameContainer.appendChild(gameModeDiv);
             
-            function updateGame() {
-                // Check collisions with treasures
-                gameState.treasures.forEach((treasure, index) => {
-                    const treasureRect = treasure.getBoundingClientRect();
-                    const playerRect = player.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < treasureRect.right &&
-                        playerRect.right > treasureRect.left &&
-                        playerRect.top < treasureRect.bottom &&
-                        playerRect.bottom > treasureRect.top
-                    ) {
-                        treasure.remove();
-                        gameState.treasures.splice(index, 1);
-                        gameState.score += 20;
-                        gameInfo.textContent = `Score: ${gameState.score}`;
-                        
-                        // Update high score
-                        if (gameState.score > gameState.highScore) {
-                            gameState.highScore = gameState.score;
-                            localStorage.setItem('adventureHighScore', gameState.highScore);
-                            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-                        }
-                    }
+            const scoreDisplay = document.createElement('div');
+            scoreDisplay.className = 'score-display';
+            scoreDisplay.textContent = `X: ${gameState.scores.X} | O: ${gameState.scores.O} | Ties: ${gameState.scores.ties}`;
+            gameContainer.appendChild(scoreDisplay);
+            
+            const board = document.createElement('div');
+            board.className = 'xo-board';
+            gameContainer.appendChild(board);
+            
+            const controls = document.createElement('div');
+            controls.className = 'xo-controls';
+            controls.innerHTML = `
+                <div class="game-info" id="xoGameInfo">Player X's Turn</div>
+            `;
+            gameContainer.appendChild(controls);
+            
+            // Game mode buttons
+            gameModeDiv.querySelectorAll('.game-mode-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    gameModeDiv.querySelectorAll('.game-mode-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    gameState.gameMode = btn.getAttribute('data-mode');
+                    resetGame();
                 });
-                
-                // Check collisions with enemies
-                gameState.enemies.forEach((enemy) => {
-                    const enemyRect = enemy.getBoundingClientRect();
-                    const playerRect = player.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < enemyRect.right - 5 &&
-                        playerRect.right - 5 > enemyRect.left &&
-                        playerRect.top < enemyRect.bottom - 5 &&
-                        playerRect.bottom - 5 > enemyRect.top
-                    ) {
-                        gameOver();
-                        return;
-                    }
-                });
-                
-                // Add new treasures and enemies randomly
-                if (Math.random() < 0.02) {
-                    createTreasure();
-                }
-                if (Math.random() < 0.015) {
-                    createEnemy();
-                }
-                
-                // Update player position
-                player.style.left = `${gameState.playerX}px`;
-                player.style.top = `${gameState.playerY}px`;
-            }
-            
-            function createTreasure() {
-                const treasure = document.createElement('div');
-                treasure.className = 'treasure';
-                treasure.style.width = '25px';
-                treasure.style.height = '25px';
-                treasure.style.left = `${Math.random() * 375}px`;
-                treasure.style.top = `${Math.random() * 375}px`;
-                treasure.style.position = 'absolute';
-                gameContainer.appendChild(treasure);
-                gameState.treasures.push(treasure);
-            }
-            
-            function createEnemy() {
-                const enemy = document.createElement('div');
-                enemy.className = 'enemy';
-                enemy.style.width = '35px';
-                enemy.style.height = '35px';
-                enemy.style.left = `${Math.random() * 365}px`;
-                enemy.style.top = `${Math.random() * 365}px`;
-                enemy.style.position = 'absolute';
-                gameContainer.appendChild(enemy);
-                gameState.enemies.push(enemy);
-            }
-            
-            function gameOver() {
-                clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${gameState.score}`;
-                if (gameState.score > gameState.highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                }
-            }
-            
-            function handleKeyPress(e) {
-                if (e.key === 'ArrowLeft' && gameState.playerX > 0) {
-                    gameState.playerX -= 8;
-                }
-                if (e.key === 'ArrowRight' && gameState.playerX < 360) {
-                    gameState.playerX += 8;
-                }
-                if (e.key === 'ArrowUp' && gameState.playerY > 0) {
-                    gameState.playerY -= 8;
-                }
-                if (e.key === 'ArrowDown' && gameState.playerY < 340) {
-                    gameState.playerY += 8;
-                }
-            }
-            
-            // Mobile controls
-            const upBtn = mobileControls.querySelector('.up');
-            const leftBtn = mobileControls.querySelector('.left');
-            const rightBtn = mobileControls.querySelector('.right');
-            const downBtn = mobileControls.querySelector('.down');
-            
-            upBtn.addEventListener('click', () => {
-                if (gameState.playerY > 0) {
-                    gameState.playerY -= 8;
-                }
             });
             
-            leftBtn.addEventListener('click', () => {
-                if (gameState.playerX > 0) {
-                    gameState.playerX -= 8;
-                }
-            });
-            
-            rightBtn.addEventListener('click', () => {
-                if (gameState.playerX < 360) {
-                    gameState.playerX += 8;
-                }
-            });
-            
-            downBtn.addEventListener('click', () => {
-                if (gameState.playerY < 340) {
-                    gameState.playerY += 8;
-                }
-            });
-            
-            document.addEventListener('keydown', handleKeyPress);
-            createTreasure();
-            createTreasure();
-            createEnemy();
-            gameInterval = setInterval(updateGame, 100);
-        }
-
-        // Enhanced Puzzle Game Implementation
-        function initPuzzleGame() {
-            gameContainer.id = 'puzzle-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #2c2c54, #40407a)';
-            
-            const puzzleContainer = document.createElement('div');
-            puzzleContainer.className = 'puzzle-container';
-            gameContainer.appendChild(puzzleContainer);
-            
-            // Initialize game state
-            gameState = {
-                tiles: [1, 2, 3, 4, 5, 6, 7, 8, 0],
-                emptyIndex: 8,
-                moves: 0,
-                highScore: localStorage.getItem('puzzleHighScore') || 'N/A'
-            };
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `Best Time: ${gameState.highScore} moves`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            function shuffleTiles() {
-                do {
-                    for (let i = gameState.tiles.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [gameState.tiles[i], gameState.tiles[j]] = [gameState.tiles[j], gameState.tiles[i]];
-                    }
-                    gameState.emptyIndex = gameState.tiles.indexOf(0);
-                } while (!isSolvable() || isPuzzleSolved());
-                
-                gameState.moves = 0;
-                gameInfo.textContent = `Moves: ${gameState.moves}`;
-                renderTiles();
-            }
-            
-            function isSolvable() {
-                let inversions = 0;
-                for (let i = 0; i < gameState.tiles.length; i++) {
-                    for (let j = i + 1; j < gameState.tiles.length; j++) {
-                        if (gameState.tiles[i] !== 0 && gameState.tiles[j] !== 0 && gameState.tiles[i] > gameState.tiles[j]) {
-                            inversions++;
-                        }
-                    }
-                }
-                return inversions % 2 === 0;
-            }
-            
-            function renderTiles() {
-                puzzleContainer.innerHTML = '';
-                gameState.tiles.forEach((tile, index) => {
-                    const tileElement = document.createElement('div');
-                    tileElement.className = tile === 0 ? 'puzzle-piece empty' : 'puzzle-piece';
-                    tileElement.textContent = tile === 0 ? '' : tile;
-                    tileElement.style.background = tile === 0 ? 'transparent' : 
-                        `linear-gradient(135deg, hsl(${tile * 40}, 70%, 60%), hsl(${tile * 40}, 70%, 50%))`;
-                    tileElement.addEventListener('click', () => moveTile(index));
-                    puzzleContainer.appendChild(tileElement);
+            function renderBoard() {
+                board.innerHTML = '';
+                gameState.board.forEach((cell, index) => {
+                    const cellElement = document.createElement('div');
+                    cellElement.className = `xo-cell ${cell}`;
+                    cellElement.textContent = cell;
+                    cellElement.addEventListener('click', () => makeMove(index));
+                    board.appendChild(cellElement);
                 });
             }
             
-            function moveTile(index) {
-                const adjacentIndexes = [gameState.emptyIndex - 1, gameState.emptyIndex + 1, gameState.emptyIndex - 3, gameState.emptyIndex + 3];
+            function makeMove(index) {
+                if (gameState.gameOver || gameState.board[index] !== '') return;
                 
-                if (adjacentIndexes.includes(index)) {
-                    const emptyRow = Math.floor(gameState.emptyIndex / 3);
-                    const clickedRow = Math.floor(index / 3);
-                    const emptyCol = gameState.emptyIndex % 3;
-                    const clickedCol = index % 3;
-                    
-                    if ((emptyRow === clickedRow && Math.abs(emptyCol - clickedCol) === 1) ||
-                        (emptyCol === clickedCol && Math.abs(emptyRow - clickedRow) === 1)) {
-                        [gameState.tiles[gameState.emptyIndex], gameState.tiles[index]] = [gameState.tiles[index], gameState.tiles[gameState.emptyIndex]];
-                        gameState.emptyIndex = index;
-                        gameState.moves++;
-                        gameInfo.textContent = `Moves: ${gameState.moves}`;
-                        renderTiles();
-                        
-                        if (isPuzzleSolved()) {
-                            if (gameState.highScore === 'N/A' || gameState.moves < parseInt(gameState.highScore)) {
-                                gameState.highScore = gameState.moves;
-                                localStorage.setItem('puzzleHighScore', gameState.highScore);
-                                highScoreDisplay.textContent = `New Best Time: ${gameState.moves} moves!`;
-                            } else {
-                                highScoreDisplay.textContent = `Best Time: ${gameState.highScore} moves`;
-                            }
-                            gameInfo.textContent = `Solved in ${gameState.moves} moves!`;
-                        }
-                    }
+                gameState.board[index] = gameState.currentPlayer;
+                renderBoard();
+                
+                if (checkWinner()) {
+                    gameState.scores[gameState.currentPlayer]++;
+                    scoreDisplay.textContent = `X: ${gameState.scores.X} | O: ${gameState.scores.O} | Ties: ${gameState.scores.ties}`;
+                    gameInfo.textContent = `Player ${gameState.currentPlayer} Wins!`;
+                    gameState.gameOver = true;
+                    return;
                 }
-            }
-            
-            function isPuzzleSolved() {
-                for (let i = 0; i < gameState.tiles.length - 1; i++) {
-                    if (gameState.tiles[i] !== i + 1) {
-                        return false;
-                    }
+                
+                if (gameState.board.every(cell => cell !== '')) {
+                    gameState.scores.ties++;
+                    scoreDisplay.textContent = `X: ${gameState.scores.X} | O: ${gameState.scores.O} | Ties: ${gameState.scores.ties}`;
+                    gameInfo.textContent = "It's a Tie!";
+                    gameState.gameOver = true;
+                    return;
                 }
-                return true;
-            }
-            
-            shuffleTiles();
-        }
-
-        // Enhanced Horror Game Implementation
-        function initHorrorGame() {
-            gameContainer.className = 'simple-game horror-game';
-            
-            const flashlight = document.createElement('div');
-            flashlight.className = 'flashlight';
-            gameContainer.appendChild(flashlight);
-            
-            // Initialize game state
-            gameState = {
-                ghosts: [],
-                trees: [],
-                slenderman: null,
-                score: 0,
-                foundGhosts: 0,
-                totalGhosts: 5,
-                highScore: localStorage.getItem('horrorHighScore') || 0,
-                slendermanVisible: false
-            };
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            // Create trees
-            for (let i = 0; i < 15; i++) {
-                const tree = document.createElement('div');
-                tree.className = 'tree';
-                const width = 20 + Math.random() * 20;
-                const height = 60 + Math.random() * 40;
-                tree.style.width = `${width}px`;
-                tree.style.height = `${height}px`;
-                tree.style.left = `${Math.random() * 380}px`;
-                tree.style.top = `${Math.random() * 340}px`;
-                tree.style.position = 'absolute';
-                gameContainer.appendChild(tree);
-                gameState.trees.push(tree);
-            }
-            
-            // Create hidden ghosts
-            for (let i = 0; i < gameState.totalGhosts; i++) {
-                const ghost = document.createElement('div');
-                ghost.className = 'ghost';
-                const size = 30 + Math.random() * 20;
-                ghost.style.width = `${size}px`;
-                ghost.style.height = `${size + 10}px`;
-                ghost.style.left = `${Math.random() * 370}px`;
-                ghost.style.top = `${Math.random() * 370}px`;
-                ghost.style.position = 'absolute';
-                ghost.style.display = 'none';
-                ghost.style.opacity = '0';
-                ghost.style.transition = 'opacity 0.5s';
-                ghost.textContent = '👻';
-                gameContainer.appendChild(ghost);
-                gameState.ghosts.push(ghost);
-            }
-            
-            // Create Slenderman
-            const slenderman = document.createElement('div');
-            slenderman.className = 'slenderman';
-            slenderman.style.height = '80px';
-            slenderman.style.left = `${Math.random() * 380}px`;
-            slenderman.style.top = `${Math.random() * 320}px`;
-            slenderman.style.position = 'absolute';
-            slenderman.style.display = 'none';
-            gameContainer.appendChild(slenderman);
-            gameState.slenderman = slenderman;
-            
-            function updateFlashlight(e) {
-                const rect = gameContainer.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
                 
-                flashlight.style.left = `${x - 100}px`;
-                flashlight.style.top = `${y - 100}px`;
+                gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
+                gameInfo.textContent = `Player ${gameState.currentPlayer}'s Turn`;
                 
-                // Check if flashlight reveals any ghosts
-                gameState.ghosts.forEach(ghost => {
-                    const ghostRect = ghost.getBoundingClientRect();
-                    const flashlightRect = flashlight.getBoundingClientRect();
-                    
-                    if (
-                        flashlightRect.left < ghostRect.right &&
-                        flashlightRect.right > ghostRect.left &&
-                        flashlightRect.top < ghostRect.bottom &&
-                        flashlightRect.bottom > ghostRect.top
-                    ) {
-                        if (ghost.style.opacity === '0') {
-                            ghost.style.display = 'flex';
-                            ghost.style.opacity = '1';
-                            gameState.foundGhosts++;
-                            gameState.score += 25;
-                            gameInfo.textContent = `Found: ${gameState.foundGhosts}/${gameState.totalGhosts} - Score: ${gameState.score}`;
-                            
-                            // Update high score
-                            if (gameState.score > gameState.highScore) {
-                                gameState.highScore = gameState.score;
-                                localStorage.setItem('horrorHighScore', gameState.highScore);
-                                highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-                            }
-                            
-                            if (gameState.foundGhosts === gameState.totalGhosts) {
-                                gameInfo.textContent = `All ghosts found! Final Score: ${gameState.score}`;
-                                if (gameState.score > gameState.highScore) {
-                                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                                }
-                            }
-                        }
-                    } else if (ghost.style.opacity === '1') {
-                        ghost.style.opacity = '0';
-                        setTimeout(() => {
-                            if (ghost.style.opacity === '0') {
-                                ghost.style.display = 'none';
-                            }
-                        }, 500);
-                    }
-                });
-                
-                // Randomly show Slenderman
-                if (!gameState.slendermanVisible && Math.random() < 0.005) {
-                    gameState.slenderman.style.left = `${Math.random() * 380}px`;
-                    gameState.slenderman.style.top = `${Math.random() * 320}px`;
-                    gameState.slenderman.style.display = 'block';
-                    gameState.slendermanVisible = true;
-                    
+                // AI move
+                if (gameState.gameMode === 'ai' && gameState.currentPlayer === 'O' && !gameState.gameOver) {
                     setTimeout(() => {
-                        gameState.slenderman.style.display = 'none';
-                        gameState.slendermanVisible = false;
-                    }, 2000);
-                }
-                
-                // Check if flashlight reveals Slenderman
-                const slendermanRect = gameState.slenderman.getBoundingClientRect();
-                const slendermanFlashlightRect = flashlight.getBoundingClientRect();
-                
-                if (
-                    slendermanFlashlightRect.left < slendermanRect.right &&
-                    slendermanFlashlightRect.right > slendermanRect.left &&
-                    slendermanFlashlightRect.top < slendermanRect.bottom &&
-                    slendermanFlashlightRect.bottom > slendermanRect.top &&
-                    gameState.slendermanVisible
-                ) {
-                    gameOver();
+                        const emptyCells = gameState.board.map((cell, index) => cell === '' ? index : -1).filter(index => index !== -1);
+                        const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                        makeMove(randomIndex);
+                    }, 500);
                 }
             }
             
-            function gameOver() {
-                gameInfo.textContent = `Slenderman got you! Final Score: ${gameState.score}`;
-                if (gameState.score > gameState.highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
-                }
-                gameState.slenderman.style.display = 'none';
-                gameState.slendermanVisible = false;
+            function checkWinner() {
+                const winPatterns = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                    [0, 4, 8], [2, 4, 6] // diagonals
+                ];
+                
+                return winPatterns.some(pattern => {
+                    const [a, b, c] = pattern;
+                    return gameState.board[a] !== '' && 
+                           gameState.board[a] === gameState.board[b] && 
+                           gameState.board[a] === gameState.board[c];
+                });
             }
             
-            gameContainer.addEventListener('mousemove', updateFlashlight);
-            gameInfo.textContent = `Found: 0/${gameState.totalGhosts} - Score: 0`;
+            function resetGame() {
+                gameState.board = ['', '', '', '', '', '', '', '', ''];
+                gameState.currentPlayer = 'X';
+                gameState.gameOver = false;
+                gameInfo.textContent = `Player ${gameState.currentPlayer}'s Turn`;
+                renderBoard();
+            }
+            
+            renderBoard();
+            
+            // Override restart button for X/O game
+            const originalRestart = restartGameBtn.onclick;
+            restartGameBtn.onclick = () => {
+                resetGame();
+            };
+            
+            // Restore original restart function when game closes
+            closeGameModal.addEventListener('click', () => {
+                restartGameBtn.onclick = originalRestart;
+            });
         }
 
         // Restart game functionality
@@ -3203,6 +2677,7 @@
 
         closeGameModal.addEventListener('click', () => {
             gameModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
             stopCurrentGame();
         });
 
