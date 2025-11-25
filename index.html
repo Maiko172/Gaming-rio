@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shisui Hub - Your Ultimate Gaming Destination</title>
+    <title>KharBouch Games - Your Ultimate Gaming Destination</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -831,7 +831,7 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-gamepad"></i>
-                    <span>Shisui Hub</span>
+                    <span>KharBouch Games</span>
                 </div>
                 <nav>
                     <ul>
@@ -856,11 +856,11 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>Your Ultimate Gaming Destination</h1>
+                    <h1>Welcome to KharBouch Games</h1>
                     <p>Discover, play, and connect with gamers worldwide. Explore thousands of games across all platforms and genres.</p>
                     <div class="hero-buttons">
-                        <button class="btn btn-primary" data-section="games">Explore Games</button>
-                        <button class="btn btn-outline">Join Community</button>
+                        <button class="btn btn-primary" id="exploreGamesBtn">Explore Games</button>
+                        <button class="btn btn-outline" id="joinCommunityBtn">Join Community</button>
                     </div>
                 </div>
             </div>
@@ -873,17 +873,17 @@
                 <div class="game-card">
                     <div class="game-img" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);"></div>
                     <div class="game-info">
-                        <h3 class="game-title">Cyber Revolution</h3>
-                        <p class="game-desc">Immerse yourself in a futuristic open-world RPG with stunning visuals.</p>
+                        <h3 class="game-title">Snake Adventure</h3>
+                        <p class="game-desc">Classic snake game with a modern twist. Eat food and grow longer without hitting walls.</p>
                         <div class="game-meta">
                             <span class="game-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
                             </span>
-                            <span>Action RPG</span>
+                            <span>Action</span>
                         </div>
                         <button class="play-btn" data-game="snake-game">Play Now</button>
                     </div>
@@ -891,8 +891,26 @@
                 <div class="game-card">
                     <div class="game-img" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"></div>
                     <div class="game-info">
-                        <h3 class="game-title">Mythic Quest</h3>
-                        <p class="game-desc">Embark on an epic adventure in a fantasy world filled with magic and monsters.</p>
+                        <h3 class="game-title">Speed Racer</h3>
+                        <p class="game-desc">Avoid obstacles and race to the finish line in this fast-paced racing game.</p>
+                        <div class="game-meta">
+                            <span class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>Racing</span>
+                        </div>
+                        <button class="play-btn" data-game="racing-game">Play Now</button>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-img" style="background: linear-gradient(135deg, #00cdac 0%, #8ddad5 100%);"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Jungle Explorer</h3>
+                        <p class="game-desc">Navigate through the jungle, collect treasures and avoid dangerous creatures.</p>
                         <div class="game-meta">
                             <span class="game-rating">
                                 <i class="fas fa-star"></i>
@@ -907,28 +925,10 @@
                     </div>
                 </div>
                 <div class="game-card">
-                    <div class="game-img" style="background: linear-gradient(135deg, #00cdac 0%, #8ddad5 100%);"></div>
-                    <div class="game-info">
-                        <h3 class="game-title">Racing Extreme</h3>
-                        <p class="game-desc">Experience the thrill of high-speed racing with realistic physics and graphics.</p>
-                        <div class="game-meta">
-                            <span class="game-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                            <span>Racing</span>
-                        </div>
-                        <button class="play-btn" data-game="racing-game">Play Now</button>
-                    </div>
-                </div>
-                <div class="game-card">
                     <div class="game-img" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%);"></div>
                     <div class="game-info">
-                        <h3 class="game-title">Space Invaders Redux</h3>
-                        <p class="game-desc">Defend Earth from alien invasion in this modern take on a classic arcade game.</p>
+                        <h3 class="game-title">Number Puzzle</h3>
+                        <p class="game-desc">Arrange the numbers in order by sliding the tiles in this classic puzzle game.</p>
                         <div class="game-meta">
                             <span class="game-rating">
                                 <i class="fas fa-star"></i>
@@ -937,7 +937,7 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <i class="far fa-star"></i>
                             </span>
-                            <span>Arcade</span>
+                            <span>Puzzle</span>
                         </div>
                         <button class="play-btn" data-game="puzzle-game">Play Now</button>
                     </div>
@@ -1118,7 +1118,7 @@
             <div class="news-card">
                 <div class="news-img" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
                 <div class="news-content">
-                    <h3 class="news-title">Shisui Hub Reaches 1 Million Users</h3>
+                    <h3 class="news-title">KharBouch Games Reaches 1 Million Users</h3>
                     <p class="news-excerpt">Our gaming platform has just reached a major milestone with 1 million registered users worldwide.</p>
                     <div class="news-meta">
                         <span>June 18, 2023</span>
@@ -1130,7 +1130,7 @@
                 <div class="news-img" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
                 <div class="news-content">
                     <h3 class="news-title">New Game Releases This Month</h3>
-                    <p class="news-excerpt">Check out the exciting new games coming to Shisui Hub this month, including 5 exclusive titles.</p>
+                    <p class="news-excerpt">Check out the exciting new games coming to KharBouch Games this month, including 5 exclusive titles.</p>
                     <div class="news-meta">
                         <span>June 15, 2023</span>
                         <span>By Game Master</span>
@@ -1148,39 +1148,6 @@
                     </div>
                 </div>
             </div>
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">Mobile App Version Coming Soon</h3>
-                    <p class="news-excerpt">Shisui Hub will be available on iOS and Android devices by the end of this year.</p>
-                    <div class="news-meta">
-                        <span>June 10, 2023</span>
-                        <span>By Dev Team</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">Community Game Jam Results</h3>
-                    <p class="news-excerpt">The results are in! Check out the amazing games created during our 48-hour game jam.</p>
-                    <div class="news-meta">
-                        <span>June 8, 2023</span>
-                        <span>By Community Manager</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-img" style="background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);"></div>
-                <div class="news-content">
-                    <h3 class="news-title">New Features Coming Next Update</h3>
-                    <p class="news-excerpt">Leaderboards, achievements, and social features are coming in the next platform update.</p>
-                    <div class="news-meta">
-                        <span>June 5, 2023</span>
-                        <span>By Product Team</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1189,10 +1156,10 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>About Shisui Hub</h2>
-                    <p>Welcome to Shisui Hub, your ultimate destination for online gaming. Founded in 2020, we've been dedicated to providing the best gaming experience for players of all ages and skill levels.</p>
+                    <h2>About KharBouch Games</h2>
+                    <p>Welcome to KharBouch Games, your ultimate destination for online gaming. Founded in 2020, we've been dedicated to providing the best gaming experience for players of all ages and skill levels.</p>
                     <p>Our platform features a wide variety of games across multiple genres, from action-packed adventures to mind-bending puzzles. We're constantly adding new games and features to keep the experience fresh and exciting.</p>
-                    <p>At Shisui Hub, we believe that gaming should be accessible to everyone. That's why all our games are free to play, with no hidden costs or pay-to-win mechanics.</p>
+                    <p>At KharBouch Games, we believe that gaming should be accessible to everyone. That's why all our games are free to play, with no hidden costs or pay-to-win mechanics.</p>
                     
                     <div class="about-stats">
                         <div class="stat">
@@ -1227,13 +1194,13 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Shisui Hub</h3>
+                    <h3>KharBouch Games</h3>
                     <p>Your ultimate destination for all things gaming. Discover, play, and connect with gamers worldwide.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="https://discord.gg/8qTyHFAU" target="_blank"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -1266,8 +1233,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Shisui Hub. All rights reserved.</p>
-                <div class="powered-by">Powered by <strong>Shisui</strong></div>
+                <p>&copy; 2023 KharBouch Games. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1276,7 +1242,7 @@
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close-modal" id="closeLogin">&times;</span>
-            <h2>Login to Shisui Hub</h2>
+            <h2>Login to KharBouch Games</h2>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
@@ -1347,6 +1313,8 @@
         // Navigation functionality
         const navLinks = document.querySelectorAll('.nav-link');
         const pageSections = document.querySelectorAll('.page-section');
+        const exploreGamesBtn = document.getElementById('exploreGamesBtn');
+        const joinCommunityBtn = document.getElementById('joinCommunityBtn');
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -1364,6 +1332,25 @@
                 // Scroll to top
                 window.scrollTo(0, 0);
             });
+        });
+
+        // Explore Games button
+        exploreGamesBtn.addEventListener('click', () => {
+            // Hide all sections
+            pageSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show games section
+            document.getElementById('games').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+
+        // Join Community button
+        joinCommunityBtn.addEventListener('click', () => {
+            window.open('https://discord.gg/8qTyHFAU', '_blank');
         });
 
         // Modal functionality
@@ -1442,7 +1429,7 @@
             
             // Simple validation
             if (email && password) {
-                alert(`Login successful! Welcome back!`);
+                alert(`Login successful! Welcome back to KharBouch Games!`);
                 loginModal.style.display = 'none';
                 // In a real app, you would send this data to a server
             } else {
@@ -1464,7 +1451,7 @@
             }
             
             if (name && email && password) {
-                alert(`Account created successfully! Welcome to Shisui Hub, ${name}!`);
+                alert(`Account created successfully! Welcome to KharBouch Games, ${name}!`);
                 signupModal.style.display = 'none';
                 // In a real app, you would send this data to a server
             } else {
