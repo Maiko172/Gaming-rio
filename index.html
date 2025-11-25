@@ -133,6 +133,57 @@
             transform: translateY(-2px);
         }
 
+        /* Profile Dropdown Styles */
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .profile-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--dark);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .dropdown-content a {
+            color: var(--light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--darker);
+        }
+        
+        .dropdown-content.show {
+            display: block;
+        }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
@@ -848,6 +899,127 @@
             display: block;
         }
 
+        /* Profile Section Styles */
+        .profile-section {
+            display: none;
+            padding: 40px 0;
+        }
+        
+        .profile-section.active {
+            display: block;
+        }
+        
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--dark);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .profile-info h2 {
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .profile-info p {
+            color: var(--secondary);
+        }
+        
+        .profile-menu {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .profile-menu-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            color: var(--light);
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .profile-menu-item.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .profile-menu-item:hover {
+            color: var(--secondary);
+        }
+        
+        .profile-content {
+            min-height: 300px;
+        }
+        
+        .profile-tab {
+            display: none;
+        }
+        
+        .profile-tab.active {
+            display: block;
+        }
+        
+        .info-group {
+            margin-bottom: 20px;
+        }
+        
+        .info-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light);
+            font-weight: 500;
+        }
+        
+        .info-value {
+            display: flex;
+            align-items: center;
+            background-color: var(--darker);
+            padding: 12px 15px;
+            border-radius: 5px;
+            color: var(--light);
+        }
+        
+        .password-toggle {
+            margin-left: auto;
+            cursor: pointer;
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -879,6 +1051,25 @@
             .about-content {
                 grid-template-columns: 1fr;
             }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .profile-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -900,9 +1091,20 @@
                         <li><a href="#" class="nav-link" data-section="about">About</a></li>
                     </ul>
                 </nav>
-                <div class="auth-buttons">
+                <div class="auth-buttons" id="authButtons">
                     <button class="btn btn-outline" id="loginBtn">Login</button>
                     <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown" style="display: none;">
+                    <div class="profile-btn" id="profileBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="profileName">User</span>
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                    <div class="dropdown-content" id="dropdownContent">
+                        <a href="#" id="profileLink">My Profile</a>
+                        <a href="#" id="logoutLink">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1247,6 +1449,107 @@
         </div>
     </section>
 
+    <!-- Profile Section -->
+    <section id="profile" class="page-section profile-section">
+        <div class="container">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profileFullName">John Doe</h2>
+                        <p id="profileEmail">john.doe@example.com</p>
+                    </div>
+                </div>
+                
+                <div class="profile-menu">
+                    <div class="profile-menu-item active" data-tab="information">Information</div>
+                    <div class="profile-menu-item" data-tab="change-password">Change Password</div>
+                    <div class="profile-menu-item" data-tab="change-email">Change Email</div>
+                </div>
+                
+                <div class="profile-content">
+                    <!-- Information Tab -->
+                    <div class="profile-tab active" id="information-tab">
+                        <h3 style="margin-bottom: 20px; color: var(--primary);">Personal Information</h3>
+                        <div class="info-group">
+                            <label>Full Name</label>
+                            <div class="info-value" id="infoName">John Doe</div>
+                        </div>
+                        <div class="info-group">
+                            <label>Email Address</label>
+                            <div class="info-value" id="infoEmail">john.doe@example.com</div>
+                        </div>
+                        <div class="info-group">
+                            <label>Password</label>
+                            <div class="info-value">
+                                <span id="infoPassword">••••••••</span>
+                                <span class="password-toggle" id="passwordToggle">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <label>Member Since</label>
+                            <div class="info-value" id="infoMemberSince">June 2023</div>
+                        </div>
+                        <div class="info-group">
+                            <label>Games Played</label>
+                            <div class="info-value" id="infoGamesPlayed">24</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Change Password Tab -->
+                    <div class="profile-tab" id="change-password-tab">
+                        <h3 style="margin-bottom: 20px; color: var(--primary);">Change Password</h3>
+                        <form id="changePasswordForm">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" placeholder="Enter your current password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" placeholder="Enter your new password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmNewPassword">Confirm New Password</label>
+                                <input type="password" id="confirmNewPassword" placeholder="Confirm your new password" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Update Password</button>
+                                <button type="button" class="btn btn-outline" id="cancelPassword">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Change Email Tab -->
+                    <div class="profile-tab" id="change-email-tab">
+                        <h3 style="margin-bottom: 20px; color: var(--primary);">Change Email Address</h3>
+                        <form id="changeEmailForm">
+                            <div class="form-group">
+                                <label for="currentEmail">Current Email</label>
+                                <input type="email" id="currentEmail" placeholder="Your current email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="newEmail">New Email</label>
+                                <input type="email" id="newEmail" placeholder="Enter your new email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmEmail">Confirm New Email</label>
+                                <input type="email" id="confirmEmail" placeholder="Confirm your new email" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Update Email</button>
+                                <button type="button" class="btn btn-outline" id="cancelEmail">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1368,6 +1671,315 @@
     </div>
 
     <script>
+        // User management functionality
+        let currentUser = null;
+        
+        // Check if user is logged in on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForLoggedInUser();
+            }
+        });
+        
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple validation
+            if (email && password) {
+                // In a real app, you would verify credentials with a server
+                // For demo purposes, we'll create a user object
+                currentUser = {
+                    name: "John Doe",
+                    email: email,
+                    password: password,
+                    memberSince: "June 2023",
+                    gamesPlayed: Math.floor(Math.random() * 50) + 1
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Update UI
+                updateUIForLoggedInUser();
+                
+                // Close modal
+                document.getElementById('loginModal').style.display = 'none';
+                
+                // Show success message
+                alert(`Login successful! Welcome back to KharBouch Games, ${currentUser.name}!`);
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+        
+        // Signup functionality
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Simple validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (name && email && password) {
+                // Create user object
+                currentUser = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    memberSince: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+                    gamesPlayed: 0
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Update UI
+                updateUIForLoggedInUser();
+                
+                // Close modal
+                document.getElementById('signupModal').style.display = 'none';
+                
+                // Show success message
+                alert(`Account created successfully! Welcome to KharBouch Games, ${currentUser.name}!`);
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+        
+        // Update UI when user is logged in
+        function updateUIForLoggedInUser() {
+            // Hide auth buttons
+            document.getElementById('authButtons').style.display = 'none';
+            
+            // Show profile dropdown
+            document.getElementById('profileDropdown').style.display = 'inline-block';
+            
+            // Update profile name
+            document.getElementById('profileName').textContent = currentUser.name;
+            
+            // Update profile page information
+            updateProfileInformation();
+        }
+        
+        // Update profile information
+        function updateProfileInformation() {
+            if (currentUser) {
+                document.getElementById('profileFullName').textContent = currentUser.name;
+                document.getElementById('profileEmail').textContent = currentUser.email;
+                document.getElementById('infoName').textContent = currentUser.name;
+                document.getElementById('infoEmail').textContent = currentUser.email;
+                document.getElementById('infoMemberSince').textContent = currentUser.memberSince;
+                document.getElementById('infoGamesPlayed').textContent = currentUser.gamesPlayed;
+                document.getElementById('currentEmail').value = currentUser.email;
+            }
+        }
+        
+        // Profile dropdown functionality
+        document.getElementById('profileBtn').addEventListener('click', function() {
+            document.getElementById('dropdownContent').classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.profile-btn') && !e.target.closest('.profile-btn')) {
+                const dropdown = document.getElementById('dropdownContent');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        });
+        
+        // Profile link functionality
+        document.getElementById('profileLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show profile section
+            document.getElementById('profile').classList.add('active');
+            
+            // Close dropdown
+            document.getElementById('dropdownContent').classList.remove('show');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+        
+        // Logout functionality
+        document.getElementById('logoutLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Clear current user
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            
+            // Hide profile dropdown
+            document.getElementById('profileDropdown').style.display = 'none';
+            
+            // Show auth buttons
+            document.getElementById('authButtons').style.display = 'flex';
+            
+            // Navigate to home
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('home').classList.add('active');
+            
+            // Close dropdown
+            document.getElementById('dropdownContent').classList.remove('show');
+            
+            // Show logout message
+            alert('You have been logged out successfully.');
+        });
+        
+        // Profile menu functionality
+        document.querySelectorAll('.profile-menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all menu items
+                document.querySelectorAll('.profile-menu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Hide all tabs
+                document.querySelectorAll('.profile-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Show selected tab
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Password visibility toggle
+        document.getElementById('passwordToggle').addEventListener('click', function() {
+            const passwordElement = document.getElementById('infoPassword');
+            const icon = this.querySelector('i');
+            
+            if (passwordElement.textContent === '••••••••') {
+                passwordElement.textContent = currentUser.password;
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordElement.textContent = '••••••••';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+        
+        // Change password form
+        document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            
+            // Validate current password
+            if (currentPassword !== currentUser.password) {
+                alert('Current password is incorrect');
+                return;
+            }
+            
+            // Validate new password
+            if (newPassword !== confirmNewPassword) {
+                alert('New passwords do not match');
+                return;
+            }
+            
+            // Update password
+            currentUser.password = newPassword;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Reset form
+            this.reset();
+            
+            // Show success message
+            alert('Password updated successfully!');
+            
+            // Navigate back to information tab
+            document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
+            document.querySelector('[data-tab="information"]').classList.add('active');
+            
+            document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('information-tab').classList.add('active');
+        });
+        
+        // Cancel password change
+        document.getElementById('cancelPassword').addEventListener('click', function() {
+            document.getElementById('changePasswordForm').reset();
+            
+            // Navigate back to information tab
+            document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
+            document.querySelector('[data-tab="information"]').classList.add('active');
+            
+            document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('information-tab').classList.add('active');
+        });
+        
+        // Change email form
+        document.getElementById('changeEmailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newEmail = document.getElementById('newEmail').value;
+            const confirmEmail = document.getElementById('confirmEmail').value;
+            
+            // Validate emails
+            if (newEmail !== confirmEmail) {
+                alert('Email addresses do not match');
+                return;
+            }
+            
+            // Update email
+            currentUser.email = newEmail;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update UI
+            updateProfileInformation();
+            
+            // Reset form
+            this.reset();
+            document.getElementById('currentEmail').value = currentUser.email;
+            
+            // Show success message
+            alert('Email address updated successfully!');
+            
+            // Navigate back to information tab
+            document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
+            document.querySelector('[data-tab="information"]').classList.add('active');
+            
+            document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('information-tab').classList.add('active');
+        });
+        
+        // Cancel email change
+        document.getElementById('cancelEmail').addEventListener('click', function() {
+            document.getElementById('changeEmailForm').reset();
+            document.getElementById('currentEmail').value = currentUser.email;
+            
+            // Navigate back to information tab
+            document.querySelectorAll('.profile-menu-item').forEach(i => i.classList.remove('active'));
+            document.querySelector('[data-tab="information"]').classList.add('active');
+            
+            document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('information-tab').classList.add('active');
+        });
+
         // Navigation functionality
         const navLinks = document.querySelectorAll('.nav-link');
         const pageSections = document.querySelectorAll('.page-section');
@@ -1420,8 +2032,6 @@
         const closeSignup = document.getElementById('closeSignup');
         const switchToSignup = document.getElementById('switchToSignup');
         const switchToLogin = document.getElementById('switchToLogin');
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
         
         // Game modal functionality
         const gameModal = document.getElementById('gameModal');
@@ -1476,44 +2086,6 @@
             if (e.target === gameModal) {
                 gameModal.style.display = 'none';
                 stopCurrentGame();
-            }
-        });
-
-        // Form submissions
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simple validation
-            if (email && password) {
-                alert(`Login successful! Welcome back to KharBouch Games!`);
-                loginModal.style.display = 'none';
-                // In a real app, you would send this data to a server
-            } else {
-                alert('Please fill in all fields');
-            }
-        });
-
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            // Simple validation
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            if (name && email && password) {
-                alert(`Account created successfully! Welcome to KharBouch Games, ${name}!`);
-                signupModal.style.display = 'none';
-                // In a real app, you would send this data to a server
-            } else {
-                alert('Please fill in all fields');
             }
         });
 
