@@ -839,6 +839,103 @@
             margin-top: 20px;
         }
 
+        /* Profile Section */
+        .profile-section {
+            display: none;
+            padding: 60px 0;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .profile-menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .profile-menu-btn {
+            background: var(--dark);
+            border: 2px solid var(--primary);
+            color: var(--light);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .profile-menu-btn.active {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .profile-menu-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .profile-content {
+            background: var(--dark);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .profile-info-item {
+            display: flex;
+            justify-content: between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--darker);
+            border-radius: 8px;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--secondary);
+            min-width: 120px;
+        }
+        
+        .info-value {
+            flex: 1;
+            color: var(--light);
+        }
+        
+        .password-toggle {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .password-toggle:hover {
+            color: var(--accent);
+        }
+        
+        .profile-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
         /* Section Visibility */
         .page-section {
             display: none;
@@ -879,6 +976,15 @@
             .about-content {
                 grid-template-columns: 1fr;
             }
+            
+            .profile-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .profile-menu-btn {
+                width: 200px;
+            }
         }
     </style>
 </head>
@@ -898,11 +1004,13 @@
                         <li><a href="#" class="nav-link" data-section="categories">Categories</a></li>
                         <li><a href="#" class="nav-link" data-section="news">News</a></li>
                         <li><a href="#" class="nav-link" data-section="about">About</a></li>
+                        <li><a href="#" class="nav-link" data-section="profile" id="profileNav" style="display: none;">Profile</a></li>
                     </ul>
                 </nav>
                 <div class="auth-buttons">
                     <button class="btn btn-outline" id="loginBtn">Login</button>
                     <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                    <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
                 </div>
             </div>
         </div>
@@ -1247,6 +1355,89 @@
         </div>
     </section>
 
+    <!-- Profile Section -->
+    <section id="profile" class="page-section profile-section">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 id="profileUserName">User Profile</h2>
+                <p>Manage your account settings and preferences</p>
+            </div>
+            
+            <div class="profile-menu">
+                <button class="profile-menu-btn active" data-tab="information">Information</button>
+                <button class="profile-menu-btn" data-tab="change-password">Change Password</button>
+                <button class="profile-menu-btn" data-tab="change-email">Change Email</button>
+            </div>
+            
+            <div class="profile-content">
+                <!-- Information Tab -->
+                <div id="information-tab" class="profile-tab active">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Personal Information</h3>
+                    <div class="profile-info-item">
+                        <span class="info-label">Full Name:</span>
+                        <span class="info-value" id="infoFullName">John Doe</span>
+                    </div>
+                    <div class="profile-info-item">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value" id="infoEmail">john.doe@example.com</span>
+                    </div>
+                    <div class="profile-info-item">
+                        <span class="info-label">Password:</span>
+                        <span class="info-value">
+                            <span id="infoPassword">••••••••</span>
+                            <button class="password-toggle" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="profile-info-item">
+                        <span class="info-label">Member Since:</span>
+                        <span class="info-value" id="infoMemberSince">June 2023</span>
+                    </div>
+                </div>
+                
+                <!-- Change Password Tab -->
+                <div id="change-password-tab" class="profile-tab">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Change Password</h3>
+                    <form class="profile-form" id="changePasswordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+                
+                <!-- Change Email Tab -->
+                <div id="change-email-tab" class="profile-tab">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Change Email</h3>
+                    <form class="profile-form" id="changeEmailForm">
+                        <div class="form-group">
+                            <label for="newEmail">New Email Address</label>
+                            <input type="email" id="newEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPasswordEmail">Current Password</label>
+                            <input type="password" id="confirmPasswordEmail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Email</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1368,11 +1559,19 @@
     </div>
 
     <script>
+        // User data storage
+        let currentUser = null;
+        let users = JSON.parse(localStorage.getItem('kharBouchUsers')) || {};
+
         // Navigation functionality
         const navLinks = document.querySelectorAll('.nav-link');
         const pageSections = document.querySelectorAll('.page-section');
         const exploreGamesBtn = document.getElementById('exploreGamesBtn');
         const joinCommunityBtn = document.getElementById('joinCommunityBtn');
+        const profileNav = document.getElementById('profileNav');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -1412,8 +1611,6 @@
         });
 
         // Modal functionality
-        const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
         const loginModal = document.getElementById('loginModal');
         const signupModal = document.getElementById('signupModal');
         const closeLogin = document.getElementById('closeLogin');
@@ -1432,6 +1629,14 @@
         const restartGameBtn = document.getElementById('restartGame');
         const playButtons = document.querySelectorAll('.play-btn');
         const categoryCards = document.querySelectorAll('.category-card');
+
+        // Profile functionality
+        const profileMenuBtns = document.querySelectorAll('.profile-menu-btn');
+        const profileTabs = document.querySelectorAll('.profile-tab');
+        const togglePassword = document.getElementById('togglePassword');
+        const infoPassword = document.getElementById('infoPassword');
+        const changePasswordForm = document.getElementById('changePasswordForm');
+        const changeEmailForm = document.getElementById('changeEmailForm');
 
         // Open login modal
         loginBtn.addEventListener('click', () => {
@@ -1487,9 +1692,15 @@
             
             // Simple validation
             if (email && password) {
-                alert(`Login successful! Welcome back to KharBouch Games!`);
-                loginModal.style.display = 'none';
-                // In a real app, you would send this data to a server
+                if (users[email] && users[email].password === password) {
+                    currentUser = users[email];
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUIForLoggedInUser();
+                    alert(`Login successful! Welcome back, ${currentUser.name}!`);
+                    loginModal.style.display = 'none';
+                } else {
+                    alert('Invalid email or password!');
+                }
             } else {
                 alert('Please fill in all fields');
             }
@@ -1509,13 +1720,176 @@
             }
             
             if (name && email && password) {
+                if (users[email]) {
+                    alert('An account with this email already exists!');
+                    return;
+                }
+                
+                users[email] = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    memberSince: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+                };
+                
+                localStorage.setItem('kharBouchUsers', JSON.stringify(users));
+                currentUser = users[email];
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateUIForLoggedInUser();
                 alert(`Account created successfully! Welcome to KharBouch Games, ${name}!`);
                 signupModal.style.display = 'none';
-                // In a real app, you would send this data to a server
             } else {
                 alert('Please fill in all fields');
             }
         });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUIForLoggedOutUser();
+            alert('You have been logged out successfully!');
+            
+            // Navigate to home
+            pageSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('home').class
+                    // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUIForLoggedOutUser();
+            alert('You have been logged out successfully!');
+            
+            // Navigate to home
+            pageSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('home').classList.add('active');
+        });
+
+        // Profile menu functionality
+        profileMenuBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and tabs
+                profileMenuBtns.forEach(b => b.classList.remove('active'));
+                profileTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding tab
+                btn.classList.add('active');
+                document.getElementById(`${tab}-tab`).classList.add('active');
+            });
+        });
+
+        // Toggle password visibility
+        let passwordVisible = false;
+        togglePassword.addEventListener('click', () => {
+            passwordVisible = !passwordVisible;
+            if (passwordVisible) {
+                infoPassword.textContent = currentUser.password;
+                togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                infoPassword.textContent = '••••••••';
+                togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        });
+
+        // Change password form
+        changePasswordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            
+            if (currentPassword !== currentUser.password) {
+                alert('Current password is incorrect!');
+                return;
+            }
+            
+            if (newPassword !== confirmNewPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+            
+            // Update password
+            users[currentUser.email].password = newPassword;
+            currentUser.password = newPassword;
+            localStorage.setItem('kharBouchUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            alert('Password updated successfully!');
+            changePasswordForm.reset();
+        });
+
+        // Change email form
+        changeEmailForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newEmail = document.getElementById('newEmail').value;
+            const confirmPassword = document.getElementById('confirmPasswordEmail').value;
+            
+            if (confirmPassword !== currentUser.password) {
+                alert('Password is incorrect!');
+                return;
+            }
+            
+            if (users[newEmail]) {
+                alert('This email is already registered!');
+                return;
+            }
+            
+            // Update email
+            const oldEmail = currentUser.email;
+            users[newEmail] = {
+                ...users[oldEmail],
+                email: newEmail
+            };
+            delete users[oldEmail];
+            currentUser = users[newEmail];
+            
+            localStorage.setItem('kharBouchUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            alert('Email updated successfully!');
+            updateProfileInfo();
+            changeEmailForm.reset();
+        });
+
+        // Update UI for logged in user
+        function updateUIForLoggedInUser() {
+            loginBtn.style.display = 'none';
+            signupBtn.style.display = 'none';
+            logoutBtn.style.display = 'block';
+            profileNav.style.display = 'block';
+            updateProfileInfo();
+        }
+
+        // Update UI for logged out user
+        function updateUIForLoggedOutUser() {
+            loginBtn.style.display = 'block';
+            signupBtn.style.display = 'block';
+            logoutBtn.style.display = 'none';
+            profileNav.style.display = 'none';
+        }
+
+        // Update profile information
+        function updateProfileInfo() {
+            document.getElementById('profileUserName').textContent = currentUser.name;
+            document.getElementById('infoFullName').textContent = currentUser.name;
+            document.getElementById('infoEmail').textContent = currentUser.email;
+            document.getElementById('infoMemberSince').textContent = currentUser.memberSince;
+        }
+
+        // Check if user is already logged in
+        function checkLoggedInUser() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForLoggedInUser();
+            }
+        }
 
         // Game functionality
         let currentGame = null;
@@ -1630,6 +2004,7 @@
             let dy = 0;
             let score = 0;
             let highScore = localStorage.getItem('snakeHighScore') || 0;
+            let gameActive = true;
             
             // Display high score
             const highScoreDisplay = document.createElement('div');
@@ -1742,6 +2117,8 @@
             }
             
             function update() {
+                if (!gameActive) return;
+                
                 // Move snake
                 const head = {x: snake[0].x + dx, y: snake[0].y + dy};
                 snake.unshift(head);
@@ -1776,11 +2153,27 @@
             }
             
             function gameOver() {
+                gameActive = false;
                 clearInterval(gameInterval);
                 gameInfo.textContent = `Game Over! Final Score: ${score}`;
                 if (score > highScore) {
                     highScoreDisplay.textContent = `New High Score: ${score}!`;
                 }
+            }
+            
+            function restartGame() {
+                snake = [{x: 10, y: 10}];
+                dx = 0;
+                dy = 0;
+                score = 0;
+                gameActive = true;
+                randomFood();
+                gameInfo.textContent = `Score: ${score}`;
+                if (gameInterval) {
+                    clearInterval(gameInterval);
+                }
+                drawGame();
+                gameInterval = setInterval(update, 150);
             }
             
             function changeDirection(e) {
@@ -1806,7 +2199,13 @@
             document.addEventListener('keydown', changeDirection);
             drawGame();
             gameInterval = setInterval(update, 150);
+            
+            // Store restart function for this game
+            currentRestartFunction = restartGame;
         }
+
+        // Store current restart function
+        let currentRestartFunction = null;
 
         // Enhanced Racing Game Implementation
         function initRacingGame() {
@@ -1835,6 +2234,7 @@
             let score = 0;
             let gameSpeed = 5;
             let highScore = localStorage.getItem('racingHighScore') || 0;
+            let gameActive = true;
             
             // Display high score
             const highScoreDisplay = document.createElement('div');
@@ -1843,6 +2243,8 @@
             gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function updateGame() {
+                if (!gameActive) return;
+                
                 // Move obstacles
                 obstacles.forEach((obstacle, index) => {
                     obstacle.style.top = `${parseInt(obstacle.style.top || -80) + gameSpeed}px`;
@@ -1905,11 +2307,37 @@
             }
             
             function gameOver() {
+                gameActive = false;
                 clearInterval(gameInterval);
                 gameInfo.textContent = `Game Over! Final Score: ${score}`;
                 if (score > highScore) {
                     highScoreDisplay.textContent = `New High Score: ${score}!`;
                 }
+            }
+            
+            function restartGame() {
+                // Clear obstacles
+                obstacles.forEach(obstacle => obstacle.remove());
+                obstacles = [];
+                
+                // Reset game state
+                playerX = 175;
+                score = 0;
+                gameSpeed = 5;
+                gameActive = true;
+                
+                // Update displays
+                gameInfo.textContent = `Score: ${score}`;
+                playerCar.style.left = `${playerX}px`;
+                
+                // Create first obstacle
+                createObstacle();
+                
+                // Restart game loop
+                if (gameInterval) {
+                    clearInterval(gameInterval);
+                }
+                gameInterval = setInterval(updateGame, 50);
             }
             
             function handleKeyPress(e) {
@@ -1924,343 +2352,21 @@
             document.addEventListener('keydown', handleKeyPress);
             createObstacle();
             gameInterval = setInterval(updateGame, 50);
+            
+            // Store restart function for this game
+            currentRestartFunction = restartGame;
         }
 
-        // Enhanced Adventure Game Implementation
-        function initAdventureGame() {
-            gameContainer.id = 'adventure-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #1e5128, #2d5a27)';
-            
-            const player = document.createElement('div');
-            player.className = 'adventure-player';
-            player.style.width = '40px';
-            player.style.height = '60px';
-            gameContainer.appendChild(player);
-            
-            let playerX = 50;
-            let playerY = 300;
-            let treasures = [];
-            let enemies = [];
-            let score = 0;
-            let highScore = localStorage.getItem('adventureHighScore') || 0;
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            function updateGame() {
-                // Check collisions with treasures
-                treasures.forEach((treasure, index) => {
-                    const treasureRect = treasure.getBoundingClientRect();
-                    const playerRect = player.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < treasureRect.right &&
-                        playerRect.right > treasureRect.left &&
-                        playerRect.top < treasureRect.bottom &&
-                        playerRect.bottom > treasureRect.top
-                    ) {
-                        treasure.remove();
-                        treasures.splice(index, 1);
-                        score += 20;
-                        gameInfo.textContent = `Score: ${score}`;
-                        
-                        // Update high score
-                        if (score > highScore) {
-                            highScore = score;
-                            localStorage.setItem('adventureHighScore', highScore);
-                            highScoreDisplay.textContent = `High Score: ${highScore}`;
-                        }
-                    }
-                });
-                
-                // Check collisions with enemies
-                enemies.forEach((enemy) => {
-                    const enemyRect = enemy.getBoundingClientRect();
-                    const playerRect = player.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < enemyRect.right - 5 &&
-                        playerRect.right - 5 > enemyRect.left &&
-                        playerRect.top < enemyRect.bottom - 5 &&
-                        playerRect.bottom - 5 > enemyRect.top
-                    ) {
-                        gameOver();
-                        return;
-                    }
-                });
-                
-                // Add new treasures and enemies randomly
-                if (Math.random() < 0.02) {
-                    createTreasure();
-                }
-                if (Math.random() < 0.015) {
-                    createEnemy();
-                }
-                
-                // Update player position
-                player.style.left = `${playerX}px`;
-                player.style.top = `${playerY}px`;
+        // Restart button functionality
+        restartGameBtn.addEventListener('click', () => {
+            if (currentRestartFunction) {
+                currentRestartFunction();
             }
-            
-            function createTreasure() {
-                const treasure = document.createElement('div');
-                treasure.className = 'treasure';
-                treasure.style.width = '25px';
-                treasure.style.height = '25px';
-                treasure.style.left = `${Math.random() * 375}px`;
-                treasure.style.top = `${Math.random() * 375}px`;
-                treasure.style.position = 'absolute';
-                gameContainer.appendChild(treasure);
-                treasures.push(treasure);
-            }
-            
-            function createEnemy() {
-                const enemy = document.createElement('div');
-                enemy.className = 'enemy';
-                enemy.style.width = '35px';
-                enemy.style.height = '35px';
-                enemy.style.left = `${Math.random() * 365}px`;
-                enemy.style.top = `${Math.random() * 365}px`;
-                enemy.style.position = 'absolute';
-                gameContainer.appendChild(enemy);
-                enemies.push(enemy);
-            }
-            
-            function gameOver() {
-                clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${score}`;
-                if (score > highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${score}!`;
-                }
-            }
-            
-            function handleKeyPress(e) {
-                if (e.key === 'ArrowLeft' && playerX > 0) {
-                    playerX -= 8;
-                }
-                if (e.key === 'ArrowRight' && playerX < 360) {
-                    playerX += 8;
-                }
-                if (e.key === 'ArrowUp' && playerY > 0) {
-                    playerY -= 8;
-                }
-                if (e.key === 'ArrowDown' && playerY < 340) {
-                    playerY += 8;
-                }
-            }
-            
-            document.addEventListener('keydown', handleKeyPress);
-            createTreasure();
-            createTreasure();
-            createEnemy();
-            gameInterval = setInterval(updateGame, 100);
-        }
-
-        // Enhanced Puzzle Game Implementation
-        function initPuzzleGame() {
-            gameContainer.id = 'puzzle-game';
-            gameContainer.style.background = 'linear-gradient(135deg, #2c2c54, #40407a)';
-            
-            const puzzleContainer = document.createElement('div');
-            puzzleContainer.className = 'puzzle-container';
-            gameContainer.appendChild(puzzleContainer);
-            
-            let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 0];
-            let emptyIndex = 8;
-            let moves = 0;
-            let highScore = localStorage.getItem('puzzleHighScore') || 'N/A';
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `Best Time: ${highScore} moves`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            function shuffleTiles() {
-                do {
-                    for (let i = tiles.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
-                    }
-                    emptyIndex = tiles.indexOf(0);
-                } while (!isSolvable() || isPuzzleSolved());
-                
-                moves = 0;
-                gameInfo.textContent = `Moves: ${moves}`;
-                renderTiles();
-            }
-            
-            function isSolvable() {
-                let inversions = 0;
-                for (let i = 0; i < tiles.length; i++) {
-                    for (let j = i + 1; j < tiles.length; j++) {
-                        if (tiles[i] !== 0 && tiles[j] !== 0 && tiles[i] > tiles[j]) {
-                            inversions++;
-                        }
-                    }
-                }
-                return inversions % 2 === 0;
-            }
-            
-            function renderTiles() {
-                puzzleContainer.innerHTML = '';
-                tiles.forEach((tile, index) => {
-                    const tileElement = document.createElement('div');
-                    tileElement.className = tile === 0 ? 'puzzle-piece empty' : 'puzzle-piece';
-                    tileElement.textContent = tile === 0 ? '' : tile;
-                    tileElement.style.background = tile === 0 ? 'transparent' : 
-                        `linear-gradient(135deg, hsl(${tile * 40}, 70%, 60%), hsl(${tile * 40}, 70%, 50%))`;
-                    tileElement.addEventListener('click', () => moveTile(index));
-                    puzzleContainer.appendChild(tileElement);
-                });
-            }
-            
-            function moveTile(index) {
-                const adjacentIndexes = [emptyIndex - 1, emptyIndex + 1, emptyIndex - 3, emptyIndex + 3];
-                
-                if (adjacentIndexes.includes(index)) {
-                    const emptyRow = Math.floor(emptyIndex / 3);
-                    const clickedRow = Math.floor(index / 3);
-                    const emptyCol = emptyIndex % 3;
-                    const clickedCol = index % 3;
-                    
-                    if ((emptyRow === clickedRow && Math.abs(emptyCol - clickedCol) === 1) ||
-                        (emptyCol === clickedCol && Math.abs(emptyRow - clickedRow) === 1)) {
-                        [tiles[emptyIndex], tiles[index]] = [tiles[index], tiles[emptyIndex]];
-                        emptyIndex = index;
-                        moves++;
-                        gameInfo.textContent = `Moves: ${moves}`;
-                        renderTiles();
-                        
-                        if (isPuzzleSolved()) {
-                            if (highScore === 'N/A' || moves < parseInt(highScore)) {
-                                highScore = moves;
-                                localStorage.setItem('puzzleHighScore', highScore);
-                                highScoreDisplay.textContent = `New Best Time: ${moves} moves!`;
-                            } else {
-                                highScoreDisplay.textContent = `Best Time: ${highScore} moves`;
-                            }
-                            gameInfo.textContent = `Solved in ${moves} moves!`;
-                        }
-                    }
-                }
-            }
-            
-            function isPuzzleSolved() {
-                for (let i = 0; i < tiles.length - 1; i++) {
-                    if (tiles[i] !== i + 1) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            
-            shuffleTiles();
-        }
-
-        // Enhanced Horror Game Implementation
-        function initHorrorGame() {
-            gameContainer.id = 'horror-game';
-            gameContainer.style.background = 'radial-gradient(circle at center, #1a1a1a, #000)';
-            
-            const flashlight = document.createElement('div');
-            flashlight.className = 'flashlight';
-            gameContainer.appendChild(flashlight);
-            
-            const ghosts = [];
-            let score = 0;
-            let foundGhosts = 0;
-            const totalGhosts = 8;
-            let highScore = localStorage.getItem('horrorHighScore') || 0;
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
-            
-            // Create hidden ghosts
-            for (let i = 0; i < totalGhosts; i++) {
-                const ghost = document.createElement('div');
-                ghost.className = 'ghost';
-                ghost.style.width = '40px';
-                ghost.style.height = '50px';
-                ghost.style.left = `${Math.random() * 360}px`;
-                ghost.style.top = `${Math.random() * 350}px`;
-                ghost.style.position = 'absolute';
-                ghost.style.display = 'none';
-                ghost.style.opacity = '0';
-                ghost.style.transition = 'opacity 0.5s';
-                gameContainer.appendChild(ghost);
-                ghosts.push(ghost);
-            }
-            
-            function updateFlashlight(e) {
-                const rect = gameContainer.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                flashlight.style.left = `${x - 100}px`;
-                flashlight.style.top = `${y - 100}px`;
-                
-                // Check if flashlight reveals any ghosts
-                ghosts.forEach(ghost => {
-                    const ghostRect = ghost.getBoundingClientRect();
-                    const flashlightRect = flashlight.getBoundingClientRect();
-                    
-                    if (
-                        flashlightRect.left < ghostRect.right &&
-                        flashlightRect.right > ghostRect.left &&
-                        flashlightRect.top < ghostRect.bottom &&
-                        flashlightRect.bottom > ghostRect.top
-                    ) {
-                        if (ghost.style.opacity === '0') {
-                            ghost.style.display = 'flex';
-                            ghost.style.opacity = '1';
-                            foundGhosts++;
-                            score += 25;
-                            gameInfo.textContent = `Found: ${foundGhosts}/${totalGhosts} - Score: ${score}`;
-                            
-                            // Update high score
-                            if (score > highScore) {
-                                highScore = score;
-                                localStorage.setItem('horrorHighScore', highScore);
-                                highScoreDisplay.textContent = `High Score: ${highScore}`;
-                            }
-                            
-                            if (foundGhosts === totalGhosts) {
-                                gameInfo.textContent = `All ghosts found! Final Score: ${score}`;
-                                if (score > highScore) {
-                                    highScoreDisplay.textContent = `New High Score: ${score}!`;
-                                }
-                            }
-                        }
-                    } else if (ghost.style.opacity === '1') {
-                        ghost.style.opacity = '0';
-                        setTimeout(() => {
-                            if (ghost.style.opacity === '0') {
-                                ghost.style.display = 'none';
-                            }
-                        }, 500);
-                    }
-                });
-            }
-            
-            gameContainer.addEventListener('mousemove', updateFlashlight);
-            gameInfo.textContent = `Found: 0/${totalGhosts} - Score: 0`;
-        }
+        });
 
         closeGameModal.addEventListener('click', () => {
             gameModal.style.display = 'none';
             stopCurrentGame();
-        });
-
-        restartGameBtn.addEventListener('click', () => {
-            stopCurrentGame();
-            initGame(currentGame);
         });
 
         // Newsletter form
@@ -2289,6 +2395,9 @@
                 this.style.transform = 'translateY(0)';
             });
         });
+
+        // Initialize the website
+        checkLoggedInUser();
     </script>
 </body>
 </html>
