@@ -265,6 +265,23 @@
             color: gold;
         }
 
+        .play-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .play-btn:hover {
+            background-color: #e84393;
+        }
+
         /* Categories Section */
         .categories {
             background-color: var(--dark);
@@ -425,6 +442,114 @@
             font-size: 0.9rem;
         }
 
+        .powered-by {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--dark);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid var(--secondary);
+            background-color: var(--darker);
+            color: var(--light);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: var(--light);
+            cursor: pointer;
+        }
+
+        /* Game Modal */
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-modal-content {
+            background-color: var(--dark);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-modal-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .game-modal-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--darker);
+            margin-bottom: 20px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -448,6 +573,10 @@
             .btn {
                 width: 200px;
             }
+            
+            .game-frame {
+                height: 300px;
+            }
         }
     </style>
 </head>
@@ -470,8 +599,8 @@
                     </ul>
                 </nav>
                 <div class="auth-buttons">
-                    <button class="btn btn-outline">Login</button>
-                    <button class="btn btn-primary">Sign Up</button>
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
                 </div>
             </div>
         </div>
@@ -510,6 +639,7 @@
                         </span>
                         <span>Action RPG</span>
                     </div>
+                    <button class="play-btn" data-game="cyber-revolution">Play Now</button>
                 </div>
             </div>
             <div class="game-card">
@@ -527,6 +657,7 @@
                         </span>
                         <span>Adventure</span>
                     </div>
+                    <button class="play-btn" data-game="mythic-quest">Play Now</button>
                 </div>
             </div>
             <div class="game-card">
@@ -544,6 +675,7 @@
                         </span>
                         <span>Racing</span>
                     </div>
+                    <button class="play-btn" data-game="racing-extreme">Play Now</button>
                 </div>
             </div>
             <div class="game-card">
@@ -561,6 +693,7 @@
                         </span>
                         <span>Arcade</span>
                     </div>
+                    <button class="play-btn" data-game="space-invaders">Play Now</button>
                 </div>
             </div>
         </div>
@@ -676,7 +809,7 @@
                 <div class="footer-column">
                     <h3>Newsletter</h3>
                     <p>Subscribe to our newsletter to get the latest gaming news and updates.</p>
-                    <form>
+                    <form id="newsletterForm">
                         <input type="email" placeholder="Your email address" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; background: var(--darker); color: white;">
                         <button class="btn btn-primary" style="width: 100%;">Subscribe</button>
                     </form>
@@ -684,50 +817,268 @@
             </div>
             <div class="copyright">
                 <p>&copy; 2023 GameHub. All rights reserved.</p>
+                <div class="powered-by">Powered by <strong>Shisui</strong></div>
             </div>
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLogin">&times;</span>
+            <h2>Login to GameHub</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 15px; color: var(--secondary);">
+                Don't have an account? <a href="#" id="switchToSignup" style="color: var(--accent);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeSignup">&times;</span>
+            <h2>Create an Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+            </form>
+            <p style="text-align: center; margin-top: 15px; color: var(--secondary);">
+                Already have an account? <a href="#" id="switchToLogin" style="color: var(--accent);">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-modal-content">
+            <div class="game-modal-header">
+                <h2 id="gameModalTitle">Game Title</h2>
+            </div>
+            <div class="game-modal-body">
+                <iframe class="game-frame" id="gameFrame" src="about:blank"></iframe>
+                <p id="gameDescription">Game description will appear here.</p>
+                <button class="btn btn-primary" id="closeGameModal">Close Game</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Simple interactive elements
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effect to game cards
-            const gameCards = document.querySelectorAll('.game-card');
-            gameCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-            
-            // Add click effect to category cards
-            const categoryCards = document.querySelectorAll('.category-card');
-            categoryCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1.05)';
-                    }, 150);
-                });
-            });
-            
-            // Simple newsletter form validation
-            const newsletterForm = document.querySelector('form');
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const emailInput = this.querySelector('input[type="email"]');
-                    if (emailInput.value && emailInput.value.includes('@')) {
-                        alert('Thank you for subscribing to our newsletter!');
-                        emailInput.value = '';
-                    } else {
-                        alert('Please enter a valid email address.');
-                    }
-                });
+        // Modal functionality
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const closeLogin = document.getElementById('closeLogin');
+        const closeSignup = document.getElementById('closeSignup');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        
+        // Game modal functionality
+        const gameModal = document.getElementById('gameModal');
+        const gameFrame = document.getElementById('gameFrame');
+        const gameModalTitle = document.getElementById('gameModalTitle');
+        const gameDescription = document.getElementById('gameDescription');
+        const closeGameModal = document.getElementById('closeGameModal');
+        const playButtons = document.querySelectorAll('.play-btn');
+
+        // Open login modal
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+
+        // Open signup modal
+        signupBtn.addEventListener('click', () => {
+            signupModal.style.display = 'flex';
+        });
+
+        // Close modals
+        closeLogin.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        closeSignup.addEventListener('click', () => {
+            signupModal.style.display = 'none';
+        });
+
+        // Switch between login and signup
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            signupModal.style.display = 'flex';
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
             }
+            if (e.target === signupModal) {
+                signupModal.style.display = 'none';
+            }
+            if (e.target === gameModal) {
+                gameModal.style.display = 'none';
+            }
+        });
+
+        // Form submissions
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple validation
+            if (email && password) {
+                alert(`Login successful! Welcome back!`);
+                loginModal.style.display = 'none';
+                // In a real app, you would send this data to a server
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Simple validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (name && email && password) {
+                alert(`Account created successfully! Welcome to GameHub, ${name}!`);
+                signupModal.style.display = 'none';
+                // In a real app, you would send this data to a server
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+
+        // Game functionality
+        playButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const game = button.getAttribute('data-game');
+                openGame(game);
+            });
+        });
+
+        function openGame(game) {
+            // Set game content based on which game was clicked
+            let gameUrl, title, description;
+            
+            switch(game) {
+                case 'cyber-revolution':
+                    title = 'Cyber Revolution';
+                    description = 'Immerse yourself in a futuristic open-world RPG with stunning visuals.';
+                    // In a real implementation, this would be an actual game URL
+                    gameUrl = 'https://example.com/games/cyber-revolution';
+                    break;
+                case 'mythic-quest':
+                    title = 'Mythic Quest';
+                    description = 'Embark on an epic adventure in a fantasy world filled with magic and monsters.';
+                    gameUrl = 'https://example.com/games/mythic-quest';
+                    break;
+                case 'racing-extreme':
+                    title = 'Racing Extreme';
+                    description = 'Experience the thrill of high-speed racing with realistic physics and graphics.';
+                    gameUrl = 'https://example.com/games/racing-extreme';
+                    break;
+                case 'space-invaders':
+                    title = 'Space Invaders Redux';
+                    description = 'Defend Earth from alien invasion in this modern take on a classic arcade game.';
+                    gameUrl = 'https://example.com/games/space-invaders';
+                    break;
+                default:
+                    title = 'Game';
+                    description = 'Enjoy this exciting game!';
+                    gameUrl = 'https://example.com/games/default';
+            }
+            
+            gameModalTitle.textContent = title;
+            gameDescription.textContent = description;
+            gameFrame.src = gameUrl;
+            gameModal.style.display = 'flex';
+        }
+
+        closeGameModal.addEventListener('click', () => {
+            gameModal.style.display = 'none';
+            gameFrame.src = 'about:blank'; // Stop the game when closing
+        });
+
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                if (emailInput.value && emailInput.value.includes('@')) {
+                    alert('Thank you for subscribing to our newsletter!');
+                    emailInput.value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+
+        // Add hover effect to game cards
+        const gameCards = document.querySelectorAll('.game-card');
+        gameCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Add click effect to category cards
+        const categoryCards = document.querySelectorAll('.category-card');
+        categoryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1.05)';
+                }, 150);
+            });
         });
     </script>
 </body>
