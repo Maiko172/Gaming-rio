@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GameHub - Gaming Website</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #12121a; 
+            color: white; 
+            font-family: Arial; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: #1e1e2e; padding: 20px; text-align: center; }
+        .logo { color: #6c5ce7; font-size: 2rem; font-weight: bold; }
+        .hero { 
+            background: linear-gradient(135deg, #1e1e2e, #12121a);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .hero h1 { 
+            font-size: 2.5rem; 
+            background: linear-gradient(to right, #6c5ce7, #fd79a8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .game-card {
+            background: #1e1e2e;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .btn {
+            background: #6c5ce7;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            font-size: 1rem;
+        }
+        footer {
+            background: #1e1e2e;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎮 GameHub</div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Your Ultimate Gaming Destination</h1>
+            <p>Discover amazing games and connect with gamers worldwide</p>
+            <button class="btn">Explore Games</button>
+            <button class="btn" style="background: transparent; border: 2px solid #6c5ce7;">Join Community</button>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 style="text-align: center; margin: 40px 0;">Featured Games</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <h3>Cyber Revolution</h3>
+                <p>Futuristic RPG Adventure</p>
+                <div>⭐⭐⭐⭐☆</div>
+            </div>
+            <div class="game-card">
+                <h3>Mythic Quest</h3>
+                <p>Epic Fantasy Journey</p>
+                <div>⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="game-card">
+                <h3>Racing Extreme</h3>
+                <p>High-Speed Thrills</p>
+                <div>⭐⭐⭐⭐☆</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 GameHub. All rights reserved.</p>
+        <p>Share this website with your friends!</p>
+    </footer>
+</body>
+</html>
