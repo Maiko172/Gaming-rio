@@ -28,6 +28,7 @@
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
+            touch-action: manipulation;
         }
 
         .container {
@@ -699,6 +700,14 @@
         }
         
         /* Enhanced Racing Game */
+        .road {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            overflow: hidden;
+        }
+        
         .road-lines {
             position: absolute;
             width: 100%;
@@ -710,13 +719,21 @@
                 #f1c40f 40px,
                 #f1c40f 80px
             );
+            animation: roadMove 2s linear infinite;
+        }
+        
+        @keyframes roadMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(80px); }
         }
         
         .player-car {
             background: linear-gradient(135deg, #e74c3c, #c0392b);
             border-radius: 8px 8px 15px 15px;
-            position: relative;
+            position: absolute;
+            bottom: 50px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10;
         }
         
         .player-car::before {
@@ -744,7 +761,7 @@
         .obstacle-car {
             background: linear-gradient(135deg, #3498db, #2980b9);
             border-radius: 8px 8px 15px 15px;
-            position: relative;
+            position: absolute;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
@@ -814,12 +831,28 @@
         }
         
         /* Enhanced Puzzle Game */
+        .puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
         .puzzle-piece {
             background: linear-gradient(135deg, #706fd3, #5d5bc1);
             border-radius: 8px;
             font-weight: bold;
             box-shadow: 0 3px 8px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
         }
         
         .puzzle-piece:hover {
@@ -827,12 +860,47 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
+        .puzzle-piece.empty {
+            background: transparent;
+            box-shadow: none;
+            cursor: default;
+        }
+        
+        .puzzle-piece.empty:hover {
+            transform: none;
+        }
+        
         /* Enhanced Horror Game */
+        .horror-game {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a1a1a, #000);
+            overflow: hidden;
+        }
+        
+        .flashlight {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+            z-index: 10;
+            mix-blend-mode: screen;
+        }
+        
         .ghost {
             background: radial-gradient(circle at 30% 30%, #ffffff, #bdc3c7);
             border-radius: 50% 50% 0 0;
-            position: relative;
+            position: absolute;
             animation: float 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+            font-weight: bold;
+            z-index: 5;
         }
         
         .ghost::before {
@@ -849,18 +917,45 @@
                 radial-gradient(circle at 80% 0, transparent 15px, #bdc3c7 16px);
         }
         
-        .ghost::after {
-            content: '👻';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-        }
-        
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
+        }
+        
+        .tree {
+            position: absolute;
+            background: linear-gradient(to right, #2d5a27, #1e5128);
+            border-radius: 5px;
+            z-index: 2;
+        }
+        
+        .tree::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            width: calc(100% + 30px);
+            height: 40px;
+            background: radial-gradient(ellipse at center, #1e5128, #2d5a27);
+            border-radius: 50%;
+        }
+        
+        .slenderman {
+            position: absolute;
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            width: 20px;
+            z-index: 8;
+        }
+        
+        .slenderman::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -5px;
+            width: 30px;
+            height: 20px;
+            background: #2c3e50;
+            border-radius: 50%;
         }
         
         .score-display {
@@ -888,6 +983,59 @@
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
+        }
+
+        /* Mobile Controls */
+        .mobile-controls {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .mobile-controls button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .mobile-controls button:active {
+            background-color: var(--secondary);
+        }
+        
+        .mobile-controls .up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        
+        .mobile-controls .left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        
+        .mobile-controls .right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+        
+        .mobile-controls .down {
+            grid-column: 2;
+            grid-row: 3;
+        }
+        
+        .mobile-controls .action {
+            grid-column: 1 / span 3;
+            grid-row: 4;
+            margin-top: 10px;
         }
 
         /* Section Visibility */
@@ -1029,6 +1177,8 @@
 
             nav ul {
                 gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .hero h1 {
@@ -1069,6 +1219,19 @@
             
             .form-actions {
                 flex-direction: column;
+            }
+            
+            .mobile-controls {
+                display: grid;
+            }
+            
+            .puzzle-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .puzzle-piece {
+                font-size: 20px;
             }
         }
     </style>
@@ -1560,7 +1723,7 @@
                     <div class="social-links">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/rayankh.1?igsh=MXc3NnRld2NnbXg2&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://discord.gg/8qTyHFAU" target="_blank"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
@@ -1662,6 +1825,13 @@
                     <!-- Game will be rendered here -->
                 </div>
                 <div class="game-info" id="gameInfo">Score: 0</div>
+                <div class="mobile-controls" id="mobileControls">
+                    <button class="up"><i class="fas fa-arrow-up"></i></button>
+                    <button class="left"><i class="fas fa-arrow-left"></i></button>
+                    <button class="right"><i class="fas fa-arrow-right"></i></button>
+                    <button class="down"><i class="fas fa-arrow-down"></i></button>
+                    <button class="action">Action</button>
+                </div>
                 <div class="game-controls">
                     <button class="btn btn-primary" id="restartGame">Restart</button>
                     <button class="btn btn-outline" id="closeGameModal">Close Game</button>
@@ -2042,6 +2212,7 @@
         const restartGameBtn = document.getElementById('restartGame');
         const playButtons = document.querySelectorAll('.play-btn');
         const categoryCards = document.querySelectorAll('.category-card');
+        const mobileControls = document.getElementById('mobileControls');
 
         // Open login modal
         loginBtn.addEventListener('click', () => {
@@ -2092,6 +2263,7 @@
         // Game functionality
         let currentGame = null;
         let gameInterval = null;
+        let gameState = {};
 
         playButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -2180,6 +2352,7 @@
                 gameInterval = null;
             }
             currentGame = null;
+            gameState = {};
         }
 
         // Enhanced Snake Game Implementation
@@ -2194,30 +2367,33 @@
             const gridSize = 20;
             const tileCount = canvas.width / gridSize;
             
-            let snake = [
-                {x: 10, y: 10}
-            ];
-            let food = {};
-            let dx = 0;
-            let dy = 0;
-            let score = 0;
-            let highScore = localStorage.getItem('snakeHighScore') || 0;
+            // Initialize game state
+            gameState = {
+                snake: [
+                    {x: 10, y: 10}
+                ],
+                food: {},
+                dx: 0,
+                dy: 0,
+                score: 0,
+                highScore: localStorage.getItem('snakeHighScore') || 0
+            };
             
             // Display high score
             const highScoreDisplay = document.createElement('div');
             highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
             gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function randomFood() {
-                food = {
+                gameState.food = {
                     x: Math.floor(Math.random() * tileCount),
                     y: Math.floor(Math.random() * tileCount)
                 };
                 
                 // Make sure food doesn't spawn on snake
-                while (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
-                    food = {
+                while (gameState.snake.some(segment => segment.x === gameState.food.x && segment.y === gameState.food.y)) {
+                    gameState.food = {
                         x: Math.floor(Math.random() * tileCount),
                         y: Math.floor(Math.random() * tileCount)
                     };
@@ -2251,7 +2427,7 @@
                 }
                 
                 // Draw snake body
-                snake.forEach((segment, index) => {
+                gameState.snake.forEach((segment, index) => {
                     if (index === 0) {
                         // Snake head
                         ctx.fillStyle = '#00cec9';
@@ -2284,8 +2460,8 @@
                 ctx.fillStyle = '#e74c3c';
                 ctx.beginPath();
                 ctx.arc(
-                    food.x * gridSize + gridSize/2,
-                    food.y * gridSize + gridSize/2,
+                    gameState.food.x * gridSize + gridSize/2,
+                    gameState.food.y * gridSize + gridSize/2,
                     gridSize/2 - 2,
                     0,
                     Math.PI * 2
@@ -2294,14 +2470,14 @@
                 
                 // Apple stem
                 ctx.fillStyle = '#27ae60';
-                ctx.fillRect(food.x * gridSize + gridSize/2 - 1, food.y * gridSize - 2, 2, 4);
+                ctx.fillRect(gameState.food.x * gridSize + gridSize/2 - 1, gameState.food.y * gridSize - 2, 2, 4);
                 
                 // Apple highlight
                 ctx.fillStyle = 'rgba(255,255,255,0.3)';
                 ctx.beginPath();
                 ctx.arc(
-                    food.x * gridSize + gridSize/2 - 3,
-                    food.y * gridSize + gridSize/2 - 3,
+                    gameState.food.x * gridSize + gridSize/2 - 3,
+                    gameState.food.y * gridSize + gridSize/2 - 3,
                     3,
                     0,
                     Math.PI * 2
@@ -2309,27 +2485,27 @@
                 ctx.fill();
                 
                 // Draw score
-                gameInfo.textContent = `Score: ${score}`;
-                highScoreDisplay.textContent = `High Score: ${highScore}`;
+                gameInfo.textContent = `Score: ${gameState.score}`;
+                highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
             }
             
             function update() {
                 // Move snake
-                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-                snake.unshift(head);
+                const head = {x: gameState.snake[0].x + gameState.dx, y: gameState.snake[0].y + gameState.dy};
+                gameState.snake.unshift(head);
                 
                 // Check if snake ate food
-                if (head.x === food.x && head.y === food.y) {
-                    score += 10;
+                if (head.x === gameState.food.x && head.y === gameState.food.y) {
+                    gameState.score += 10;
                     randomFood();
                     
                     // Update high score
-                    if (score > highScore) {
-                        highScore = score;
-                        localStorage.setItem('snakeHighScore', highScore);
+                    if (gameState.score > gameState.highScore) {
+                        gameState.highScore = gameState.score;
+                        localStorage.setItem('snakeHighScore', gameState.highScore);
                     }
                 } else {
-                    snake.pop();
+                    gameState.snake.pop();
                 }
                 
                 // Check for game over
@@ -2338,7 +2514,7 @@
                     head.y < 0 || 
                     head.x >= tileCount || 
                     head.y >= tileCount ||
-                    snake.slice(1).some(part => part.x === head.x && part.y === head.y)
+                    gameState.snake.slice(1).some(part => part.x === head.x && part.y === head.y)
                 ) {
                     gameOver();
                     return;
@@ -2349,31 +2525,65 @@
             
             function gameOver() {
                 clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${score}`;
-                if (score > highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                gameInfo.textContent = `Game Over! Final Score: ${gameState.score}`;
+                if (gameState.score > gameState.highScore) {
+                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
                 }
             }
             
             function changeDirection(e) {
                 // Prevent reverse direction
-                if (e.key === 'ArrowLeft' && dx === 0) {
-                    dx = -1;
-                    dy = 0;
+                if (e.key === 'ArrowLeft' && gameState.dx === 0) {
+                    gameState.dx = -1;
+                    gameState.dy = 0;
                 }
-                if (e.key === 'ArrowUp' && dy === 0) {
-                    dx = 0;
-                    dy = -1;
+                if (e.key === 'ArrowUp' && gameState.dy === 0) {
+                    gameState.dx = 0;
+                    gameState.dy = -1;
                 }
-                if (e.key === 'ArrowRight' && dx === 0) {
-                    dx = 1;
-                    dy = 0;
+                if (e.key === 'ArrowRight' && gameState.dx === 0) {
+                    gameState.dx = 1;
+                    gameState.dy = 0;
                 }
-                if (e.key === 'ArrowDown' && dy === 0) {
-                    dx = 0;
-                    dy = 1;
+                if (e.key === 'ArrowDown' && gameState.dy === 0) {
+                    gameState.dx = 0;
+                    gameState.dy = 1;
                 }
             }
+            
+            // Mobile controls
+            const upBtn = mobileControls.querySelector('.up');
+            const leftBtn = mobileControls.querySelector('.left');
+            const rightBtn = mobileControls.querySelector('.right');
+            const downBtn = mobileControls.querySelector('.down');
+            
+            upBtn.addEventListener('click', () => {
+                if (gameState.dy === 0) {
+                    gameState.dx = 0;
+                    gameState.dy = -1;
+                }
+            });
+            
+            leftBtn.addEventListener('click', () => {
+                if (gameState.dx === 0) {
+                    gameState.dx = -1;
+                    gameState.dy = 0;
+                }
+            });
+            
+            rightBtn.addEventListener('click', () => {
+                if (gameState.dx === 0) {
+                    gameState.dx = 1;
+                    gameState.dy = 0;
+                }
+            });
+            
+            downBtn.addEventListener('click', () => {
+                if (gameState.dy === 0) {
+                    gameState.dx = 0;
+                    gameState.dy = 1;
+                }
+            });
             
             document.addEventListener('keydown', changeDirection);
             drawGame();
@@ -2388,36 +2598,40 @@
             // Road with lines
             const road = document.createElement('div');
             road.className = 'road';
-            road.style.background = 'linear-gradient(135deg, #34495e, #2c3e50)';
             gameContainer.appendChild(road);
             
             const roadLines = document.createElement('div');
             roadLines.className = 'road-lines';
-            gameContainer.appendChild(roadLines);
+            road.appendChild(roadLines);
             
             // Player car
             const playerCar = document.createElement('div');
             playerCar.className = 'player-car';
             playerCar.style.width = '50px';
             playerCar.style.height = '80px';
-            gameContainer.appendChild(playerCar);
+            playerCar.style.left = '175px';
+            playerCar.style.bottom = '50px';
+            road.appendChild(playerCar);
             
-            let playerX = 175;
-            let obstacles = [];
-            let score = 0;
-            let gameSpeed = 5;
-            let highScore = localStorage.getItem('racingHighScore') || 0;
+            // Initialize game state
+            gameState = {
+                playerX: 175,
+                obstacles: [],
+                score: 0,
+                gameSpeed: 5,
+                highScore: localStorage.getItem('racingHighScore') || 0
+            };
             
             // Display high score
             const highScoreDisplay = document.createElement('div');
             highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
             gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function updateGame() {
                 // Move obstacles
-                obstacles.forEach((obstacle, index) => {
-                    obstacle.style.top = `${parseInt(obstacle.style.top || -80) + gameSpeed}px`;
+                gameState.obstacles.forEach((obstacle, index) => {
+                    obstacle.style.top = `${parseInt(obstacle.style.top || -80) + gameState.gameSpeed}px`;
                     
                     // Check collision
                     const obstacleRect = obstacle.getBoundingClientRect();
@@ -2436,15 +2650,15 @@
                     // Remove obstacles that are off screen
                     if (parseInt(obstacle.style.top) > 400) {
                         obstacle.remove();
-                        obstacles.splice(index, 1);
-                        score += 10;
-                        gameInfo.textContent = `Score: ${score}`;
+                        gameState.obstacles.splice(index, 1);
+                        gameState.score += 10;
+                        gameInfo.textContent = `Score: ${gameState.score}`;
                         
                         // Update high score
-                        if (score > highScore) {
-                            highScore = score;
-                            localStorage.setItem('racingHighScore', highScore);
-                            highScoreDisplay.textContent = `High Score: ${highScore}`;
+                        if (gameState.score > gameState.highScore) {
+                            gameState.highScore = gameState.score;
+                            localStorage.setItem('racingHighScore', gameState.highScore);
+                            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
                         }
                     }
                 });
@@ -2455,13 +2669,12 @@
                 }
                 
                 // Increase difficulty
-                if (score > 0 && score % 50 === 0) {
-                    gameSpeed = 5 + Math.floor(score / 50);
+                if (gameState.score > 0 && gameState.score % 50 === 0) {
+                    gameState.gameSpeed = 5 + Math.floor(gameState.score / 50);
                 }
                 
                 // Update player position
-                playerCar.style.left = `${playerX}px`;
-                playerCar.style.bottom = '50px';
+                playerCar.style.left = `${gameState.playerX}px`;
             }
             
             function createObstacle() {
@@ -2472,26 +2685,42 @@
                 obstacle.style.left = `${Math.random() * 350}px`;
                 obstacle.style.top = '-80px';
                 obstacle.style.position = 'absolute';
-                gameContainer.appendChild(obstacle);
-                obstacles.push(obstacle);
+                road.appendChild(obstacle);
+                gameState.obstacles.push(obstacle);
             }
             
             function gameOver() {
                 clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${score}`;
-                if (score > highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                gameInfo.textContent = `Game Over! Final Score: ${gameState.score}`;
+                if (gameState.score > gameState.highScore) {
+                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
                 }
             }
             
             function handleKeyPress(e) {
-                if (e.key === 'ArrowLeft' && playerX > 0) {
-                    playerX -= 20;
+                if (e.key === 'ArrowLeft' && gameState.playerX > 0) {
+                    gameState.playerX -= 20;
                 }
-                if (e.key === 'ArrowRight' && playerX < 350) {
-                    playerX += 20;
+                if (e.key === 'ArrowRight' && gameState.playerX < 350) {
+                    gameState.playerX += 20;
                 }
             }
+            
+            // Mobile controls
+            const leftBtn = mobileControls.querySelector('.left');
+            const rightBtn = mobileControls.querySelector('.right');
+            
+            leftBtn.addEventListener('click', () => {
+                if (gameState.playerX > 0) {
+                    gameState.playerX -= 20;
+                }
+            });
+            
+            rightBtn.addEventListener('click', () => {
+                if (gameState.playerX < 350) {
+                    gameState.playerX += 20;
+                }
+            });
             
             document.addEventListener('keydown', handleKeyPress);
             createObstacle();
@@ -2507,24 +2736,30 @@
             player.className = 'adventure-player';
             player.style.width = '40px';
             player.style.height = '60px';
+            player.style.left = '50px';
+            player.style.top = '300px';
+            player.style.position = 'absolute';
             gameContainer.appendChild(player);
             
-            let playerX = 50;
-            let playerY = 300;
-            let treasures = [];
-            let enemies = [];
-            let score = 0;
-            let highScore = localStorage.getItem('adventureHighScore') || 0;
+            // Initialize game state
+            gameState = {
+                playerX: 50,
+                playerY: 300,
+                treasures: [],
+                enemies: [],
+                score: 0,
+                highScore: localStorage.getItem('adventureHighScore') || 0
+            };
             
             // Display high score
             const highScoreDisplay = document.createElement('div');
             highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
             gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function updateGame() {
                 // Check collisions with treasures
-                treasures.forEach((treasure, index) => {
+                gameState.treasures.forEach((treasure, index) => {
                     const treasureRect = treasure.getBoundingClientRect();
                     const playerRect = player.getBoundingClientRect();
                     
@@ -2535,21 +2770,21 @@
                         playerRect.bottom > treasureRect.top
                     ) {
                         treasure.remove();
-                        treasures.splice(index, 1);
-                        score += 20;
-                        gameInfo.textContent = `Score: ${score}`;
+                        gameState.treasures.splice(index, 1);
+                        gameState.score += 20;
+                        gameInfo.textContent = `Score: ${gameState.score}`;
                         
                         // Update high score
-                        if (score > highScore) {
-                            highScore = score;
-                            localStorage.setItem('adventureHighScore', highScore);
-                            highScoreDisplay.textContent = `High Score: ${highScore}`;
+                        if (gameState.score > gameState.highScore) {
+                            gameState.highScore = gameState.score;
+                            localStorage.setItem('adventureHighScore', gameState.highScore);
+                            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
                         }
                     }
                 });
                 
                 // Check collisions with enemies
-                enemies.forEach((enemy) => {
+                gameState.enemies.forEach((enemy) => {
                     const enemyRect = enemy.getBoundingClientRect();
                     const playerRect = player.getBoundingClientRect();
                     
@@ -2573,8 +2808,8 @@
                 }
                 
                 // Update player position
-                player.style.left = `${playerX}px`;
-                player.style.top = `${playerY}px`;
+                player.style.left = `${gameState.playerX}px`;
+                player.style.top = `${gameState.playerY}px`;
             }
             
             function createTreasure() {
@@ -2586,7 +2821,7 @@
                 treasure.style.top = `${Math.random() * 375}px`;
                 treasure.style.position = 'absolute';
                 gameContainer.appendChild(treasure);
-                treasures.push(treasure);
+                gameState.treasures.push(treasure);
             }
             
             function createEnemy() {
@@ -2598,31 +2833,61 @@
                 enemy.style.top = `${Math.random() * 365}px`;
                 enemy.style.position = 'absolute';
                 gameContainer.appendChild(enemy);
-                enemies.push(enemy);
+                gameState.enemies.push(enemy);
             }
             
             function gameOver() {
                 clearInterval(gameInterval);
-                gameInfo.textContent = `Game Over! Final Score: ${score}`;
-                if (score > highScore) {
-                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                gameInfo.textContent = `Game Over! Final Score: ${gameState.score}`;
+                if (gameState.score > gameState.highScore) {
+                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
                 }
             }
             
             function handleKeyPress(e) {
-                if (e.key === 'ArrowLeft' && playerX > 0) {
-                    playerX -= 8;
+                if (e.key === 'ArrowLeft' && gameState.playerX > 0) {
+                    gameState.playerX -= 8;
                 }
-                if (e.key === 'ArrowRight' && playerX < 360) {
-                    playerX += 8;
+                if (e.key === 'ArrowRight' && gameState.playerX < 360) {
+                    gameState.playerX += 8;
                 }
-                if (e.key === 'ArrowUp' && playerY > 0) {
-                    playerY -= 8;
+                if (e.key === 'ArrowUp' && gameState.playerY > 0) {
+                    gameState.playerY -= 8;
                 }
-                if (e.key === 'ArrowDown' && playerY < 340) {
-                    playerY += 8;
+                if (e.key === 'ArrowDown' && gameState.playerY < 340) {
+                    gameState.playerY += 8;
                 }
             }
+            
+            // Mobile controls
+            const upBtn = mobileControls.querySelector('.up');
+            const leftBtn = mobileControls.querySelector('.left');
+            const rightBtn = mobileControls.querySelector('.right');
+            const downBtn = mobileControls.querySelector('.down');
+            
+            upBtn.addEventListener('click', () => {
+                if (gameState.playerY > 0) {
+                    gameState.playerY -= 8;
+                }
+            });
+            
+            leftBtn.addEventListener('click', () => {
+                if (gameState.playerX > 0) {
+                    gameState.playerX -= 8;
+                }
+            });
+            
+            rightBtn.addEventListener('click', () => {
+                if (gameState.playerX < 360) {
+                    gameState.playerX += 8;
+                }
+            });
+            
+            downBtn.addEventListener('click', () => {
+                if (gameState.playerY < 340) {
+                    gameState.playerY += 8;
+                }
+            });
             
             document.addEventListener('keydown', handleKeyPress);
             createTreasure();
@@ -2640,36 +2905,39 @@
             puzzleContainer.className = 'puzzle-container';
             gameContainer.appendChild(puzzleContainer);
             
-            let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 0];
-            let emptyIndex = 8;
-            let moves = 0;
-            let highScore = localStorage.getItem('puzzleHighScore') || 'N/A';
+            // Initialize game state
+            gameState = {
+                tiles: [1, 2, 3, 4, 5, 6, 7, 8, 0],
+                emptyIndex: 8,
+                moves: 0,
+                highScore: localStorage.getItem('puzzleHighScore') || 'N/A'
+            };
             
             // Display high score
             const highScoreDisplay = document.createElement('div');
             highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `Best Time: ${highScore} moves`;
+            highScoreDisplay.textContent = `Best Time: ${gameState.highScore} moves`;
             gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function shuffleTiles() {
                 do {
-                    for (let i = tiles.length - 1; i > 0; i--) {
+                    for (let i = gameState.tiles.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
-                        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+                        [gameState.tiles[i], gameState.tiles[j]] = [gameState.tiles[j], gameState.tiles[i]];
                     }
-                    emptyIndex = tiles.indexOf(0);
+                    gameState.emptyIndex = gameState.tiles.indexOf(0);
                 } while (!isSolvable() || isPuzzleSolved());
                 
-                moves = 0;
-                gameInfo.textContent = `Moves: ${moves}`;
+                gameState.moves = 0;
+                gameInfo.textContent = `Moves: ${gameState.moves}`;
                 renderTiles();
             }
             
             function isSolvable() {
                 let inversions = 0;
-                for (let i = 0; i < tiles.length; i++) {
-                    for (let j = i + 1; j < tiles.length; j++) {
-                        if (tiles[i] !== 0 && tiles[j] !== 0 && tiles[i] > tiles[j]) {
+                for (let i = 0; i < gameState.tiles.length; i++) {
+                    for (let j = i + 1; j < gameState.tiles.length; j++) {
+                        if (gameState.tiles[i] !== 0 && gameState.tiles[j] !== 0 && gameState.tiles[i] > gameState.tiles[j]) {
                             inversions++;
                         }
                     }
@@ -2679,7 +2947,7 @@
             
             function renderTiles() {
                 puzzleContainer.innerHTML = '';
-                tiles.forEach((tile, index) => {
+                gameState.tiles.forEach((tile, index) => {
                     const tileElement = document.createElement('div');
                     tileElement.className = tile === 0 ? 'puzzle-piece empty' : 'puzzle-piece';
                     tileElement.textContent = tile === 0 ? '' : tile;
@@ -2691,39 +2959,39 @@
             }
             
             function moveTile(index) {
-                const adjacentIndexes = [emptyIndex - 1, emptyIndex + 1, emptyIndex - 3, emptyIndex + 3];
+                const adjacentIndexes = [gameState.emptyIndex - 1, gameState.emptyIndex + 1, gameState.emptyIndex - 3, gameState.emptyIndex + 3];
                 
                 if (adjacentIndexes.includes(index)) {
-                    const emptyRow = Math.floor(emptyIndex / 3);
+                    const emptyRow = Math.floor(gameState.emptyIndex / 3);
                     const clickedRow = Math.floor(index / 3);
-                    const emptyCol = emptyIndex % 3;
+                    const emptyCol = gameState.emptyIndex % 3;
                     const clickedCol = index % 3;
                     
                     if ((emptyRow === clickedRow && Math.abs(emptyCol - clickedCol) === 1) ||
                         (emptyCol === clickedCol && Math.abs(emptyRow - clickedRow) === 1)) {
-                        [tiles[emptyIndex], tiles[index]] = [tiles[index], tiles[emptyIndex]];
-                        emptyIndex = index;
-                        moves++;
-                        gameInfo.textContent = `Moves: ${moves}`;
+                        [gameState.tiles[gameState.emptyIndex], gameState.tiles[index]] = [gameState.tiles[index], gameState.tiles[gameState.emptyIndex]];
+                        gameState.emptyIndex = index;
+                        gameState.moves++;
+                        gameInfo.textContent = `Moves: ${gameState.moves}`;
                         renderTiles();
                         
                         if (isPuzzleSolved()) {
-                            if (highScore === 'N/A' || moves < parseInt(highScore)) {
-                                highScore = moves;
-                                localStorage.setItem('puzzleHighScore', highScore);
-                                highScoreDisplay.textContent = `New Best Time: ${moves} moves!`;
+                            if (gameState.highScore === 'N/A' || gameState.moves < parseInt(gameState.highScore)) {
+                                gameState.highScore = gameState.moves;
+                                localStorage.setItem('puzzleHighScore', gameState.highScore);
+                                highScoreDisplay.textContent = `New Best Time: ${gameState.moves} moves!`;
                             } else {
-                                highScoreDisplay.textContent = `Best Time: ${highScore} moves`;
+                                highScoreDisplay.textContent = `Best Time: ${gameState.highScore} moves`;
                             }
-                            gameInfo.textContent = `Solved in ${moves} moves!`;
+                            gameInfo.textContent = `Solved in ${gameState.moves} moves!`;
                         }
                     }
                 }
             }
             
             function isPuzzleSolved() {
-                for (let i = 0; i < tiles.length - 1; i++) {
-                    if (tiles[i] !== i + 1) {
+                for (let i = 0; i < gameState.tiles.length - 1; i++) {
+                    if (gameState.tiles[i] !== i + 1) {
                         return false;
                     }
                 }
@@ -2735,40 +3003,73 @@
 
         // Enhanced Horror Game Implementation
         function initHorrorGame() {
-            gameContainer.id = 'horror-game';
-            gameContainer.style.background = 'radial-gradient(circle at center, #1a1a1a, #000)';
+            gameContainer.className = 'simple-game horror-game';
             
             const flashlight = document.createElement('div');
             flashlight.className = 'flashlight';
             gameContainer.appendChild(flashlight);
             
-            const ghosts = [];
-            let score = 0;
-            let foundGhosts = 0;
-            const totalGhosts = 8;
-            let highScore = localStorage.getItem('horrorHighScore') || 0;
+            // Initialize game state
+            gameState = {
+                ghosts: [],
+                trees: [],
+                slenderman: null,
+                score: 0,
+                foundGhosts: 0,
+                totalGhosts: 5,
+                highScore: localStorage.getItem('horrorHighScore') || 0,
+                slendermanVisible: false
+            };
             
             // Display high score
             const highScoreDisplay = document.createElement('div');
             highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${highScore}`;
+            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
             gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
+            // Create trees
+            for (let i = 0; i < 15; i++) {
+                const tree = document.createElement('div');
+                tree.className = 'tree';
+                const width = 20 + Math.random() * 20;
+                const height = 60 + Math.random() * 40;
+                tree.style.width = `${width}px`;
+                tree.style.height = `${height}px`;
+                tree.style.left = `${Math.random() * 380}px`;
+                tree.style.top = `${Math.random() * 340}px`;
+                tree.style.position = 'absolute';
+                gameContainer.appendChild(tree);
+                gameState.trees.push(tree);
+            }
+            
             // Create hidden ghosts
-            for (let i = 0; i < totalGhosts; i++) {
+            for (let i = 0; i < gameState.totalGhosts; i++) {
                 const ghost = document.createElement('div');
                 ghost.className = 'ghost';
-                ghost.style.width = '40px';
-                ghost.style.height = '50px';
-                ghost.style.left = `${Math.random() * 360}px`;
-                ghost.style.top = `${Math.random() * 350}px`;
+                const size = 30 + Math.random() * 20;
+                ghost.style.width = `${size}px`;
+                ghost.style.height = `${size + 10}px`;
+                ghost.style.left = `${Math.random() * 370}px`;
+                ghost.style.top = `${Math.random() * 370}px`;
                 ghost.style.position = 'absolute';
                 ghost.style.display = 'none';
                 ghost.style.opacity = '0';
                 ghost.style.transition = 'opacity 0.5s';
+                ghost.textContent = '👻';
                 gameContainer.appendChild(ghost);
-                ghosts.push(ghost);
+                gameState.ghosts.push(ghost);
             }
+            
+            // Create Slenderman
+            const slenderman = document.createElement('div');
+            slenderman.className = 'slenderman';
+            slenderman.style.height = '80px';
+            slenderman.style.left = `${Math.random() * 380}px`;
+            slenderman.style.top = `${Math.random() * 320}px`;
+            slenderman.style.position = 'absolute';
+            slenderman.style.display = 'none';
+            gameContainer.appendChild(slenderman);
+            gameState.slenderman = slenderman;
             
             function updateFlashlight(e) {
                 const rect = gameContainer.getBoundingClientRect();
@@ -2779,7 +3080,7 @@
                 flashlight.style.top = `${y - 100}px`;
                 
                 // Check if flashlight reveals any ghosts
-                ghosts.forEach(ghost => {
+                gameState.ghosts.forEach(ghost => {
                     const ghostRect = ghost.getBoundingClientRect();
                     const flashlightRect = flashlight.getBoundingClientRect();
                     
@@ -2792,21 +3093,21 @@
                         if (ghost.style.opacity === '0') {
                             ghost.style.display = 'flex';
                             ghost.style.opacity = '1';
-                            foundGhosts++;
-                            score += 25;
-                            gameInfo.textContent = `Found: ${foundGhosts}/${totalGhosts} - Score: ${score}`;
+                            gameState.foundGhosts++;
+                            gameState.score += 25;
+                            gameInfo.textContent = `Found: ${gameState.foundGhosts}/${gameState.totalGhosts} - Score: ${gameState.score}`;
                             
                             // Update high score
-                            if (score > highScore) {
-                                highScore = score;
-                                localStorage.setItem('horrorHighScore', highScore);
-                                highScoreDisplay.textContent = `High Score: ${highScore}`;
+                            if (gameState.score > gameState.highScore) {
+                                gameState.highScore = gameState.score;
+                                localStorage.setItem('horrorHighScore', gameState.highScore);
+                                highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
                             }
                             
-                            if (foundGhosts === totalGhosts) {
-                                gameInfo.textContent = `All ghosts found! Final Score: ${score}`;
-                                if (score > highScore) {
-                                    highScoreDisplay.textContent = `New High Score: ${score}!`;
+                            if (gameState.foundGhosts === gameState.totalGhosts) {
+                                gameInfo.textContent = `All ghosts found! Final Score: ${gameState.score}`;
+                                if (gameState.score > gameState.highScore) {
+                                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
                                 }
                             }
                         }
@@ -2819,20 +3120,57 @@
                         }, 500);
                     }
                 });
+                
+                // Randomly show Slenderman
+                if (!gameState.slendermanVisible && Math.random() < 0.005) {
+                    gameState.slenderman.style.left = `${Math.random() * 380}px`;
+                    gameState.slenderman.style.top = `${Math.random() * 320}px`;
+                    gameState.slenderman.style.display = 'block';
+                    gameState.slendermanVisible = true;
+                    
+                    setTimeout(() => {
+                        gameState.slenderman.style.display = 'none';
+                        gameState.slendermanVisible = false;
+                    }, 2000);
+                }
+                
+                // Check if flashlight reveals Slenderman
+                const slendermanRect = gameState.slenderman.getBoundingClientRect();
+                const slendermanFlashlightRect = flashlight.getBoundingClientRect();
+                
+                if (
+                    slendermanFlashlightRect.left < slendermanRect.right &&
+                    slendermanFlashlightRect.right > slendermanRect.left &&
+                    slendermanFlashlightRect.top < slendermanRect.bottom &&
+                    slendermanFlashlightRect.bottom > slendermanRect.top &&
+                    gameState.slendermanVisible
+                ) {
+                    gameOver();
+                }
+            }
+            
+            function gameOver() {
+                gameInfo.textContent = `Slenderman got you! Final Score: ${gameState.score}`;
+                if (gameState.score > gameState.highScore) {
+                    highScoreDisplay.textContent = `New High Score: ${gameState.score}!`;
+                }
+                gameState.slenderman.style.display = 'none';
+                gameState.slendermanVisible = false;
             }
             
             gameContainer.addEventListener('mousemove', updateFlashlight);
-            gameInfo.textContent = `Found: 0/${totalGhosts} - Score: 0`;
+            gameInfo.textContent = `Found: 0/${gameState.totalGhosts} - Score: 0`;
         }
+
+        // Restart game functionality
+        restartGameBtn.addEventListener('click', () => {
+            stopCurrentGame();
+            initGame(currentGame);
+        });
 
         closeGameModal.addEventListener('click', () => {
             gameModal.style.display = 'none';
             stopCurrentGame();
-        });
-
-        restartGameBtn.addEventListener('click', () => {
-            stopCurrentGame();
-            initGame(currentGame);
         });
 
         // Newsletter form
