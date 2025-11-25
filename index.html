@@ -624,7 +624,7 @@
             cursor: pointer;
         }
 
-        /* Game Modal */
+        /* Game Modal - FIXED */
         .game-modal {
             display: none;
             position: fixed;
@@ -636,6 +636,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            overflow: hidden; /* Prevent scrolling */
         }
 
         .game-modal-content {
@@ -643,8 +644,11 @@
             border-radius: 10px;
             width: 90%;
             max-width: 800px;
-            overflow: hidden;
+            max-height: 90vh; /* Limit height to viewport */
+            overflow: hidden; /* Prevent content overflow */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
         }
 
         .game-modal-header {
@@ -652,11 +656,17 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             text-align: center;
+            flex-shrink: 0; /* Prevent header from shrinking */
         }
 
         .game-modal-body {
             padding: 30px;
             text-align: center;
+            overflow: auto; /* Allow scrolling if needed */
+            flex-grow: 1; /* Take remaining space */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .game-frame {
@@ -666,6 +676,7 @@
             border-radius: 5px;
             background-color: var(--darker);
             margin-bottom: 20px;
+            overflow: hidden; /* Prevent game content overflow */
         }
 
         /* Simple Game Styles */
@@ -676,6 +687,12 @@
             border-radius: 5px;
             margin-bottom: 20px;
             position: relative;
+            overflow: hidden; /* Prevent game content overflow */
+            touch-action: none; /* Prevent touch scrolling in games */
+        }
+
+        /* Add this to prevent wheel scrolling in game modal */
+        .game-modal-open {
             overflow: hidden;
         }
 
@@ -1877,6 +1894,9 @@
         // User management functionality
         let currentUser = null;
         
+        // Global variable to track if high score element exists - FIXED
+        let highScoreDisplay = null;
+        
         // Check if user is logged in on page load
         document.addEventListener('DOMContentLoaded', function() {
             const savedUser = localStorage.getItem('currentUser');
@@ -2290,6 +2310,7 @@
             if (e.target === gameModal) {
                 gameModal.style.display = 'none';
                 stopCurrentGame();
+                document.body.classList.remove('game-modal-open'); // FIXED
             }
         });
 
@@ -2317,6 +2338,7 @@
             });
         });
 
+        // MODIFIED: openGame function to handle scrolling - FIXED
         function openGame(game) {
             // Set game content based on which game was clicked
             let title, description;
@@ -2351,8 +2373,14 @@
             gameInfo.textContent = 'Score: 0';
             gameContainer.innerHTML = '';
             
+            // Reset high score display - FIXED
+            highScoreDisplay = null;
+            
             // Initialize the selected game
             initGame(game);
+            
+            // Prevent body scrolling when game modal is open - FIXED
+            document.body.classList.add('game-modal-open');
             
             gameModal.style.display = 'flex';
         }
@@ -2388,13 +2416,24 @@
             gameState = {};
         }
 
-        // Enhanced Snake Game Implementation
+        // Enhanced Snake Game Implementation - FIXED
         function initSnakeGame() {
             const canvas = document.createElement('canvas');
             canvas.width = 400;
             canvas.height = 400;
             canvas.id = 'snake-canvas';
             gameContainer.appendChild(canvas);
+            
+            // Remove existing high score display if it exists - FIXED
+            if (highScoreDisplay && highScoreDisplay.parentNode) {
+                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
+            }
+            
+            // Create high score display - FIXED
+            highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('snakeHighScore') || 0}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             const ctx = canvas.getContext('2d');
             const gridSize = 20;
@@ -2411,12 +2450,6 @@
                 score: 0,
                 highScore: localStorage.getItem('snakeHighScore') || 0
             };
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function randomFood() {
                 gameState.food = {
@@ -2536,6 +2569,7 @@
                     if (gameState.score > gameState.highScore) {
                         gameState.highScore = gameState.score;
                         localStorage.setItem('snakeHighScore', gameState.highScore);
+                        highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
                     }
                 } else {
                     gameState.snake.pop();
@@ -2623,10 +2657,21 @@
             gameInterval = setInterval(update, 150);
         }
 
-        // Enhanced Racing Game Implementation
+        // Enhanced Racing Game Implementation - FIXED
         function initRacingGame() {
             gameContainer.id = 'racing-game';
             gameContainer.style.background = 'linear-gradient(135deg, #2c3e50, #34495e)';
+            
+            // Remove existing high score display if it exists - FIXED
+            if (highScoreDisplay && highScoreDisplay.parentNode) {
+                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
+            }
+            
+            // Create high score display - FIXED
+            highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('racingHighScore') || 0}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             // Road with lines
             const road = document.createElement('div');
@@ -2654,12 +2699,6 @@
                 gameSpeed: 5,
                 highScore: localStorage.getItem('racingHighScore') || 0
             };
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function updateGame() {
                 // Move obstacles
@@ -2760,10 +2799,21 @@
             gameInterval = setInterval(updateGame, 50);
         }
 
-        // Enhanced Adventure Game Implementation
+        // Enhanced Adventure Game Implementation - FIXED
         function initAdventureGame() {
             gameContainer.id = 'adventure-game';
             gameContainer.style.background = 'linear-gradient(135deg, #1e5128, #2d5a27)';
+            
+            // Remove existing high score display if it exists - FIXED
+            if (highScoreDisplay && highScoreDisplay.parentNode) {
+                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
+            }
+            
+            // Create high score display - FIXED
+            highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('adventureHighScore') || 0}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             const player = document.createElement('div');
             player.className = 'adventure-player';
@@ -2783,12 +2833,6 @@
                 score: 0,
                 highScore: localStorage.getItem('adventureHighScore') || 0
             };
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function updateGame() {
                 // Check collisions with treasures
@@ -2929,10 +2973,21 @@
             gameInterval = setInterval(updateGame, 100);
         }
 
-        // Enhanced Puzzle Game Implementation
+        // Enhanced Puzzle Game Implementation - FIXED
         function initPuzzleGame() {
             gameContainer.id = 'puzzle-game';
             gameContainer.style.background = 'linear-gradient(135deg, #2c2c54, #40407a)';
+            
+            // Remove existing high score display if it exists - FIXED
+            if (highScoreDisplay && highScoreDisplay.parentNode) {
+                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
+            }
+            
+            // Create high score display - FIXED
+            highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `Best Time: ${localStorage.getItem('puzzleHighScore') || 'N/A'} moves`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             const puzzleContainer = document.createElement('div');
             puzzleContainer.className = 'puzzle-container';
@@ -2945,12 +3000,6 @@
                 moves: 0,
                 highScore: localStorage.getItem('puzzleHighScore') || 'N/A'
             };
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `Best Time: ${gameState.highScore} moves`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             function shuffleTiles() {
                 do {
@@ -3034,9 +3083,20 @@
             shuffleTiles();
         }
 
-        // Enhanced Horror Game Implementation
+        // Enhanced Horror Game Implementation - FIXED
         function initHorrorGame() {
             gameContainer.className = 'simple-game horror-game';
+            
+            // Remove existing high score display if it exists - FIXED
+            if (highScoreDisplay && highScoreDisplay.parentNode) {
+                highScoreDisplay.parentNode.removeChild(highScoreDisplay);
+            }
+            
+            // Create high score display - FIXED
+            highScoreDisplay = document.createElement('div');
+            highScoreDisplay.className = 'high-score';
+            highScoreDisplay.textContent = `High Score: ${localStorage.getItem('horrorHighScore') || 0}`;
+            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             const flashlight = document.createElement('div');
             flashlight.className = 'flashlight';
@@ -3053,12 +3113,6 @@
                 highScore: localStorage.getItem('horrorHighScore') || 0,
                 slendermanVisible: false
             };
-            
-            // Display high score
-            const highScoreDisplay = document.createElement('div');
-            highScoreDisplay.className = 'high-score';
-            highScoreDisplay.textContent = `High Score: ${gameState.highScore}`;
-            gameInfo.parentNode.insertBefore(highScoreDisplay, gameInfo);
             
             // Create trees
             for (let i = 0; i < 15; i++) {
@@ -3201,9 +3255,11 @@
             initGame(currentGame);
         });
 
+        // MODIFIED: closeGameModal to re-enable scrolling - FIXED
         closeGameModal.addEventListener('click', () => {
             gameModal.style.display = 'none';
             stopCurrentGame();
+            document.body.classList.remove('game-modal-open');
         });
 
         // Newsletter form
